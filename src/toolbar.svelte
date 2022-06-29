@@ -1,3 +1,3 @@
 <div>
-	tool bar
+Jump to line
 </div>

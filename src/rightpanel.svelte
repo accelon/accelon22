@@ -1,6 +1,6 @@
 <script>
-import MainEditor from './maineditor.svelte';
+import EditorMain from './editormain.svelte';
 import Toolbar from './toolbar.svelte';
 </script>
 <Toolbar/>
-<MainEditor/>
+<EditorMain/>
