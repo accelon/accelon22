@@ -9,8 +9,7 @@ onMount(()=>{
   	lineNumbers: true, theme:'ambiance'
   })
   setEditor(editor);
-  console.clear();
-  
+  console.clear(); 
 })
 
 

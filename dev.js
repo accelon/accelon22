@@ -5,6 +5,7 @@ esbuild
   .build({
     entryPoints: ["src/index.ts"],
     mainFields: ["svelte", "browser", "module", "main"],
+    external:["lazip"],
     bundle: true,
     watch: true,
     outfile: "dist/index.js",

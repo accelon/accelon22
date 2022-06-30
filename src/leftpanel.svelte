@@ -1,13 +1,15 @@
 <script>
 import {bigfortune} from './comps/pxchars.ts'
 import BuilderMain from './buildermain.svelte'
+import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
 let errormsg='';
-let tab='build';
+let tab='library';
 </script>
 <div>
   <div class="tabs">    
     <span class='clickable' on:click={()=>tab="sources"}>📜</span>
+    <span class='clickable' on:click={()=>tab="library"}>📚</span>
     <span class='clickable' on:click={()=>tab="build"}>🛠️</span>
     <span class='clickable' on:click={()=>tab="search"}>🔍</span>
     <span class='clickable' on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
@@ -16,6 +18,7 @@ let tab='build';
   </div>
 
   <div class="tab-content" class:visible={tab=='sources'}><SourceList/></div>
+  <div class="tab-content" class:visible={tab=='library'}><Library/></div>
   <div class="tab-content" class:visible={tab=='build'}><BuilderMain/></div>
   <div class="tab-content" class:visible={tab=='search'}>field and full search result</div>
   <div class="tab-content" class:visible={tab=='hzpx'}>hzpx</div>
