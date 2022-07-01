@@ -1,5 +1,5 @@
 import { loadScript } from "ptk/utils/loadscript.ts";
-import chromefs from "ptk/platform/chromefs.ts"
+import {saveZipOption} from "ptk/platform/chromefs.ts"
 export const  deploy=async (buffer:string)=>{
 	console.log(buffer.length)
 	if (typeof JSZip=='undefined') {
@@ -9,7 +9,7 @@ export const  deploy=async (buffer:string)=>{
 	zip.file("hello.txt",buffer);
 	zip.file("hello.txt",buffer);
 	const content=await zip.generateAsync({type:"blob"});
-    const handle=await showSaveFilePicker(chromefs.saveZipOption);
+    const handle=await showSaveFilePicker(saveZipOption);
     const writable = await handle.createWritable();
     await writable.write(content);
     await writable.close();

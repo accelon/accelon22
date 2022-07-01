@@ -1,13 +1,17 @@
 <script>
-import {scrollToLine,editingtoc,scrollY} from './ts/store.ts'
-const goline=line=>scrollToLine.set(line);
-</script>
+import {get} from "svelte/store";
+import {VirtualScroll} from "./3rdparty/virtualscroll";
+/*
+todo : trim level0 if too many
 
-{#each $editingtoc as tocitem}
-<div class="tocitem clickable" class:upper={$scrollY>tocitem.line}
-     on:click={()=>goline(tocitem.line)}>{tocitem.text}</div>
-{/each}
-<style>
-	.tocitem{text-align: right;}
-	.upper {opacity:0.2}
-</style>
+*/
+import {scrollY} from './ts/store.ts'
+import {editorViewport,tocInViewport,scrollToLine} from './ts/editor.ts'
+const goline=line=>scrollToLine.set(line);
+$: toc=tocInViewport($editorViewport);
+</script>
+<VirtualScroll data={toc} key="line" height="50vh" let:data>
+<div class={"tocitem clickable tocdepth"+data.depth} 
+     class:uppertoc={$scrollY>data.line}
+     on:click={()=>goline(data.line)}>{data.text}</div>
+</VirtualScroll>

@@ -1,7 +1,7 @@
 import {extractTocTag} from 'ptk/offtext/parser.ts'
-import {editingtoc,getEditingBuffer,editing,scrollY} from './store.ts'
+import {editingtoc,getEditingBuffer,editing,scrollY,errormsg} from './store.ts'
+import {editorCursor,editorClean,editorViewport,scrollToLine} from './editor.ts';
 import {hightLightOfftext} from './syntaxhighlight.ts'
-import {scrollToLine} from './store.js'
 let oldtags=[];
 let timer,updatetimer;
 export const viewportChange=(cm:CodeMirror)=>{
@@ -9,6 +9,7 @@ export const viewportChange=(cm:CodeMirror)=>{
   timer=setTimeout(()=>{
     const {from,to}=cm.getViewport();
     scrollY.set(from);
+    editorViewport.set([from,to]);
     hightLightOfftext(cm.doc);
   },250);
 }
@@ -24,7 +25,10 @@ const parseFile=(cm:CodeMirror)=>{
 	clearTimeout(updatetimer);
 	updatetimer=setTimeout(()=>{
 		const tags = extractTocTag(cm.doc.getValue());
-		const toc= tags.map((it,idx)=>{return {text:it.text,key:idx, line:it.line}});
+		const toc= tags.map((it,idx)=>{
+      const depth=parseInt(it.name.slice(1,2),36)-10;
+      return {depth,text:it.text,key:idx, line:it.line}
+    });
 		editingtoc.set(toc);
 	},250);
 }
@@ -44,22 +48,40 @@ export const change=(cm:CodeMirror,obj)=>{
   		}
   	}
   }
+  editorClean.set(cm.doc.isClean());
   viewportChange(cm);
 }
 
+const cursorActivity=(cm:CodeMirror)=>{
+  const {line,ch}= cm.doc.getCursor();
+  const char=String.fromCodePoint((cm.doc.getLine(line)||'').codePointAt(ch)||0x0);
+  editorCursor.set([line,ch,char]);
+}
 export const setEditor=(cm:CodeMirror)=>{
   cm.on("change",(cm,obj)=>change(cm,obj));
+  cm.on("cursorActivity",(cm,obj)=>cursorActivity(cm));
   cm.on("beforeChange",(cm,obj)=>beforeChange(cm,obj));
   cm.on("viewportChange",(cm,obj)=>viewportChange(cm));
 
-
   scrollToLine.subscribe(line=>{
-  	if (line>-1) {
-	  cm.scrollIntoView({line}, 300);
-	  cm.scrollTo(0);
-	  scrollToLine.set(-1);
-  	}
+    let setCursorToo=false;
+    if (line==0) return;
+
+    if (line<0) {
+      line=-line;
+      setCursorToo=true;
+    }
+    if (line>cm.doc.lastLine()) line=cm.doc.lastLine();
+    cm.scrollIntoView({line}, 300);
+    //cm.scrollTo(0);
+    scrollToLine.set(0);
+    setCursorToo&&cm.setCursor({line});      
   })
-  editing.subscribe(i=>cm.setValue(getEditingBuffer(i)))
-  change(cm)
+  editing.subscribe(async (i)=>{
+    cm.setValue(await getEditingBuffer(i))
+    cm.doc.markClean();
+    editorClean.set(true);
+    cm.doc.clearHistory();
+  })
+  change(cm);
 }

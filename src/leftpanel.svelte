@@ -3,8 +3,8 @@ import {bigfortune} from './comps/pxchars.ts'
 import BuilderMain from './buildermain.svelte'
 import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
-let errormsg='';
-let tab='library';
+import {errormsg} from './ts/store.ts'
+let tab='sources';
 </script>
 <div>
   <div class="tabs">    
@@ -14,7 +14,7 @@ let tab='library';
     <span class='clickable' on:click={()=>tab="search"}>🔍</span>
     <span class='clickable' on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
     <span class='clickable' on:click={()=>tab="help"}>❔</span>
-    <span class="errormsg">{errormsg}</span>
+    <div class="errormsg">{$errormsg}</div>
   </div>
 
   <div class="tab-content" class:visible={tab=='sources'}><SourceList/></div>
@@ -42,4 +42,5 @@ let tab='library';
   opacity: 1;
   pointer-events: all;
 }
+.errormsg {color: red;transition: color 0.5s;}
 </style>

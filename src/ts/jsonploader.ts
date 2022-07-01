@@ -5,7 +5,7 @@ const jsonp=function(header,_payload){
 }
 window.jsonp=jsonp;
 export const loadTextInJS=async (jsname:string)=>{
-	const textfilename=jsname.replace('.js','.txt');
+	const textfilename='*'+jsname.replace('.js','.txt');
 	await loadScript(jsname,()=>{
 		if (loaded[textfilename]) return true;
 	})

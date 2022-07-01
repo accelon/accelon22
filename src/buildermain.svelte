@@ -1,7 +1,7 @@
 <script>
 import {deployable,getEditingBuffer,editing} from './ts/store.ts'
 import {get} from "svelte/store"
-import {build} from "ptk/builder/"
+// import {build} from "ptk/builder/"
 import {deploy} from "./ts/deploy.ts"
 const startbuild=()=>{
 	deployable.set(true)

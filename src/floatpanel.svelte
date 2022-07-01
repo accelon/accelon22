@@ -7,6 +7,6 @@
 
 <style>
 	input {border: none;}
-	.floatpanel {opacity: 0.4;position: absolute; right:1.5em;float: right; z-index:99 ; }
+	.floatpanel {opacity: 0.5;position: absolute; right:2em;float: right; z-index:99 ; }
 	.floatpanel:hover {opacity: 0.9;transition: opacity 0.5s;}
 </style>
