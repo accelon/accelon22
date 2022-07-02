@@ -1,20 +1,43 @@
 <script>
-import {deployable,getEditingBuffer,editing} from './ts/store.ts'
-import {get} from "svelte/store"
-// import {build} from "ptk/builder/"
-import {deploy} from "./ts/deploy.ts"
-const startbuild=()=>{
-	deployable.set(true)
-	build();
+import {deployable} from "./ts/store.ts";
+import {editing,sources} from "./ts/editor.ts";
+import {getEditingBuffer} from "./ts/editorupdate.ts";
+import {get} from "svelte/store";
+import {LineBase} from "ptk"
+import {deploy} from "./ts/deploy.ts";
+
+let buildmessage='';
+let lbase;
+let ready=false;
+const startbuild=async ()=>{
+	ready=false;
+	lbase=new LineBase();
+	const sourcebuffers=get(sources);
+	
+	for (let i=0;i<sourcebuffers.length;i++) {
+		const {text,name}=sourcebuffers[i];
+		const lines=text.split(/\r?\n/);
+		await lbase.addLines(lines,name);
+	}
+	ready=true;
+
 }
-const dodeploy=()=>{
-	deploy(getEditingBuffer(get(editing)));
+const dodeploy=async ()=>{
+	try{
+		const r=await deploy(lbase);
+		if (r) {
+			buildmessage=r.name+' '+r.size+' bytes';
+			ready=false;
+		}
+	}catch(e){
+		buildmessage=e;
+	}
 }
 </script>
 <div>
-<span on:click={startbuild} class="clickable">🍳</span>
-{#if $deployable}
-<br/><span on:click={dodeploy} class="clickable">🎁</span>
+<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
+{#if ready}
+<br/><span on:click={dodeploy} title="Deploy 打包"  class="clickable">🎁</span>
 {/if}
-<div id="buildmessage"></div>
+<div id="buildmessage">{buildmessage}</div>
 </div>

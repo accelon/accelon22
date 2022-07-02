@@ -5,8 +5,7 @@ import {VirtualScroll} from "./3rdparty/virtualscroll";
 todo : trim level0 if too many
 
 */
-import {scrollY} from './ts/store.ts'
-import {editorViewport,tocInViewport,scrollToLine} from './ts/editor.ts'
+import {scrollY,editorViewport,tocInViewport,scrollToLine} from './ts/editor.ts'
 const goline=line=>scrollToLine.set(line);
 $: toc=tocInViewport($editorViewport);
 </script>

@@ -4,16 +4,16 @@ import BuilderMain from './buildermain.svelte'
 import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
 import {errormsg} from './ts/store.ts'
-let tab='sources';
+let tab='build';
 </script>
 <div>
   <div class="tabs">    
-    <span class='clickable' on:click={()=>tab="sources"}>📜</span>
-    <span class='clickable' on:click={()=>tab="library"}>📚</span>
-    <span class='clickable' on:click={()=>tab="build"}>🛠️</span>
-    <span class='clickable' on:click={()=>tab="search"}>🔍</span>
-    <span class='clickable' on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
-    <span class='clickable' on:click={()=>tab="help"}>❔</span>
+    <span class='clickable' class:selected={tab=="sources"} on:click={()=>tab="sources"}>📜</span>
+    <span class='clickable' class:selected={tab=="library"} on:click={()=>tab="library"}>📚</span>
+    <span class='clickable' class:selected={tab=="build"} on:click={()=>tab="build"}>🛠️</span>
+    <span class='clickable' class:selected={tab=="search"} on:click={()=>tab="search"}>🔍</span>
+    <span class='clickable' class:selected={tab=="hzpx"} on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
+    <span class='clickable' class:selected={tab=="help"} on:click={()=>tab="help"}>❔</span>
     <div class="errormsg">{$errormsg}</div>
   </div>
 
@@ -26,9 +26,9 @@ let tab='sources';
 </div>
 <style>
 .tabs {--webkit-user-select: none;overflow:hidden  ;
-  user-select: none;background: #222222; border-radius: 0.5em;padding-left: 0.3em}
+  user-select: none; border-radius: 0.5em;padding-left: 0.3em}
+.selected {background: gray;border-radius: 0.25em;}
 .tab-content {
-  
   position: absolute;
     /* height:90vh; */
   width:100%;

@@ -1,10 +1,27 @@
-import { loadScript } from "ptk/utils/loadscript.ts";
-import {saveZipOption} from "ptk/platform/chromefs.ts"
-export const  deploy=async (buffer:string)=>{
-	console.log(buffer.length)
+import {LineBase,makePitakaZip,savePtkOption,loadScript} from "ptk";
+export const  deploy=async (lbase:LineBase)=>{
 	if (typeof JSZip=='undefined') {
 		await loadScript('lazip.js',()=>(typeof JSZip!=='undefined'));	
 	}
+    const handle=await showSaveFilePicker(savePtkOption);
+    const name=handle.name.replace(/\.([^.]+)$/,'');
+	const zip=new JSZip();
+	lbase.setName(name);
+	await lbase.writePages(async (pagefn,buf)=>{
+		zip.file(pagefn,buf, {compression:'DEFLATE'});
+	});
+
+	buildmessage='creating zip '+name;
+	let size=0;
+	await makePitakaZip(zip, async (buf)=>{
+	    const writable = await handle.createWritable();
+	    await writable.write(buf);
+	    await writable.close();
+	    size=buf.length;
+	})
+	return {name:handle.name,size};
+}
+/*
 	const zip=JSZip();
 	zip.file("hello.txt",buffer);
 	zip.file("hello.txt",buffer);
@@ -14,4 +31,4 @@ export const  deploy=async (buffer:string)=>{
     await writable.write(content);
     await writable.close();
 	console.log('content',content)
-}
+*/

@@ -11,6 +11,3 @@ export const loadTextInJS=async (jsname:string)=>{
 	})
 	return loaded[textfilename];
 }
-export const getLoadedFile=filename=>{
-	return loaded[filename];
-}

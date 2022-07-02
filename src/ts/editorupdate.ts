@@ -1,6 +1,7 @@
 import {extractTocTag} from 'ptk/offtext/parser.ts'
-import {editingtoc,getEditingBuffer,editing,scrollY,errormsg} from './store.ts'
-import {editorCursor,editorClean,editorViewport,scrollToLine} from './editor.ts';
+import {errormsg} from './store.ts'
+import {get} from "svelte/store";
+import {sources,scrollY,editingtoc,editing,editorCursor,editorClean,editorViewport,scrollToLine} from './editor.ts';
 import {hightLightOfftext} from './syntaxhighlight.ts'
 let oldtags=[];
 let timer,updatetimer;
@@ -57,31 +58,58 @@ const cursorActivity=(cm:CodeMirror)=>{
   const char=String.fromCodePoint((cm.doc.getLine(line)||'').codePointAt(ch)||0x0);
   editorCursor.set([line,ch,char]);
 }
+
+export const getEditingBuffer=async (n:number)=>{
+  const namedbuf=get(sources)[n];
+  if (!namedbuf) return '';
+  if (namedbuf.handle) {
+      const file = await namedbuf.handle.getFile();
+      return await file.text();
+  } else {
+    const text=namedbuf.text;
+    return text||'';
+  }
+}
+let maineditor;
+export const setEditingBuffer=async (handle)=>{
+  const _sources= get(sources);
+  const buf=maineditor.getValue();
+  _sources[ get(editing) ].text = buf;
+  sources.set(_sources);
+  const writable = await handle.createWritable();
+  await writable.write(buf);
+  await writable.close();
+}
+
+
+
 export const setEditor=(cm:CodeMirror)=>{
   cm.on("change",(cm,obj)=>change(cm,obj));
   cm.on("cursorActivity",(cm,obj)=>cursorActivity(cm));
   cm.on("beforeChange",(cm,obj)=>beforeChange(cm,obj));
   cm.on("viewportChange",(cm,obj)=>viewportChange(cm));
+  maineditor=cm;
 
-  scrollToLine.subscribe(line=>{
-    let setCursorToo=false;
-    if (line==0) return;
-
-    if (line<0) {
-      line=-line;
-      setCursorToo=true;
-    }
-    if (line>cm.doc.lastLine()) line=cm.doc.lastLine();
-    cm.scrollIntoView({line}, 300);
-    //cm.scrollTo(0);
-    scrollToLine.set(0);
-    setCursorToo&&cm.setCursor({line});      
-  })
   editing.subscribe(async (i)=>{
     cm.setValue(await getEditingBuffer(i))
     cm.doc.markClean();
     editorClean.set(true);
     cm.doc.clearHistory();
+  })
+  scrollToLine.subscribe(line=>{
+      let setCursorToo=false;
+      if (line==0) return;
+
+      if (line<0) {
+        line=-line;
+        setCursorToo=true;
+      }
+      if (line>cm.doc.lastLine()) line=cm.doc.lastLine();
+      cm.scrollIntoView({line}, 300);
+      //cm.scrollTo(0);
+      scrollToLine.set(0);
+      setCursorToo&&cm.setCursor({line});
+      !setCursorToo&&cm.focus(); 
   })
   change(cm);
 }
