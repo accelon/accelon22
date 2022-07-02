@@ -1,4 +1,3 @@
-import {editing,editingtoc} from './store.ts';
 import {writable ,get} from "svelte/store";
 import {loadTextInJS} from "./jsonploader.ts"
 
@@ -9,11 +8,12 @@ export const editorViewport=writable([0,30]);
 export const editorCursor=writable([0,0,'']);
 export const scrollToLine=writable(0);
 export const editing=writable(-1);
-export const editingtoc=writable([]);
+export const editorToc=writable([]);
+export const editorError=writable([]);
 
 export const tocInViewport=()=>{
 	const ancestors=[];
-	const toc=get(editingtoc);
+	const toc=get(editorToc);
 	const [from,to]=get(editorViewport);
 	const out=[];
 	let prevdepth=0;
@@ -35,8 +35,8 @@ setTimeout(async()=>{
 		const ztoc= await loadTextInJS('ztoc.js');
 		sources.set([
 			{name:"*ztoc.txt",text:ztoc},
-			{name:"*sunzi.txt",text:sunzi},
 			{name:"*sample.txt",text:sample},
+			{name:"*sunzi.txt",text:sunzi},
 		]);
 		editing.set(0);
 	} catch(e) {

@@ -1,8 +1,9 @@
-import {extractTocTag} from 'ptk/offtext/parser.ts'
-import {errormsg} from './store.ts'
+import {errormsg} from "./store.ts"
 import {get} from "svelte/store";
-import {sources,scrollY,editingtoc,editing,editorCursor,editorClean,editorViewport,scrollToLine} from './editor.ts';
-import {hightLightOfftext} from './syntaxhighlight.ts'
+import {sources,scrollY,editorToc,editorError,
+  editing,editorCursor,editorClean,editorViewport,scrollToLine} from "./editor.ts";
+import {hightLightOfftext} from "./syntaxhighlight.ts"
+import {syntaxCheck,extractTag} from "ptk"
 let oldtags=[];
 let timer,updatetimer;
 export const viewportChange=(cm:CodeMirror)=>{
@@ -14,36 +15,35 @@ export const viewportChange=(cm:CodeMirror)=>{
     hightLightOfftext(cm.doc);
   },250);
 }
-const extractTags=(cm:CodeMirror,from:number,to:number)=>{
+const enumTags=(cm:CodeMirror,from:number,to:number)=>{
   const alltags=[];
-  cm.doc.eachLine(from,to+1,(line)=>{
-  	const tags=extractTocTag(line.text)
+  cm.doc.eachLine(from,to+1,(line,idx)=>{
+  	const tags=extractTag(line.text)
   	alltags.push(...tags);
   })
   return alltags;
 }
 const parseFile=(cm:CodeMirror)=>{
 	clearTimeout(updatetimer);
+  const errors=[];
 	updatetimer=setTimeout(()=>{
-		const tags = extractTocTag(cm.doc.getValue());
-		const toc= tags.map((it,idx)=>{
-      const depth=parseInt(it.name.slice(1,2),36)-10;
-      return {depth,text:it.text,key:idx, line:it.line}
-    });
-		editingtoc.set(toc);
+    const editingbuffer=cm.doc.getValue();
+    const {z,errors}=syntaxCheck(editingbuffer);
+    editorToc.set(z);
+    editorError.set(errors);
 	},250);
 }
 export const beforeChange=(cm:CodeMirror,obj)=>{
-  oldtags=extractTags(cm,obj.from.line,obj.to.line);
+  oldtags=enumTags(cm,obj.from.line,obj.to.line);
 }
 export const change=(cm:CodeMirror,obj)=>{
   //no diffing, just see if need to refresh toc
-  const newtags=obj?extractTags(cm,obj.from.line,obj.to.line):[]; 
+  const newtags=obj?enumTags(cm,obj.from.line,obj.to.line):[]; 
   if (!obj || oldtags.length!==newtags.length) {
   	parseFile(cm);
   } else {
   	for (let i=0;i<oldtags.length;i++) {
-  		if (oldtags[i].text!==newtags[i].text) {
+  		if (oldtags[i].text!==newtags[i].text || oldtags[i].name!==newtags[i].name) {
   			parseFile(cm);
   			break;
   		}

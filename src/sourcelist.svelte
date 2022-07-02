@@ -1,7 +1,7 @@
 <script>
 import {get} from "svelte/store"
 import {errormsg,deployable} from "./ts/store.ts";
-import {editing,sources,editorClean} from "./ts/editor.ts";
+import {editing,sources,editorClean,editorError,scrollToLine} from "./ts/editor.ts";
 import {setEditingBuffer,getEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission} from "ptk"
 
@@ -67,11 +67,15 @@ class="clickable" on:click={()=>changefile(idx)}>{source.name}
 </div>
 </div>
 <div class="fileerrors">
-	errors
+{#each $editorError as item,idx}
+<div><span class="clickable fileerror" 
+	on:click={()=>scrollToLine.set(-item.line)}>{item.text}</span></div>
+{/each}
 </div>
 
 <style>
 	.discard {float: right;padding-right: 1em;}
 	.sourcelist {height: 50vh;overflow-y: auto}
 	.sourcelist {height: 45vh}
+	.fileerror {color: red}
 </style>
