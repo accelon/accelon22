@@ -72,16 +72,21 @@ export const getEditingBuffer=async (n:number)=>{
 }
 let maineditor;
 export const setEditingBuffer=async (handle)=>{
-  const _sources= get(sources);
+  // const _sources= get(sources);
+  // _sources[ get(editing) ].text = buf;
+  // sources.set(_sources);
   const buf=maineditor.getValue();
-  _sources[ get(editing) ].text = buf;
-  sources.set(_sources);
   const writable = await handle.createWritable();
   await writable.write(buf);
   await writable.close();
+  editorClean.set(true);
 }
 
-
+export const discardchanges=()=>{
+  const n=get(editing);
+  editing.set(-1);
+  editing.set(n); //force clean
+}
 
 export const setEditor=(cm:CodeMirror)=>{
   cm.on("change",(cm,obj)=>change(cm,obj));

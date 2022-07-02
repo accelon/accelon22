@@ -1,16 +1,14 @@
 <script>
 import {bigfortune} from './comps/pxchars.ts'
-import BuilderMain from './buildermain.svelte'
 import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
 import {errormsg} from './ts/store.ts'
-let tab='build';
+let tab='sources';
 </script>
 <div>
   <div class="tabs">    
     <span class='clickable' class:selected={tab=="sources"} on:click={()=>tab="sources"}>📜</span>
     <span class='clickable' class:selected={tab=="library"} on:click={()=>tab="library"}>📚</span>
-    <span class='clickable' class:selected={tab=="build"} on:click={()=>tab="build"}>🛠️</span>
     <span class='clickable' class:selected={tab=="search"} on:click={()=>tab="search"}>🔍</span>
     <span class='clickable' class:selected={tab=="hzpx"} on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
     <span class='clickable' class:selected={tab=="help"} on:click={()=>tab="help"}>❔</span>
@@ -19,7 +17,6 @@ let tab='build';
 
   <div class="tab-content" class:visible={tab=='sources'}><SourceList/></div>
   <div class="tab-content" class:visible={tab=='library'}><Library/></div>
-  <div class="tab-content" class:visible={tab=='build'}><BuilderMain/></div>
   <div class="tab-content" class:visible={tab=='search'}>field and full search result</div>
   <div class="tab-content" class:visible={tab=='hzpx'}>hzpx</div>
   <div class="tab-content" class:visible={tab=='help'}>tutorial </div>
