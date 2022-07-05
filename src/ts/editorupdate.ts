@@ -1,9 +1,10 @@
 import {errormsg} from "./store.ts"
 import {get} from "svelte/store";
-import {sources,scrollY,editorToc,editorError,
-  editing,editorCursor,editorClean,editorViewport,scrollToLine} from "./editor.ts";
+import {sources,scrollY,editorToc,
+  editing,editorCursor,editorClean,editingErrors,
+  editorViewport,scrollToLine,getEditingSource,setEditingSource} from "./editor.ts";
 import {hightLightOfftext} from "./syntaxhighlight.ts"
-import {syntaxCheck,extractTag} from "ptk"
+import {extractTag,onAddOfftextLine,OfftextContext} from "ptk"
 let oldtags=[];
 let timer,updatetimer;
 export const viewportChange=(cm:CodeMirror)=>{
@@ -25,12 +26,20 @@ const enumTags=(cm:CodeMirror,from:number,to:number)=>{
 }
 const parseFile=(cm:CodeMirror)=>{
 	clearTimeout(updatetimer);
-  const errors=[];
+  const ctx=new OfftextContext();
 	updatetimer=setTimeout(()=>{
-    const editingbuffer=cm.doc.getValue();
-    const {z,errors}=syntaxCheck(editingbuffer);
-    editorToc.set(z);
-    editorError.set(errors);
+    let i=0;
+    const source=getEditingSource();
+    cm.doc.eachLine( line=>{
+      if (line.text.indexOf('^')>-1) {
+        onAddOfftextLine.call(ctx,line.text, i,source.name );
+      }
+      i++;
+    })
+    const errors=ctx.errors;
+    const toc=ctx.toc;
+    setEditingSource( { ... source, toc, errors} );
+    editingErrors.set(errors);
 	},250);
 }
 export const beforeChange=(cm:CodeMirror,obj)=>{
@@ -43,7 +52,7 @@ export const change=(cm:CodeMirror,obj)=>{
   	parseFile(cm);
   } else {
   	for (let i=0;i<oldtags.length;i++) {
-  		if (oldtags[i].text!==newtags[i].text || oldtags[i].name!==newtags[i].name) {
+  		if (oldtags[i].id!==newtags[i].id || oldtags[i].name!==newtags[i].name) {
   			parseFile(cm);
   			break;
   		}
@@ -64,7 +73,8 @@ export const getEditingBuffer=async (n:number)=>{
   if (!namedbuf) return '';
   if (namedbuf.handle) {
       const file = await namedbuf.handle.getFile();
-      return await file.text();
+      const r=await file.text();
+      return r;
   } else {
     const text=namedbuf.text;
     return text||'';
@@ -72,9 +82,6 @@ export const getEditingBuffer=async (n:number)=>{
 }
 let maineditor;
 export const setEditingBuffer=async (handle)=>{
-  // const _sources= get(sources);
-  // _sources[ get(editing) ].text = buf;
-  // sources.set(_sources);
   const buf=maineditor.getValue();
   const writable = await handle.createWritable();
   await writable.write(buf);
@@ -87,7 +94,7 @@ export const discardchanges=()=>{
   editing.set(-1);
   editing.set(n); //force clean
 }
-
+const MAXEDITABLESIZE=1024*1024*10;
 export const setEditor=(cm:CodeMirror)=>{
   cm.on("change",(cm,obj)=>change(cm,obj));
   cm.on("cursorActivity",(cm,obj)=>cursorActivity(cm));
@@ -96,7 +103,11 @@ export const setEditor=(cm:CodeMirror)=>{
   maineditor=cm;
 
   editing.subscribe(async (i)=>{
-    cm.setValue(await getEditingBuffer(i))
+    const buf=await getEditingBuffer(i);
+    const bigfile=buf.length>MAXEDITABLESIZE;
+    cm.setValue(buf);
+    cm.setOption('readOnly',bigfile);
+    bigfile && errormsg.set('Reaonly, 文件超过'+MAXEDITABLESIZE)
     cm.doc.markClean();
     editorClean.set(true);
     cm.doc.clearHistory();

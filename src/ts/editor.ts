@@ -1,4 +1,4 @@
-import {writable ,get} from "svelte/store";
+import {writable ,derived ,get} from "svelte/store";
 import {loadTextInJS} from "./jsonploader.ts"
 
 export const scrollY=writable(0);
@@ -8,12 +8,12 @@ export const editorViewport=writable([0,30]);
 export const editorCursor=writable([0,0,'']);
 export const scrollToLine=writable(0);
 export const editing=writable(-1);
-export const editorToc=writable([]);
-export const editorError=writable([]);
-
+export const getEditingSource=()=>get(sources)[get(editing)]||{};
+export const editingErrors=writable([]);
+export const setEditingSource =newsource=> get(sources).splice(get(editing) , 1, newsource) ;
 export const tocInViewport=()=>{
 	const ancestors=[];
-	const toc=get(editorToc);
+	const toc=get(sources).toc||[];
 	const [from,to]=get(editorViewport);
 	const out=[];
 	let prevdepth=0;
@@ -34,9 +34,9 @@ setTimeout(async()=>{
 		const sunzi= await loadTextInJS('sunzi.js');
 		const ztoc= await loadTextInJS('ztoc.js');
 		sources.set([
-			{name:"*ztoc.txt",text:ztoc},
-			{name:"*sample.txt",text:sample},
-			{name:"*sunzi.txt",text:sunzi},
+			{name:"*ztoc.txt",text:ztoc,toc:null,errors:[]},
+			{name:"*sample.txt",text:sample,toc:null,errors:[]},
+			{name:"*sunzi.txt",text:sunzi,toc:null,errors:[]},
 		]);
 		editing.set(0);
 	} catch(e) {

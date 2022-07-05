@@ -1,7 +1,7 @@
 <script>
 import {get} from "svelte/store"
 import {errormsg,deployable} from "./ts/store.ts";
-import {editing,sources,editorClean,editorError,scrollToLine} from "./ts/editor.ts";
+import {editing,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
 import {setEditingBuffer,getEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission} from "ptk"
 
@@ -41,6 +41,7 @@ const dodeploy=async ()=>{
 		buildmessage=e;
 	}
 }
+
 </script>
 <div>
 <span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
@@ -60,22 +61,25 @@ const dodeploy=async ()=>{
 <br/>
 <div class="sourcelist">
 {#each $sources as source,idx}
-<div class:active_clickable={idx==$editing} 
-class="clickable" on:click={()=>changefile(idx)}>{source.name}
+<div class:active_clickable={idx==$editing} class="clickable" 
+on:click={()=>changefile(idx)}>{source.name}
 </div>
 {/each}
 </div>
 </div>
 <div class="fileerrors">
-{#each $editorError as item,idx}
+{#each $editingErrors as item}
 <div><span class="clickable fileerror" 
-	on:click={()=>scrollToLine.set(-item.line)}>{item.text}</span></div>
+	on:click={()=>scrollToLine.set(-item.line)}>{item.msg}</span>
+{#if item.prev}
+<span class="clickable" on:click={()=>scrollToLine.set(-item.prev)}>⤴</span>
+{/if}
+</div>
 {/each}
 </div>
 
 <style>
-	.discard {float: right;padding-right: 1em;}
 	.sourcelist {height: 50vh;overflow-y: auto}
-	.sourcelist {height: 45vh}
 	.fileerror {color: red}
+	.haserror {color: red}
 </style>

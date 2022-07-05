@@ -39,6 +39,6 @@ export const addBuffers=async ()=>{
 	for (let i=0;i<sourcebuffers.length;i++) {
 		let {name}=sourcebuffers[i];
 		const text=await getEditingBuffer(i)
-		await lbase.addBuffer(text,name);
+		await lbase.append(text,name.replace('*',''));
 	}
 }

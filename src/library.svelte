@@ -7,8 +7,11 @@ const openzip=async ()=>{
 	const zip=await LaZip(file,JSZip); //JSZip from global bundle
 	const name=zip.folders[0]; //assumning only have one ptk
 	const lbase=new LineBase({name, zip});
-	await lbase.loadLines(0,10);
-	console.log(lbase.slice(0,10));
+	await lbase.isReady(); // need this if not start with loadLines
+
+	const [from,to]=lbase.sectionRange("ztoc.txt")
+	await lbase.loadLines(from,to+5);
+	console.log(lbase.slice(from,to+5));
 }
 
 
