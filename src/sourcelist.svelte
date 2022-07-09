@@ -81,5 +81,4 @@ on:click={()=>changefile(idx)}>{source.name}
 <style>
 	.sourcelist {height: 50vh;overflow-y: auto}
 	.fileerror {color: red}
-	.haserror {color: red}
 </style>

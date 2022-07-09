@@ -15,3 +15,11 @@ create a minified bundle in dist
     build-lazip.cmd  
 
 copy codemirror.js (version 5) to dist
+
+
+## Developers only
+
+download redbean latest version and save as redbean.com
+create a clean accelon22.com only with files in dist
+
+node cleanredbean.js
