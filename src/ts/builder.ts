@@ -1,29 +1,52 @@
-import {LineBase,makePitakaZip,savePtkOption,loadScript} from "ptk";
+import {LineBase,saveComOption,openComOption,loadScript} from "ptk";
 import {sources,editing} from "./editor.ts";
+import {comimage} from "./store.ts";
 import {getEditingBuffer} from "./editorupdate.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
+import {makeRedbean} from "./redbean.ts"
 let lbase;
+export const hasComImage=()=>!!comimage;
+export const getComImage=async(askuser=false)=>{
+	let image;
+	if (get(comimage)) return true;
+//try fetch
+	if (location.protocol!=='file:') {
+		try {
+			const response=await fetch("selfimage.lua");
+			if (response.ok) {
+				image=new Uint8Array(await response.arrayBuffer());
+			}
+		} catch(e) {
+
+		}
+	}
+	if (!image && askuser) {
+    	const [handle]=await showOpenFilePicker(openComOption);
+    	if (handle) {
+      		const file = await handle.getFile();
+      		image=await (file.slice(0, file.size)).arrayBuffer();
+    	}
+	}
+	comimage.set(image);
+}
+
 export const  deploy=async ()=>{
 	if (typeof JSZip=='undefined') {
 		await loadScript('lazip.js',()=>(typeof JSZip!=='undefined'));	
 	}
-    const handle=await showSaveFilePicker(savePtkOption);
+    const handle=await showSaveFilePicker(saveComOption);
     const name=handle.name.replace(/\.([^.]+)$/,'');
-	const zip=new JSZip();
 	lbase.setName(name);
-	await lbase.writePages(async (pagefn,buf)=>{
-		zip.file(pagefn,buf, {compression:'STORE'});
-	});
+	const newimage=await makeRedbean(JSZip, lbase,comimage);
 
-	buildmessage='creating zip '+name;
+	buildmessage='creating com '+name;
 	let size=0;
-	await makePitakaZip(zip, async (buf)=>{
-	    const writable = await handle.createWritable();
-	    await writable.write(buf);
-	    await writable.close();
-	    size=buf.length;
-	})
+
+    const writable = await handle.createWritable();
+    await writable.write(newimage);
+    await writable.close();
+    size=newimage.length;
 	return {name:handle.name,size};
 }
 export const addSources=(fileHandles)=>{

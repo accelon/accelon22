@@ -1,13 +1,16 @@
 <script>
+import {onMount} from 'svelte'
 import {get} from "svelte/store"
-import {errormsg,deployable} from "./ts/store.ts";
+import {errormsg,deployable,comimage} from "./ts/store.ts";
 import {editing,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
 import {setEditingBuffer,getEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission} from "ptk"
 
-import {deploy,addBuffers,addSources} from "./ts/builder.ts";
-let buildmessage='';
+import {deploy,addBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
 
+onMount(()=>{
+	getComImage(); //try to fetch from 
+})
 let readytodeploy=false;
 const openfiles=async ()=>{
     const fileHandles=await showOpenFilePicker(openSourceOption);
@@ -27,8 +30,8 @@ const savefile=async ()=>{
 const startbuild=async ()=>{
 	readytodeploy=false;
 	await addBuffers();
-	buildmessage='';
-	readytodeploy=true;
+	readytodeploy=hasComImage();
+	buildmessage='打包';
 }
 const dodeploy=async ()=>{
 	try{
@@ -41,11 +44,11 @@ const dodeploy=async ()=>{
 		buildmessage=e;
 	}
 }
+$: buildmessage = $comimage?'生成':'选取程序底本';
 
 </script>
 <div>
 <span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
-
 {#if !$editorClean}
 {#if !sampleFile() }
 <span class="clickable" title="Save As, 另存文件"         on:click={savefile}>💾</span>
@@ -54,9 +57,13 @@ const dodeploy=async ()=>{
 {:else}
 {#if readytodeploy}
 <span on:click={dodeploy} title="Deploy 打包"  class="clickable">🎁</span>
-{:else}
+{:else if $comimage}
 <span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
+{:else}
+<span on:click={()=>getComImage(true)} title="Select Image 选程序底本" class="clickable">⚾</span>
+
 {/if}
+{buildmessage}
 {/if}
 <br/>
 <div class="sourcelist">

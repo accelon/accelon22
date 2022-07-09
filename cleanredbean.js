@@ -33,7 +33,6 @@ const createCleanCom=async ()=>{
 	const newzipbuf=new Uint8Array(await newzip.generateAsync({firstFileOffset
 		: zip.firstFileOffset, type:'arraybuffer'}));
 
-	const prepend=new Uint8Array(zip.firstFileOffset);
 	const filebuf=[...redbeanbuf, ...newzipbuf  ]
 
 	fs.writeFileSync(comname,new Uint8Array(filebuf));
