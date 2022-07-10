@@ -52,7 +52,7 @@ export const change=(cm:CodeMirror,obj)=>{
   	parseFile(cm);
   } else {
   	for (let i=0;i<oldtags.length;i++) {
-  		if (oldtags[i].id!==newtags[i].id || oldtags[i].name!==newtags[i].name) {
+  		if (oldtags[i].id!==newtags[i].id || oldtags[i].name!==newtags[i].name || oldtags[i].text!==newtags[i].text) {
   			parseFile(cm);
   			break;
   		}
@@ -66,18 +66,21 @@ const cursorActivity=(cm:CodeMirror)=>{
   const {line,ch}= cm.doc.getCursor();
   const char=String.fromCodePoint((cm.doc.getLine(line)||'').codePointAt(ch)||0x0);
   editorCursor.set([line,ch,char]);
+  const namedbuf=get(sources)[ get(editing) ];
+  namedbuf.cursor=[line,ch];
 }
 
-export const getEditingBuffer=async (n:number)=>{
+export const getEditing=async (n:number)=>{
   const namedbuf=get(sources)[n];
+  const [line,ch]=namedbuf.cursor;
   if (!namedbuf) return '';
   if (namedbuf.handle) {
       const file = await namedbuf.handle.getFile();
       const r=await file.text();
-      return r;
+      return [r,line,ch];
   } else {
     const text=namedbuf.text;
-    return text||'';
+    return [text||'',line,ch];
   }
 }
 let maineditor;
@@ -103,14 +106,16 @@ export const setEditor=(cm:CodeMirror)=>{
   maineditor=cm;
 
   editing.subscribe(async (i)=>{
-    const buf=await getEditingBuffer(i);
-    const bigfile=buf.length>MAXEDITABLESIZE;
-    cm.setValue(buf);
+    const [buffer,line,ch]=await getEditing(i);
+    const bigfile=buffer.length>MAXEDITABLESIZE;
+    cm.setValue(buffer);
+    cm.setCursor(line||0,ch||0);
     cm.setOption('readOnly',bigfile);
     bigfile && errormsg.set('Reaonly, 文件超过'+MAXEDITABLESIZE)
     cm.doc.markClean();
     editorClean.set(true);
     cm.doc.clearHistory();
+    cm.focus();
   })
   scrollToLine.subscribe(line=>{
       let setCursorToo=false;

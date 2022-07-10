@@ -1,6 +1,7 @@
 <script>
 import {LaZip,LineBase,openPtkOption} from 'ptk'
-    
+import {pitakas} from './ts/store.ts';
+
 const openzip=async ()=>{
 	const [fileHandle]=await showOpenFilePicker(openPtkOption);
 	const file=await fileHandle.getFile();
@@ -14,7 +15,9 @@ const openzip=async ()=>{
 	console.log(lbase.slice(from,to+5));
 }
 
-
 </script>
 
 <span class="clickable" on:click={openzip}>📖</span>
+{#each $pitakas as ptk}
+	<div>{ptk.header.zh}</div>
+{/each}

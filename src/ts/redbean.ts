@@ -8,32 +8,26 @@ export const makeRedbean=async (JSZip, lbase) :Uint8Array=>{
 
 	await zip.loadAsync(image);
 	const redbeanbuf=new Uint8Array(image.slice(0,zip.firstFileOffset||0));
-
-	const newzip=new JSZip();
-
+	const firstFileOffset=zip.firstFileOffset; // redbean binary before this offset
 	for (let i in zip.files) {
-		if (i.endsWith('.lua')) continue;
-		if (i.startsWith('tool')) continue;
-		if (i.startsWith('usr')) continue;
-		if (i.startsWith('redbean.justine.lol')) continue;
-		if (i.startsWith('.lua')) continue;
-		if (i.endsWith('.png')) continue;
-		if (i!=='help.txt' && i.endsWith('.txt')) continue; // must keep help.txt
-		if (i.endsWith('.ico')) continue;
+		if ((i.endsWith('.lua') && i[0]!=='.') //remove lua example but not .init.lua .selfimage.lua
+		|| i.startsWith('tool')
+		|| i.startsWith('usr')
+		|| i.startsWith('redbean.justine.lol')
+		|| i.startsWith('.lua')
+		|| i.endsWith('.png')
+		|| i.endsWith('.txt')
+		|| i.endsWith('.ico')) zip.remove(i)
 
-		const {compressedSize,uncompressedSize}=zip.files[i]._data;
-		const compression= compressedSize==uncompressedSize?'STORE':'DEFLATE';
-		newzip.file(i, zip.files[i].async("string") , {compression});
+		// const {compressedSize,uncompressedSize}=zip.files[i]._data;
+		// const compression= compressedSize==uncompressedSize?'STORE':'DEFLATE';
+		// newzip.file(i, zip.files[i].async("string") , {compression});
 	}
-
-	//distFiles.forEach(f=> newzip.file(f,fs.readFileSync('dist/'+f,'utf8')));
-
 	await lbase.writePages(async (pagefn,buf)=>{
-		newzip.file(lbase.name+'/'+pagefn,buf, {compression:'STORE'});
+		zip.file(lbase.name+'/'+pagefn,buf, {compression:'DEFLATE'});
 	})
 
-	const newzipbuf=new Uint8Array(await newzip.generateAsync({firstFileOffset
-		: zip.firstFileOffset, type:'arraybuffer'}));
-	const filebuf=[...redbeanbuf, ...newzipbuf ];
+	const zipbuf=new Uint8Array(await zip.generateAsync({compression:'DEFLATE',firstFileOffset, type:'arraybuffer'}));
+	const filebuf=[...redbeanbuf, ...zipbuf ];
 	return new Uint8Array(filebuf);
 }

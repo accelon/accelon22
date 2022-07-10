@@ -2,24 +2,23 @@
 import {bigfortune} from './comps/pxchars.ts'
 import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
-import {errormsg} from './ts/store.ts'
-let tab='sources';
+import {errormsg,maintab} from './ts/store.ts'
 </script>
 <div>
   <div class="tabs">    
-    <span class='clickable' class:selected={tab=="sources"} on:click={()=>tab="sources"}>📜</span>
-    <span class='clickable' class:selected={tab=="library"} on:click={()=>tab="library"}>📚</span>
-    <span class='clickable' class:selected={tab=="search"} on:click={()=>tab="search"}>🔍</span>
-    <span class='clickable' class:selected={tab=="hzpx"} on:click={()=>tab="hzpx"}>{@html bigfortune}</span>
-    <span class='clickable' class:selected={tab=="help"} on:click={()=>tab="help"}>❔</span>
+    <span class='clickable' class:selected={$maintab=="library"} on:click={()=>maintab.set("library")}>📚</span>
+    <span class='clickable' class:selected={$maintab=="builder"} on:click={()=>maintab.set("builder")}>🛠️</span>
+    <span class='clickable' class:selected={$maintab=="search"} on:click={()=>maintab.set("search")}>🔍</span>
+    <span class='clickable' class:selected={$maintab=="hzpx"} on:click={()=>maintab.set("hzpx")}>{@html bigfortune}</span>
+    <span class='clickable' class:selected={$maintab=="help"} on:click={()=>maintab.set("help")}>❔</span>
     <div class="errormsg">{$errormsg}</div>
   </div>
 
-  <div class="tab-content" class:visible={tab=='sources'}><SourceList/></div>
-  <div class="tab-content" class:visible={tab=='library'}><Library/></div>
-  <div class="tab-content" class:visible={tab=='search'}>field and full search result</div>
-  <div class="tab-content" class:visible={tab=='hzpx'}>hzpx</div>
-  <div class="tab-content" class:visible={tab=='help'}>tutorial </div>
+  <div class="tab-content" class:visible={$maintab=='library'}><Library/></div>
+  <div class="tab-content" class:visible={$maintab=='builder'}><SourceList/></div>
+  <div class="tab-content" class:visible={$maintab=='search'}>field and full search result</div>
+  <div class="tab-content" class:visible={$maintab=='hzpx'}>hzpx</div>
+  <div class="tab-content" class:visible={$maintab=='help'}>tutorial</div>
 </div>
 <style>
 .tabs {--webkit-user-select: none;overflow:hidden  ;

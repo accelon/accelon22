@@ -1,37 +1,33 @@
-import {nodefs,makePitakaZip} from 'ptk/nodebundle.cjs'
+import {nodefs,makePitakaZip,deepReadDir} from 'ptk/nodebundle.cjs'
 import JSZip from "lazip"
 await nodefs
 const comname='accelon22.com';
 const neededFiles=".symtab".split(',')
-const distFiles=fs.readdirSync('./dist');
-console.log(distFiles)
+
+const distfolder='dist';
 const createCleanCom=async ()=>{
+	const distFiles=(await deepReadDir(distfolder)).flat().filter(it=>it.indexOf('hzpx')==-1);
+	console.log(distFiles.length,'files',distFiles.slice(0,12))
 	const zip=new JSZip();
 	const file=fs.readFileSync("redbean.com"); //original version
 	await zip.loadAsync(file);
-	const redbeanbuf=file.slice(0,zip.firstFileOffset||0);
-
-	const newzip=new JSZip();
-
+	const firstFileOffset=zip.firstFileOffset;
+	const redbeanbuf=file.slice(0,firstFileOffset||0);
 	for (let i in zip.files) {
-		if (i.endsWith('.lua')) continue;
-		if (i.startsWith('tool')) continue;
-		if (i.startsWith('usr')) continue;
-		if (i.startsWith('redbean.justine.lol')) continue;
-		if (i.startsWith('.lua')) continue;
-		if (i.endsWith('.png')) continue;
-		if (i!=='help.txt' && i.endsWith('.txt')) continue;
-		if (i.endsWith('.ico')) continue;
-
-		const {compressedSize,uncompressedSize}=zip.files[i]._data;
-		const compression= compressedSize==uncompressedSize?'STORE':'DEFLATE';
-		newzip.file(i, zip.files[i].async("string") , {compression});
+		if ( i=='.symtab' || i.endsWith('.lua')|| i.startsWith('tool')||i.startsWith('usr')
+			||i.startsWith('redbean.justine.lol')||i.startsWith('.lua')
+			||i.endsWith('.png') || i.endsWith('.txt')
+			||i.endsWith('.ico') ) zip.remove(i);
 	}
 
-	distFiles.forEach(f=> newzip.file(f,fs.readFileSync('dist/'+f,'utf8')));
+	distFiles.forEach(f=> {
+		const content=fs.readFileSync(f,'utf8')
+		// compress all js not with packed numbers
+		const compression=(f.endsWith('.js')&&content.indexOf('0x0e')==-1 )? 'DEFLATE' :'STORE';
+		zip.file(f.slice(distfolder.length+1),content,{compression})
+	});
 
-	const newzipbuf=new Uint8Array(await newzip.generateAsync({firstFileOffset
-		: zip.firstFileOffset, type:'arraybuffer'}));
+	const newzipbuf=new Uint8Array(await zip.generateAsync({firstFileOffset, type:'arraybuffer'}));
 
 	const filebuf=[...redbeanbuf, ...newzipbuf  ]
 

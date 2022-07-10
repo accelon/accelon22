@@ -13,7 +13,7 @@ export const editingErrors=writable([]);
 export const setEditingSource =newsource=> get(sources).splice(get(editing) , 1, newsource) ;
 export const tocInViewport=()=>{
 	const ancestors=[];
-	const toc=get(sources).toc||[];
+	const toc=get(sources)[get(editing)]?.toc||[];
 	const [from,to]=get(editorViewport);
 	const out=[];
 	let prevdepth=0;
@@ -34,9 +34,9 @@ setTimeout(async()=>{
 		const sunzi= await loadTextInJS('sunzi.js');
 		const ztoc= await loadTextInJS('ztoc.js');
 		sources.set([
-			{name:"*ztoc.txt",text:ztoc,toc:null,errors:[]},
-			{name:"*sample.txt",text:sample,toc:null,errors:[]},
-			{name:"*sunzi.txt",text:sunzi,toc:null,errors:[]},
+			{name:"*ztoc.txt",text:ztoc,toc:null,errors:[],cursor:[]},
+			{name:"*sample.txt",text:sample,toc:null,errors:[],cursor:[]},
+			{name:"*sunzi.txt",text:sunzi,toc:null,errors:[],cursor:[]},
 		]);
 		editing.set(0);
 	} catch(e) {

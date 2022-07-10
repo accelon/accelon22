@@ -3,14 +3,13 @@ import {onMount} from 'svelte'
 import {get} from "svelte/store"
 import {errormsg,deployable,comimage} from "./ts/store.ts";
 import {editing,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
-import {setEditingBuffer,getEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
-import {openSourceOption,saveSourceOption,verifyPermission} from "ptk"
+import {setEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
+import {openSourceOption,saveSourceOption,verifyPermission,humanBytes} from "ptk"
 
 import {deploy,addBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
 
-onMount(()=>{
-	getComImage(); //try to fetch from 
-})
+onMount(()=>getComImage()) //try to fetch from 
+
 let readytodeploy=false;
 const openfiles=async ()=>{
     const fileHandles=await showOpenFilePicker(openSourceOption);
@@ -26,26 +25,29 @@ const savefile=async ()=>{
 	const fileHandle=get(sources)[get(editing)].handle;
 	await verifyPermission(fileHandle, true);
 	await setEditingBuffer(fileHandle);
+	readytodeploy=false;
+}
+const discard=()=>{
+	readytodeploy=false;
+	discardchanges();
 }
 const startbuild=async ()=>{
 	readytodeploy=false;
 	await addBuffers();
 	readytodeploy=hasComImage();
-	buildmessage='打包';
 }
 const dodeploy=async ()=>{
 	try{
 		const r=await deploy();
 		if (r) {
-			buildmessage=r.name+' '+r.size+' bytes';
-			readytodeploy=false;
+			buildmessage=r.name+' '+humanBytes(r.size).join(' ');
 		}
 	}catch(e){
 		buildmessage=e;
 	}
+	readytodeploy=false;
 }
-$: buildmessage = $comimage?'生成':'选取程序底本';
-
+$: buildmessage=$comimage?(readytodeploy?"打包存档":"生成"):"选程序底本";
 </script>
 <div>
 <span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
@@ -53,18 +55,21 @@ $: buildmessage = $comimage?'生成':'选取程序底本';
 {#if !sampleFile() }
 <span class="clickable" title="Save As, 另存文件"         on:click={savefile}>💾</span>
 {/if}
-<span class="clickable discard" title="Discard Changes, 放弃修改" on:click={discardchanges}>🗑</span>
-{:else}
-{#if readytodeploy}
-<span on:click={dodeploy} title="Deploy 打包"  class="clickable">🎁</span>
-{:else if $comimage}
-<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
-{:else}
-<span on:click={()=>getComImage(true)} title="Select Image 选程序底本" class="clickable">⚾</span>
+<span class="clickable discard" title="Discard Changes, 放弃修改" on:click={()=>discard()}>🗑</span>
+{/if}
 
+
+{#if readytodeploy}
+	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">🎁</span>
+{:else if $comimage}
+	{#if !$editingErrors.length}
+	<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
+	{/if}
+{:else}
+	<span on:click={()=>getComImage(true)} title="Select Image 选程序底本" class="clickable">🚧</span>
 {/if}
+
 {buildmessage}
-{/if}
 <br/>
 <div class="sourcelist">
 {#each $sources as source,idx}
@@ -74,18 +79,8 @@ on:click={()=>changefile(idx)}>{source.name}
 {/each}
 </div>
 </div>
-<div class="fileerrors">
-{#each $editingErrors as item}
-<div><span class="clickable fileerror" 
-	on:click={()=>scrollToLine.set(-item.line)}>{item.msg}</span>
-{#if item.prev}
-<span class="clickable" on:click={()=>scrollToLine.set(-item.prev)}>⤴</span>
-{/if}
-</div>
-{/each}
-</div>
 
 <style>
 	.sourcelist {height: 50vh;overflow-y: auto}
-	.fileerror {color: red}
+
 </style>

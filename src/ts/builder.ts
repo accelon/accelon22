@@ -1,7 +1,7 @@
 import {LineBase,saveComOption,openComOption,loadScript} from "ptk";
 import {sources,editing} from "./editor.ts";
 import {comimage} from "./store.ts";
-import {getEditingBuffer} from "./editorupdate.ts";
+import {getEditing} from "./editorupdate.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
 import {makeRedbean} from "./redbean.ts"
@@ -61,7 +61,7 @@ export const addBuffers=async ()=>{
 	const sourcebuffers=get(sources);
 	for (let i=0;i<sourcebuffers.length;i++) {
 		let {name}=sourcebuffers[i];
-		const text=await getEditingBuffer(i)
+		const [text]=await getEditing(i)
 		await lbase.append(text,name.replace('*',''));
 	}
 }

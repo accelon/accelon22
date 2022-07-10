@@ -5,9 +5,19 @@ import LeftPanel from './leftpanel.svelte'
 import FloatPanel from './floatpanel.svelte'
 import TocMenu from './tocmenu.svelte'
 import {panepos} from './ts/store.ts'
+import {editingErrors} from './ts/editor.ts'
+import MarkupErrors from './markuperrors.svelte'
 </script>
 <div class="container">
-<FloatPanel><div slot="a"><TocMenu/></div></FloatPanel>
+
+
+<FloatPanel><div slot="a">
+{#if $editingErrors.length}
+    <MarkupErrors/>
+{:else}
+    <TocMenu/>
+{/if}
+</div></FloatPanel>
 <SplitPane type="horizontal" bind:pos={$panepos} min={15} max={85}>
     <div slot="a">
     	<LeftPanel/>
