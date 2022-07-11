@@ -67,13 +67,14 @@ const cursorActivity=(cm:CodeMirror)=>{
   const char=String.fromCodePoint((cm.doc.getLine(line)||'').codePointAt(ch)||0x0);
   editorCursor.set([line,ch,char]);
   const namedbuf=get(sources)[ get(editing) ];
-  namedbuf.cursor=[line,ch];
+  if (namedbuf) namedbuf.cursor=[line,ch];
 }
 
 export const getEditing=async (n:number)=>{
   const namedbuf=get(sources)[n];
-  const [line,ch]=namedbuf.cursor;
-  if (!namedbuf) return '';
+  if (!namedbuf) return ['',0,0];
+
+  const [line,ch]=namedbuf.cursor||[0,0];
   if (namedbuf.handle) {
       const file = await namedbuf.handle.getFile();
       const r=await file.text();

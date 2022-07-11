@@ -10,11 +10,9 @@ export const makeRedbean=async (JSZip, lbase) :Uint8Array=>{
 	const redbeanbuf=new Uint8Array(image.slice(0,zip.firstFileOffset||0));
 	const firstFileOffset=zip.firstFileOffset; // redbean binary before this offset
 	for (let i in zip.files) {
-		if ((i.endsWith('.lua') && i[0]!=='.') //remove lua example but not .init.lua .selfimage.lua
-		|| i.startsWith('tool')
+		if (i.startsWith('tool')
 		|| i.startsWith('usr')
 		|| i.startsWith('redbean.justine.lol')
-		|| i.startsWith('.lua')
 		|| i.endsWith('.png')
 		|| i.endsWith('.txt')
 		|| i.endsWith('.ico')) zip.remove(i)

@@ -18,6 +18,6 @@ const openzip=async ()=>{
 </script>
 
 <span class="clickable" on:click={openzip}>📖</span>
-{#each $pitakas as ptk}
-	<div>{ptk.header.zh}</div>
+{#each $pitakas as loaded }
+	<div>{loaded.ptk.header.zh} {loaded.location}</div>
 {/each}

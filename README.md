@@ -22,4 +22,13 @@ copy codemirror.js (version 5) to dist
 download redbean latest version and save as redbean.com
 create a clean accelon22.com only with files in dist
 
-node cleanredbean.js
+
+create a release build of accelon22
+
+    node make-accelon22.js
+
+create a developer build (http serving local folder)
+    node make-accelon22.js dev
+
+    cd dist
+    start accelon22-dev.com

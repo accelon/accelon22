@@ -13,7 +13,7 @@ export const getComImage=async(askuser=false)=>{
 //try fetch
 	if (location.protocol!=='file:') {
 		try {
-			const response=await fetch("selfimage.lua");
+			const response=await fetch("myself.lua");
 			if (response.ok) {
 				image=new Uint8Array(await response.arrayBuffer());
 			}

@@ -30,10 +30,12 @@ export const tocInViewport=()=>{
 }
 setTimeout(async()=>{
 	try{
+		const lexicon=await loadTextInJS('lexicon.js');
+		const ztoc= await loadTextInJS('ztoc.js');
 		const sample=await loadTextInJS('sample.js');
 		const sunzi= await loadTextInJS('sunzi.js');
-		const ztoc= await loadTextInJS('ztoc.js');
 		sources.set([
+			{name:"*lexicon.txt",text:lexicon,toc:null,errors:[],cursor:[]},
 			{name:"*ztoc.txt",text:ztoc,toc:null,errors:[],cursor:[]},
 			{name:"*sample.txt",text:sample,toc:null,errors:[],cursor:[]},
 			{name:"*sunzi.txt",text:sunzi,toc:null,errors:[],cursor:[]},
