@@ -16,15 +16,10 @@ export const makeRedbean=async (JSZip, lbase) :Uint8Array=>{
 		|| i.endsWith('.png')
 		|| i.endsWith('.txt')
 		|| i.endsWith('.ico')) zip.remove(i)
-
-		// const {compressedSize,uncompressedSize}=zip.files[i]._data;
-		// const compression= compressedSize==uncompressedSize?'STORE':'DEFLATE';
-		// newzip.file(i, zip.files[i].async("string") , {compression});
 	}
 	await lbase.writePages(async (pagefn,buf)=>{
 		zip.file(lbase.name+'/'+pagefn,buf, {compression:'DEFLATE'});
 	})
-
 	const zipbuf=new Uint8Array(await zip.generateAsync({compression:'DEFLATE',firstFileOffset, type:'arraybuffer'}));
 	const filebuf=[...redbeanbuf, ...zipbuf ];
 	return new Uint8Array(filebuf);

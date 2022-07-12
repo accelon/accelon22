@@ -2,8 +2,9 @@ import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
 import {LineBase} from 'ptk'
 
+export const maintab=writable('builder');
+
 export const panepos=writable(settings.panepos);
-export const maintab=writable('library');
 export const pitakas=writable([]);
 
 export const deployable=writable(true)

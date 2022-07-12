@@ -35,9 +35,9 @@ setTimeout(async()=>{
 		const sample=await loadTextInJS('sample.js');
 		const sunzi= await loadTextInJS('sunzi.js');
 		sources.set([
+			{name:"*sample.txt",text:sample,toc:null,errors:[],cursor:[]},
 			{name:"*lexicon.txt",text:lexicon,toc:null,errors:[],cursor:[]},
 			{name:"*ztoc.txt",text:ztoc,toc:null,errors:[],cursor:[]},
-			{name:"*sample.txt",text:sample,toc:null,errors:[],cursor:[]},
 			{name:"*sunzi.txt",text:sunzi,toc:null,errors:[],cursor:[]},
 		]);
 		editing.set(0);

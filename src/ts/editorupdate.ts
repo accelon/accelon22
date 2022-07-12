@@ -64,8 +64,9 @@ export const change=(cm:CodeMirror,obj)=>{
 
 const cursorActivity=(cm:CodeMirror)=>{
   const {line,ch}= cm.doc.getCursor();
-  const char=String.fromCodePoint((cm.doc.getLine(line)||'').codePointAt(ch)||0x0);
-  editorCursor.set([line,ch,char]);
+  const linetext=cm.doc.getLine(line)||'';
+  const char=String.fromCodePoint(linetext.codePointAt(ch)||0x0);
+  editorCursor.set([line,ch,char, linetext]);
   const namedbuf=get(sources)[ get(editing) ];
   if (namedbuf) namedbuf.cursor=[line,ch];
 }
@@ -128,7 +129,6 @@ export const setEditor=(cm:CodeMirror)=>{
       }
       if (line>cm.doc.lastLine()) line=cm.doc.lastLine();
       cm.scrollIntoView({line}, 300);
-      //cm.scrollTo(0);
       scrollToLine.set(0);
       setCursorToo&&cm.setCursor({line});
       !setCursorToo&&cm.focus(); 
