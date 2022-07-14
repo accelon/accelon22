@@ -8,7 +8,6 @@ onMount(()=>{
   	value:'NO SOURCE', theme:'ambiance',styleActiveLine:true
   })
   setEditor(editor);
-  console.clear(); 
 })
 
 

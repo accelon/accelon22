@@ -4,7 +4,7 @@ import {sources,scrollY,editorToc,
   editing,editorCursor,editorClean,editingErrors,
   editorViewport,scrollToLine,getEditingSource,setEditingSource} from "./editor.ts";
 import {hightLightOfftext} from "./syntaxhighlight.ts"
-import {extractTag,onAddOfftextLine,OfftextContext} from "ptk"
+import {extractTag,OfftextContext} from "ptk"
 let oldtags=[];
 let timer,updatetimer;
 export const viewportChange=(cm:CodeMirror)=>{
@@ -24,7 +24,9 @@ const enumTags=(cm:CodeMirror,from:number,to:number)=>{
   })
   return alltags;
 }
+
 const parseFile=(cm:CodeMirror)=>{
+  /*
 	clearTimeout(updatetimer);
   const ctx=new OfftextContext();
 	updatetimer=setTimeout(()=>{
@@ -41,7 +43,9 @@ const parseFile=(cm:CodeMirror)=>{
     setEditingSource( { ... source, toc, errors} );
     editingErrors.set(errors);
 	},250);
+  */
 }
+
 export const beforeChange=(cm:CodeMirror,obj)=>{
   oldtags=enumTags(cm,obj.from.line,obj.to.line);
 }
@@ -87,10 +91,16 @@ export const getEditing=async (n:number)=>{
 }
 let maineditor;
 export const setEditingBuffer=async (handle)=>{
+  const ed=get(editing);
+  if (ed<0) return ;
   const buf=maineditor.getValue();
-  const writable = await handle.createWritable();
-  await writable.write(buf);
-  await writable.close();
+  if (!handle) {
+    get(sources)[ed].text=buf;
+  } else {
+    const writable = await handle.createWritable();
+    await writable.write(buf);
+    await writable.close();
+  }
   editorClean.set(true);
 }
 

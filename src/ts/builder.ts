@@ -32,13 +32,11 @@ export const getComImage=async(askuser=false)=>{
 }
 
 export const  deploy=async ()=>{
-	if (typeof JSZip=='undefined') {
-		await loadScript('lazip.js',()=>(typeof JSZip!=='undefined'));	
-	}
+
     const handle=await showSaveFilePicker(saveComOption);
     const name=handle.name.replace(/\.([^.]+)$/,'');
-	lbase.setName(name);
-	const newimage=await makeRedbean(JSZip, lbase,comimage);
+	if (!lbase.name) lbase.setName(name);
+	const newimage=await makeRedbean(lbase,comimage);
 
 	buildmessage='creating com '+name;
 	let size=0;

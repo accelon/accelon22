@@ -2,7 +2,7 @@ import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
 import {LineBase} from 'ptk'
 
-export const maintab=writable('builder');
+export const maintab=writable('library');
 
 export const panepos=writable(settings.panepos);
 export const pitakas=writable([]);

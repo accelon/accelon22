@@ -13,7 +13,7 @@ const goline=ele=>{
 $: unicode=(ch&&(ch.codePointAt(0)||0)>0)?(ch.codePointAt(0)||0).toString(16).toUpperCase():'';
 </script>
 <div>
-<input class="cursorline" value={cursorline} on:input={evt=>goline(evt.target)}/>{cursorch}-{(linetext||'').length}
+<input class="cursorline" value={cursorline} on:input={evt=>goline(evt.target)}/>{(linetext||'').length}:{cursorch}
  U+{unicode}({UnicodeBlock(ch)})
 </div>
 <style>
