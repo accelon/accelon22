@@ -26,13 +26,12 @@ const makeAccelon22=async ()=>{
 		sources.push(f);
 	}
 	distFiles.forEach(f=> {
-		if (f.endsWith('.com')) return; //do not pack the dev server
+		if (f.endsWith('.com')||f.endsWith('.ptk')||f.endsWith('.zip')) return;
 		const content=fs.readFileSync(f);
 		if (f.endsWith('000.js')) {
 			const ptkname=f.slice(distfolder.length+1, f.length-7);
 			locals.push(ptkname);
 		}
-		// compress all js not with packed numbers
 		const name=f.slice(distfolder.length+1);
 		sources.push({name, content});
 	})
