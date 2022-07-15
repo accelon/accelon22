@@ -1,6 +1,6 @@
 import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
-import {LineBase} from 'ptk'
+import {openPtk} from 'ptk'
 
 export const maintab=writable('library');
 
@@ -18,14 +18,13 @@ errormsg.subscribe(msg=>{
  		},3000)
  	}
 });
-const locals=(accelon22?.locals||'').split(',');
+const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
 
 setTimeout(async()=>{ //a failure will stop loading process
 	const out=[];
 	for (let i=0;i<locals.length;i++) {
-		const lbase = new LineBase({name:locals[i]});
-		await lbase.isReady();
-		out.push({ptk:lbase,location:'local'});
+		const ptk=await openPtk(locals[i]);
+		out.push({ptk,location:'local'});
 	}
 	pitakas.set(out);
 },100);

@@ -17,14 +17,14 @@ const openlocalzip=async ()=>{
 }
 const openremotezip=async()=>{
 	const zip=new RemoteZipStore();
-	await zip.open("cbeta.zip");
-	await zip.load(['001.js','1001.js']);
-	console.log(zip.content('001.js').length,zip.content('1001.js').length);
+	await zip.open("cyd.ptk");
+	//await zip.load(['001.js','1001.js']);
+	console.log(zip.content('cyd/000.js'));
 }
 </script>
 
 <span class="clickable" on:click={openlocalzip}>local📖</span>
 <span class="clickable" on:click={openremotezip}>remote📖</span>
 {#each $pitakas as loaded }
-	<div>{loaded.ptk.header.zh} {loaded.location}</div>
+	<div>{loaded.ptk.name} {loaded.location}</div>
 {/each}

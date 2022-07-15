@@ -1,4 +1,4 @@
-import {LineBase,saveComOption,openComOption,loadScript, makePtk} from "ptk";
+import {LineBaser,saveComOption,openComOption,loadScript, makePtk} from "ptk";
 import {sources,editing} from "./editor.ts";
 import {comimage} from "./store.ts";
 import {getEditing} from "./editorupdate.ts";
@@ -9,7 +9,6 @@ export const hasComImage=()=>!!comimage;
 export const getComImage=async(askuser=false)=>{
 	let image;
 	if (get(comimage)) return true;
-//try fetch
 	if (location.protocol!=='file:') {
 		try {
 			const response=await fetch("myself.lua");
@@ -55,7 +54,7 @@ export const addSources=(fileHandles)=>{
     editing.set(0);
 }
 export const addBuffers=async ()=>{
-	lbase=new LineBase();
+	lbase=new LineBaser();
 	const sourcebuffers=get(sources);
 	for (let i=0;i<sourcebuffers.length;i++) {
 		let {name}=sourcebuffers[i];

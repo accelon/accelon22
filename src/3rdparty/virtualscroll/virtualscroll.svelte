@@ -22,7 +22,7 @@
      * Estimate size of each item, needs for smooth scrollbar
      * @type {number}
      */
-    export let estimateSize = 50
+    export let estimateSize = 40
     /**
      * Scroll direction
      * @type {boolean}
@@ -241,12 +241,12 @@
         paddingStyle = paddingStyle = isHorizontal ? `0px ${range.padBehind}px 0px ${range.padFront}px` : `${range.padFront}px 0px ${range.padBehind}px`
         displayItems = data.slice(range.start, range.end + 1)
     }
-
+    let timer;
     function onScroll(event) {
         const offset = getOffset()
         const clientSize = getClientSize()
         const scrollSize = getScrollSize()
-        // iOS scroll-spring-back behavior will make direction mistake
+        // iOS scroll-spring-back behavior will make direction mistake
         if (offset < 0 || (offset + clientSize > scrollSize + 1) || !scrollSize) {
             return
         }
@@ -276,6 +276,7 @@
     function emitEvent(offset, clientSize, scrollSize, event) {
         const range = virtual.getRange();
         const index = getTopIndex(offset,clientSize,range);
+
         dispatch("scroll", {event, offset, index , range})
 
         if (virtual.isFront() && !!data.length && (offset - topThreshold <= 0)) {
@@ -310,11 +311,7 @@
     {/if}
     <div style="padding: {paddingStyle}">
         {#each displayItems as data (data[key])}
-            <Item
-                    on:resize={onItemResized}
-                    uniqueKey={data[key]}
-                    horizontal={isHorizontal}
-                    type="item">
+            <Item on:resize={onItemResized}  uniqueKey={data[key]}  horizontal={isHorizontal} type="item">
                 <slot {data}/>
             </Item>
         {/each}
