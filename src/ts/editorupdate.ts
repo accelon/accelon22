@@ -110,14 +110,24 @@ export const discardchanges=()=>{
   editing.set(n); //force clean
 }
 const MAXEDITABLESIZE=1024*1024*10;
+let unsubscribeScrollToLine;
+let unsubscribeEditing;
+
+
 export const setEditor=(cm:CodeMirror)=>{
+
+  if (!cm) {
+    unsubscribeEditing();
+    unsubscribeScrollToLine();
+    return;
+  }
   cm.on("change",(cm,obj)=>change(cm,obj));
   cm.on("cursorActivity",(cm,obj)=>cursorActivity(cm));
   cm.on("beforeChange",(cm,obj)=>beforeChange(cm,obj));
   cm.on("viewportChange",(cm,obj)=>viewportChange(cm));
   maineditor=cm;
 
-  editing.subscribe(async (i)=>{
+  unsubscribeEditing=editing.subscribe(async (i)=>{
     const [buffer,line,ch]=await getEditing(i);
     const bigfile=buffer.length>MAXEDITABLESIZE;
     cm.setValue(buffer);
@@ -129,7 +139,7 @@ export const setEditor=(cm:CodeMirror)=>{
     cm.doc.clearHistory();
     cm.focus();
   })
-  scrollToLine.subscribe(line=>{
+  unsubscribeScrollToLine=scrollToLine.subscribe(line=>{
       let setCursorToo=false;
       if (line==0) return;
 

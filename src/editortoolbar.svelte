@@ -1,21 +1,19 @@
 <script>
-import {editorViewport,scrollToLine,editorCursor} from './ts/editor.ts'
-import {UnicodeBlock} from "ptk"
-$: [cursorline,cursorch, ch, linetext] = $editorCursor;
-let timer;
-const goline=ele=>{
-	clearTimeout(timer)
-	timer=setTimeout(()=>{
-		const n=parseInt(ele.value)||0;
-		scrollToLine.set(-n);
-	},200)
+import CMToolbar from './cmtoolbar.svelte'
+import TabularToolbar from './tabulartoolbar.svelte'
+import {get} from 'svelte/store'
+import {getEditingSource,editing} from './ts/editor.ts'
+let toolbar;
+const toolbarByMode=()=>{
+  const {mode}=getEditingSource(get(editing))
+  if (mode=='tabular') {
+  	toolbar=TabularToolbar;
+  } else {
+  	toolbar=CMToolbar;
+  }
 }
-$: unicode=(ch&&(ch.codePointAt(0)||0)>0)?(ch.codePointAt(0)||0).toString(16).toUpperCase():'';
+
+$: if ($editing>-1) toolbarByMode($editing);
+
 </script>
-<div>
-<input class="cursorline" value={cursorline} on:input={evt=>goline(evt.target)}/>{(linetext||'').length}:{cursorch}
- U+{unicode}({UnicodeBlock(ch)})
-</div>
-<style>
-	.cursorline {border: none;background: gray ; width: 3em}
-</style>
+<svelte:component this={toolbar}/>

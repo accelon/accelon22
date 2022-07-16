@@ -1,0 +1,16 @@
+<script>
+import {loadLVA} from 'ptk'
+import {onMount} from 'svelte'
+import {VirtualScroll} from '../3rdparty/virtualscroll'
+import LineViewItem from './lineviewitem.svelte'
+export let lva='';
+let list,data=[];
+onMount(async ()=>{	data = await loadLVA(lva)});
+</script>
+<VirtualScroll bind:this={list} key="key" keeps={50} {data} height="95vh" let:data={item}>
+{#if (item.edge==1||item.edge==3) && item.depth}<span class='closebutton clickable'>🞪</span>{/if}
+<LineViewItem {...item}/>
+</VirtualScroll>
+<style>
+	.closebutton {float: right; padding-right: 0.5em}
+</style>

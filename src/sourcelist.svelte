@@ -67,7 +67,7 @@ $: buildmessage=$comimage?(readytodeploy?"打包存档":"生成"):"选程序底�
 
 
 {#if readytodeploy}
-	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">🎁</span>
+	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">🎁📦</span>
 {:else if $comimage}
 	{#if !$editingErrors.length}
 	<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>

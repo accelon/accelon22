@@ -2,7 +2,7 @@ import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
 import {openPtk} from 'ptk'
 
-export const maintab=writable('library');
+export const maintab=writable('builder');
 
 export const panepos=writable(settings.panepos);
 export const pitakas=writable([]);
