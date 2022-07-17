@@ -4,7 +4,7 @@ import {sources,scrollY,editorToc,
   editing,editorCursor,editorClean,editingErrors,
   editorViewport,scrollToLine,getEditingSource,setEditingSource} from "./editor.ts";
 import {hightLightOfftext} from "./syntaxhighlight.ts"
-import {extractTag,OfftextContext} from "ptk"
+import {Offtext,OfftextContext} from "ptk"
 let oldtags=[];
 let timer,updatetimer;
 export const viewportChange=(cm:CodeMirror)=>{
@@ -19,8 +19,8 @@ export const viewportChange=(cm:CodeMirror)=>{
 const enumTags=(cm:CodeMirror,from:number,to:number)=>{
   const alltags=[];
   cm.doc.eachLine(from,to+1,(line,idx)=>{
-  	const tags=extractTag(line.text)
-  	alltags.push(...tags);
+    const offtext=new Offtext(line.text);
+  	alltags.push(...offtext.tags);
   })
   return alltags;
 }
