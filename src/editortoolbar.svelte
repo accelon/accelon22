@@ -2,18 +2,18 @@
 import CMToolbar from './cmtoolbar.svelte'
 import TabularToolbar from './tabulartoolbar.svelte'
 import {get} from 'svelte/store'
-import {getEditingSource,editing} from './ts/editor.ts'
+import {getEditing,editing} from './ts/editor.ts'
 let toolbar;
-const toolbarByMode=()=>{
-  const {mode}=getEditingSource(get(editing))
-  if (mode=='tabular') {
+const toolbarByMode=async ()=>{
+  const e=await getEditing()
+  if (!e)return;
+  if (e.mode=='tabular') {
   	toolbar=TabularToolbar;
   } else {
   	toolbar=CMToolbar;
   }
 }
-
-$: if ($editing>-1) toolbarByMode($editing);
+$: toolbarByMode($editing);
 
 </script>
 <svelte:component this={toolbar}/>

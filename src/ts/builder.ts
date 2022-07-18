@@ -1,7 +1,6 @@
 import {LineBaser,saveComOption,openComOption,loadScript, makePtk} from "ptk";
-import {sources,editing} from "./editor.ts";
+import {sources,editing,NamedBuffer,getEditing} from "./editor.ts";
 import {comimage} from "./store.ts";
-import {getEditing} from "./editorupdate.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
 let lbase;
@@ -47,7 +46,7 @@ export const  deploy=async (com:false)=>{
 	return {name:handle.name,size};
 }
 export const addSources=(fileHandles)=>{
-    const newsources=fileHandles.map(it=>{return { name:it.name, handle:it }});
+    const newsources=fileHandles.map(it=>NamedBuffer(handle,name));
     newsources.sort(fileNameSorter);
     sources.set(newsources);
     editing.set(-1);

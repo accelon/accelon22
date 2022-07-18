@@ -1,8 +1,8 @@
 import {errormsg} from "./store.ts"
 import {get} from "svelte/store";
 import {sources,scrollY,editorToc,
-  editing,editorCursor,editorClean,editingErrors,
-  editorViewport,scrollToLine,getEditingSource,setEditingSource} from "./editor.ts";
+  editing,editorCursor,editorClean,editingErrors,getEditing,
+  editorViewport,scrollToLine,setEditingSource} from "./editor.ts";
 import {hightLightOfftext} from "./syntaxhighlight.ts"
 import {Offtext,OfftextContext} from "ptk"
 let oldtags=[];
@@ -75,20 +75,7 @@ const cursorActivity=(cm:CodeMirror)=>{
   if (namedbuf) namedbuf.cursor=[line,ch];
 }
 
-export const getEditing=async (n:number)=>{
-  const namedbuf=get(sources)[n];
-  if (!namedbuf) return ['',0,0];
 
-  const [line,ch]=namedbuf.cursor||[0,0];
-  if (namedbuf.handle) {
-      const file = await namedbuf.handle.getFile();
-      const r=await file.text();
-      return [r,line,ch];
-  } else {
-    const text=namedbuf.text;
-    return [text||'',line,ch];
-  }
-}
 let maineditor;
 export const setEditingBuffer=async (handle)=>{
   const ed=get(editing);
@@ -128,10 +115,11 @@ export const setEditor=(cm:CodeMirror)=>{
   maineditor=cm;
 
   unsubscribeEditing=editing.subscribe(async (i)=>{
-    const [buffer,line,ch]=await getEditing(i);
-    const bigfile=buffer.length>MAXEDITABLESIZE;
-    cm.setValue(buffer);
-    cm.setCursor(line||0,ch||0);
+    const e=await getEditing(i);
+    if (!e)return;
+    const bigfile=e.text.length>MAXEDITABLESIZE;
+    cm.setValue(e.text);
+    cm.setCursor(e.state.line||0,e.state.ch||0);
     cm.setOption('readOnly',bigfile);
     bigfile && errormsg.set('Reaonly, 文件超过'+MAXEDITABLESIZE)
     cm.doc.markClean();

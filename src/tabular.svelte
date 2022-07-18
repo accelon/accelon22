@@ -1,13 +1,31 @@
 <script>
+import {onMount,onDestroy} from 'svelte'
+import {get} from 'svelte/store'
 import VirtualTable from './3rdparty/virtualtable.svelte'
-import {editorViewport,scrollToLine} from './ts/editor.ts'
+import {editorViewport,scrollToLine,editorCursor,getEditing,getEditingSync} from './ts/editor.ts'
 export let data=[];
 let fields=data.shift();
-
+export let idx;
 let start=0,end=10 , vt;
-$: editorViewport.set([start,end]);
-$: vt&&vt.scrollToIndex(Math.abs($scrollToLine));
 
+const scrollToIndex=line=>{
+  line&&vt&&vt.scrollToIndex(line);
+  scrollToLine.set(0);
+}
+$: scrollToIndex(Math.abs($scrollToLine));
+
+onMount(async ()=>{
+  const {mode,state}=await getEditing(idx);
+  setTimeout(()=>{
+        vt.scrollToIndex( state.start,{behavior:'auto'} );
+  });
+});
+onDestroy(()=>{
+  const {state}=getEditingSync(idx);
+  state.start=start;
+});
+
+$: editorViewport.set([start,end]);
 </script>
 
 <VirtualTable bind:this={vt} items={data} bind:start bind:end>
