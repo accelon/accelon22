@@ -1,10 +1,12 @@
 <script>
 import {onMount} from 'svelte'
 import {get} from 'svelte/store'
-import * as activeline from './3rdparty/activeline.js'
+
 import {setEditor} from './ts/editorupdate.ts'
 import {getEditingSource,editing} from './ts/editor.ts'
 import Tabular from './tabular.svelte'
+import {loadCodeMirror} from './ts/codemirror.ts'
+
 let editor,cmeditor,data;
 let mode;
 let nonTextEditor;
@@ -18,20 +20,27 @@ const editorByMode=()=>{
     data=text.split('\n').map(item=>item.split('\t'));
     setEditor(null);
     cmeditor=null;
-  } else {
+  } else if (typeof CodeMirror!=='undefined'){
+    const codeEle=document.querySelector('.code');
+    if (!codeEle) return;
     if (!cmeditor) {
-      cmeditor = new CodeMirror(document.querySelector('.code'), {
+      cmeditor = new CodeMirror(codeEle, {
         value:'NO SOURCE', theme:'ambiance',styleActiveLine:true
       })
       setEditor(cmeditor);
     }
   }
 }
+onMount(async ()=>{
+  await loadCodeMirror();
+  editorByMode($editing)
+});
 $: if ($editing>-1) editorByMode($editing);
 </script>
 <div>
 {#if nonTextEditor}
 <svelte:component this={nonTextEditor} bind:this={editor} bind:scrollToIndex={scrollToIndex} {data}/>
-{/if}
+{:else}
 <div class="code"></div>	
+{/if}
 </div>

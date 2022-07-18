@@ -8,3 +8,10 @@ export const fileNameSorter=(a,b)=>{
         return n1>n2?1:n1<n2?-1:0;
     }
 }
+export const isMobileDevice=()=>{
+    if (!navigator || !navigator.userAgent) return true;
+    const agent=navigator.userAgent;
+    return ~agent.indexOf('Android')>0||~agent.indexOf('Mobile')
+    ~agent.indexOf('iPad')||~agent.indexOf('iPhone')
+}
+

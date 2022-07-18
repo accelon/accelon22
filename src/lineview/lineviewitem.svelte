@@ -16,6 +16,6 @@ simply break offtext into tokens,
 
 */
 </script>
-<div style={getBorderStyle(depth,edge)}>
+<div style={"contain: content;"+getBorderStyle(depth,edge)}>
 {#each runits as ru}<t class={ru.css} idx={ru.at}>{ru.text}</t>{/each}
 </div>
