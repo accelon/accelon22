@@ -14,7 +14,7 @@ export const viewportChange=(cm:CodeMirror)=>{
     scrollY.set(from);
     editorViewport.set([from,to]);
     hightLightOfftext(cm.doc);
-  },250);
+  },50);
 }
 const enumTags=(cm:CodeMirror,from:number,to:number)=>{
   const alltags=[];
@@ -26,24 +26,6 @@ const enumTags=(cm:CodeMirror,from:number,to:number)=>{
 }
 
 const parseFile=(cm:CodeMirror)=>{
-  /*
-	clearTimeout(updatetimer);
-  const ctx=new OfftextContext();
-	updatetimer=setTimeout(()=>{
-    let i=0;
-    const source=getEditingSource();
-    cm.doc.eachLine( line=>{
-      if (line.text.indexOf('^')>-1) {
-        onAddOfftextLine.call(ctx,line.text, i,source.name );
-      }
-      i++;
-    })
-    const errors=ctx.errors;
-    const toc=ctx.toc;
-    setEditingSource( { ... source, toc, errors} );
-    editingErrors.set(errors);
-	},250);
-  */
 }
 
 export const beforeChange=(cm:CodeMirror,obj)=>{

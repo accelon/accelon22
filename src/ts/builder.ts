@@ -46,7 +46,8 @@ export const  deploy=async (com:false)=>{
 	return {name:handle.name,size};
 }
 export const addSources=(fileHandles)=>{
-    const newsources=fileHandles.map(it=>NamedBuffer(handle,name));
+    const newsources=fileHandles.map(it=>NamedBuffer(it,it.name))
+    .filter(it=>!it.name.endsWith('.css') || it.name=='ptk.css');
     newsources.sort(fileNameSorter);
     sources.set(newsources);
     editing.set(-1);
