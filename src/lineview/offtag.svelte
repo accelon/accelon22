@@ -11,11 +11,13 @@ export let close;
 export let ptkname;
 const getTaggers=()=>{
 	const defines=usePtk(ptkname).typedefOf(tag.name);
-	for (let attr in tag.attrs) {
-		if ( defines[attr] ){
-			const attrtype=defines[attr].type;
-			if(Taggers[attrtype]) {
-				taggers.push({component:Taggers[attrtype], attr, value:tag.attrs[attr]});
+	for (let name in tag.attrs) {
+		if ( defines[name] ){
+			const {keys,type}=defines[name];
+			if(Taggers[type]) {
+				taggers.push([Taggers[type], {name, 
+					keys, type, 
+					value:tag.attrs[name]}]);
 			}
 		}
 	}
@@ -26,6 +28,6 @@ onMount(()=>getTaggers());
 </script>
 {#if close}
 {#each taggers as tagger}
-<svelte:component this={tagger.component} name={tagger.attr} value={tagger.value}/>
+<svelte:component this={tagger[0]} classes={ptkname+" "+tag.name} {...tagger[1]}/>
 {/each}
 {/if}

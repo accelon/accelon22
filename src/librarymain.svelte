@@ -2,4 +2,4 @@
 import LineView from './lineview/lineview.svelte'
 //
 </script>
-<LineView lva="cyd 0~32(204~206(308~309)201~203)300~310" />
+<LineView lva="cyd 0~4(10~12(100~105)15~20(105~106)20~25)4~10" />
