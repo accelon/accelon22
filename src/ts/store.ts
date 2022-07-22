@@ -1,12 +1,12 @@
 import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
 import {openPtk} from 'ptk'
-
+import {addressFromUrl, updateUrl} from './urlhash.ts';
 export const maintab=writable('library');
 
 export const panepos=writable(settings.panepos);
 export const pitakas=writable([]);
-
+export const lvaddr=writable(addressFromUrl())
 export const deployable=writable(true)
 export const errormsg=writable('');
 export const comimage=writable(null);
@@ -20,6 +20,9 @@ errormsg.subscribe(msg=>{
 });
 const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
 
+lvaddr.subscribe(lva=>{
+	updateUrl(lva);
+})
 setTimeout(async()=>{ //a failure will stop loading process
 	const out=[];
 	for (let i=0;i<locals.length;i++) {

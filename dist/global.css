@@ -1,0 +1,47 @@
+html {
+	position: relative;
+	overflow:hidden;
+	width: 100%;
+	height: 100%;
+	background:#333333;
+	color:silver;
+	stroke: silver;
+
+}
+body {
+	font-family:"consolas", "Microsoft Yahei UI Light";font-size: 100%;
+	margin: 0px;
+}
+
+.clickable:hover{text-decoration: underline;cursor: pointer;}
+.closelink:hover {text-decoration: line-through;}
+.closelink:after {
+	content: '⨯';
+}
+.active_clickable {background: #555555}
+.tocitem {font-weight: bold; text-align: right}
+.uppertoc {opacity:0.3} /*上半段 讀過的*/
+.tocdepth0 {content:attr(id) ;color:  hsl(40,70%,70%)}
+.tocdepth1 {content:attr(id) ;color:  hsl(80,70%,70%)}
+.tocdepth2 {content:attr(id) ;color:  hsl(120,70%,70%)}
+.tocdepth3  {content:attr(id) ;color:  hsl(160,70%,70%)}
+.tocdepth4  {content:attr(id) ;color:  hsl(200,70%,70%)}
+.tocdepth5  {content:attr(id) ;color: hsl(240,70%,70%)}
+.tocdepth6  {content:attr(id) ;color:  hsl(280,70%,70%)}
+.tocdepth7  {content:attr(id) ;color: hsl(320,70%,70%)}
+.tocdepth8  {content:attr(id) ;color:  hsl(360,80%,70%)}
+
+/* default reader stying */
+.e {color: goldenrod; font-size: 110%}
+.ref {background: pink}
+.cf {color: lightsalmon;}
+.hide {font-size: 0px} /*clipboard cannot copy display:none */
+
+/* editor styling, fix font size, no hiding */
+
+.offtagname {color: salmon;}
+.offtag     {background: #444444;}
+.htmltag {color: lightsalmon; }
+.CodeMirror-line span.e {color: goldenrod}
+.CodeMirror-line span.b {font-weight: bold;}
+.CodeMirror-line span.u {text-decoration: underline;}

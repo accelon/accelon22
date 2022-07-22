@@ -1,12 +1,18 @@
 <script>
+import KeyRow from './keyrow.svelte';
+import ToggleLink from './togglelink.svelte';
+
+
 export let name='';
 export let foreign;
 export let value;
 export let keys;
 export let ptkname;
 export let tagname;
+export let nextlva;
+export let masterid;
 export let classes='';
-import KeyRow from './keyrow.svelte';
+
 let showing=-1;
 const items=value.split(',');
 const forward=(keyidx)=>{
@@ -14,8 +20,9 @@ const forward=(keyidx)=>{
 	else showing=keyidx;
 }
 </script>
-<span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key}
-<span on:click={()=>forward(key)} class={classes+' clickable '+name}>{keys.get(key)}</span>
-{#if showing==key}<KeyRow {name} caption={keys.get(key)} {key} {foreign} {ptkname}/>{/if}
+<span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key,idx}
+<ToggleLink {idx} {tagname} {classes} {nextlva} {name} {keys} {key}/><span on:click={()=>forward(key)} class="clickable" >…</span>
+{#if showing==key}
+<KeyRow caption={keys.get(key)} {name} {ptkname} {tagname} {masterid} {keys} {classes} {key} {foreign}/>{/if}
 {/each}
 <span class={ptkname+" "+tagname+" "+name+" keys_end"}></span>

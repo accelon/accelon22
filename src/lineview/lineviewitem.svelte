@@ -9,6 +9,9 @@ export let text;
 export let key;
 export let seq;
 export let ptkname;
+export let nextlva;
+export let nextlvaseq;
+export let lva;
 const dispatch = createEventDispatcher();
 
 const runits=renderOfftext(text);
@@ -22,9 +25,13 @@ simply break offtext into tokens,
 const insertAddress=(address)=>{
 	dispatch('insert',{address,seq})
 }
-setContext('LV',{ insertAddress,ptkname});
+const remove=(seq)=>{
+	dispatch('remove',seq)
+}
+
+setContext('LV',{ ptkname, seq, insertAddress, remove, nextlva ,lva , nextlvaseq});
 
 </script>
-<div {key} style={"contain: content;"+getBorderStyle(depth,edge)}>{#each runits as ru}{#if ru.open}<Offtag {ptkname} {seq} tag={ru.open}/>{/if}<t class={ptkname+" "+ru.css} idx={ru.at}>{ru.text}</t>{#if ru.close}<Offtag {ptkname}  close=true tag={ru.close}/>{/if}
+<div {key} style={"contain: content;"+getBorderStyle(depth,edge)}>{#each runits as ru}{#if ru.open}<Offtag {ptkname} {nextlva} {seq} tag={ru.open}/>{/if}<t class={ptkname+" "+ru.css} idx={ru.at}>{ru.text}</t>{#if ru.close}<Offtag {ptkname} {nextlva} close=true tag={ru.close}/>{/if}
 {/each}
 </div>
