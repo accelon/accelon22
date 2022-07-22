@@ -8,23 +8,20 @@ export let keys;
 export let key;
 export let name;
 export let nextlva; //cannot put in context, need to update when lva is changed
-export let idx;
 
 const ptk=usePtk(ctx.ptkname)
 const toggle=()=>{
 	const addr='@'+tagname+key
-	if (closeit(key)) {
+	if (closeit(nextlva)) {
 		ctx.remove(ctx.nextlvaseq);
 	} else {
 		ctx.insertAddress(ctx.ptkname+' '+addr);
 	}
 }
-const closeit=()=>{
+const closeit=(nextlva)=>{
 	const r=(nextlva||'').endsWith('@'+tagname+key) ;
 	return r;
 }
+
 </script>
-{idx}
-{#key nextlva}
-{#if ptk.validId(tagname,key)}<span on:click={()=>toggle()} class={classes+' clickable '+name+(closeit()?' closelink':'')}>{keys.get(key)}</span>{:else}<span class={classes+' '+name}>{keys.get(key)}</span>{/if}
-{/key}
+{#if ptk.validId(tagname,key)}<span on:click={()=>toggle()} class={classes+' clickable '+name+(closeit(nextlva)?' closelink':'')}>{keys.get(key)}</span>{:else}<span class={classes+' '+name}>{keys.get(key)}</span>{/if}

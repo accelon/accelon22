@@ -19,9 +19,10 @@ const forward=(keyidx)=>{
 	if (showing==keyidx) showing=-1
 	else showing=keyidx;
 }
+
 </script>
-<span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key,idx}
-<ToggleLink {idx} {tagname} {classes} {nextlva} {name} {keys} {key}/><span on:click={()=>forward(key)} class="clickable" >…</span>
+<span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key}
+<ToggleLink {tagname} {classes} {nextlva} {name} {keys} {key}/><span on:click={()=>forward(key)} class="clickable" >…</span>
 {#if showing==key}
 <KeyRow caption={keys.get(key)} {name} {ptkname} {tagname} {masterid} {keys} {classes} {key} {foreign}/>{/if}
 {/each}

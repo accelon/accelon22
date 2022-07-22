@@ -23,10 +23,16 @@ const insert=({detail})=>{
 	while (nearest && !data[nearest].lva) {
 		nearest--;
 	}
+	let lva,toinsert;
 	const seq=data[nearest].seq;
-	const insert=breakLVA(data[nearest].lva , breakat=detail.seq-nearest , detail.address);
-	let lva=data.filter(it=>it.lva).map((lva,idx)=>(idx==seq)?insert:lva)
+	if (data[nearest].next==detail.seq+1) { 
+		data[data[nearest].next].lva=parseLVA(detail.address); //replace
+	} else {
+		toinsert=breakLVA(data[nearest].lva , breakat=detail.seq-nearest , detail.address);
+	}
+	lva=data.filter(it=>it.lva).map((it,idx)=>(idx==seq&&toinsert)?toinsert:it.lva)
 	if (lva.length==1) lva=lva[0];
+
 	const s=ptkname+'+'+stringifyLVA(lva,ptkname);
 	lvaddr.set(s);
 }
