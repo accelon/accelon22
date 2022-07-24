@@ -1,6 +1,6 @@
 <script>
 import { createEventDispatcher,setContext } from 'svelte';
-import {getBorderStyle} from '../ts/styling.ts'
+import {getLVStyle} from '../ts/styling.ts'
 import {renderOfftext} from 'ptk';
 import Offtag from './offtag.svelte'
 export let edge;
@@ -32,6 +32,6 @@ const remove=(seq)=>{
 setContext('LV',{ ptkname, seq, insertAddress, remove, nextlva ,lva , nextlvaseq});
 
 </script>
-<div {key} style={"contain: content;"+getBorderStyle(depth,edge)}>{#each runits as ru}{#if ru.open}<Offtag {ptkname} {nextlva} {seq} tag={ru.open}/>{/if}<t class={ptkname+" "+ru.css} idx={ru.at}>{ru.text}</t>{#if ru.close}<Offtag {ptkname} {nextlva} close=true tag={ru.close}/>{/if}
+<div {key} style={"contain: content;"+getLVStyle(depth,edge)}>{depth} {edge}{#each runits as ru}{#if ru.open}<Offtag {ptkname} {nextlva} {seq} tag={ru.open}/>{/if}<t class={ptkname+" "+ru.css} idx={ru.at}>{ru.text}</t>{#if ru.close}<Offtag {ptkname} {nextlva} close=true tag={ru.close}/>{/if}
 {/each}
 </div>

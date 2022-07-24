@@ -1,11 +1,11 @@
 let added=false;
 export const CMActiveLine=()=>{
-  if (added) return;
+  if (added || typeof CodeMirror=='undefined') return;
   added=true;
   const WRAP_CLASS = "CodeMirror-activeline";
   const BACK_CLASS = "CodeMirror-activeline-background";
   const GUTT_CLASS = "CodeMirror-activeline-gutter";
-  if (typeof CodeMirror=='undefined') return;
+  
   CodeMirror.defineOption("styleActiveLine", false, function(cm, val, old) {
     let prev = old == CodeMirror.Init ? false : old;
     if (val == prev) return

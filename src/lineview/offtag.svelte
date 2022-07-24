@@ -12,6 +12,7 @@ export let nextlva;
 
 const getTaggers=()=>{
 	const defines=usePtk(ptkname).typedefOf(tag.name);
+	if (!defines) return;
 	taggers.length=0;
 	for (let name in tag.attrs) {
 		if ( defines[name] ){

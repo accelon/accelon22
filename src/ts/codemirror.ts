@@ -3,6 +3,7 @@ import {CMActiveLine} from '../3rdparty/activeline.js'
 
 export const loadCodeMirror=async ()=>{
   if (typeof CodeMirror=='undefined') {
+    debugger
     await Promise.all([loadScript('codemirror.css'),loadScript('ambiance.css'),loadScript('codemirror.js')])
     CMActiveLine();
   }

@@ -1,5 +1,5 @@
 <script>
-import {loadLVA,combineLVA,parseLVA,loadScript,breakLVA,stringifyLVA} from 'ptk'
+import {loadLVA,undigLVA,parseLVA,loadScript,digLVA,stringifyLVA,parseAddress} from 'ptk'
 import {onMount} from 'svelte'
 import {get} from 'svelte/store'
 import {VirtualScroll} from '../3rdparty/virtualscroll'
@@ -8,53 +8,50 @@ import {lvaddr} from '../ts/store.ts'
 let lisp;
 let list,data=[],ptkname;
 
-
 const updateLVA=async (lva)=>{
-	// console.log('updating LVA',lva);
-	[ data, lisp , ptkname] = await loadLVA(lva);
-	if (data.length) {
-		loadScript(ptkname+'/ptk.css');
+	data = await loadLVA(lva);
+	console.log('updateLVA',data)
+	if (data&&data.length) {
+		loadScript(data[0].host+'/ptk.css');
 	}
-	// console.log('update LVA',data)
 }
+
 $: updateLVA( $lvaddr)
 const insert=({detail})=>{
 	let nearest=detail.seq;
 	while (nearest && !data[nearest].lva) {
 		nearest--;
 	}
-	let lva,toinsert;
 	const seq=data[nearest].seq;
-	if (data[nearest].next==detail.seq+1) { 
-		data[data[nearest].next].lva=parseLVA(detail.address); //replace
-	} else {
-		toinsert=breakLVA(data[nearest].lva , breakat=detail.seq-nearest , detail.address);
-	}
-	lva=data.filter(it=>it.lva).map((it,idx)=>(idx==seq&&toinsert)?toinsert:it.lva)
-	if (lva.length==1) lva=lva[0];
-
-	const s=ptkname+'+'+stringifyLVA(lva,ptkname);
-	lvaddr.set(s);
+ 	let toinsert=digLVA(data[nearest].lva , detail.address, breakat=detail.seq-nearest);
+	const newaddr=data.filter(it=>it.lva).map((it,idx)=>(idx==seq&&toinsert)?toinsert:it.lva).join(' ');
+	const newaddress=stringifyLVA(parseLVA(newaddr));
+	lvaddr.set(newaddress);
 }
-const combine=(up,down)=>{
+
+
+const undig=(up,down)=>{
 	if (!up || !down) return null;
 	if (!(up.ptkname&&down.ptkname&&up.depth==down.depth)) return null;
-	return combineLVA(up.lva,down.lva);
+	return undigLVA(up.lva,down.lva);
 }
 
 const remove=(seq)=>{
+
+	debugger
+	return;
 	if (seq.detail) seq=seq.detail; //from dispatch
 	let up,down;
 	if (seq>0) up=data[seq-1];
 	let next=seq+1;	
 	while (next<data.length && !data[next].lva) next++;
 	down=data[next];
-	const combined=combine(up,down);
+	const undigged=undig(up,down);
 	let out=[];
 	for (let i=0;i<data.length;i++) {
-		if (data[i]==up && combined) continue;
-		else if (data[i]==down && combined) {
-			out.push(combined);
+		if (data[i]==up && undigged) continue;
+		else if (data[i]==down && undigged) {
+			out.push(undigged);
 			continue;
 		}
 		if (i!==seq && data[i].lva) out.push(data[i].lva);

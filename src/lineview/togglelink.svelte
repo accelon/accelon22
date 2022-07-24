@@ -1,6 +1,6 @@
 <script>
 import {getContext} from 'svelte';
-import {usePtk} from 'ptk/basket/index.ts';
+import {usePtk,parseAddress} from 'ptk/basket/index.ts';
 const ctx=getContext('LV');
 export let classes;
 export let tagname;
@@ -11,16 +11,18 @@ export let nextlva; //cannot put in context, need to update when lva is changed
 
 const ptk=usePtk(ctx.ptkname)
 const toggle=()=>{
-	const addr='@'+tagname+key
+	const addr=tagname+key
 	if (closeit(nextlva)) {
 		ctx.remove(ctx.nextlvaseq);
 	} else {
-		ctx.insertAddress(ctx.ptkname+' '+addr);
+		ctx.insertAddress(ctx.ptkname+':'+addr);
 	}
 }
 const closeit=(nextlva)=>{
-	const r=(nextlva||'').endsWith('@'+tagname+key) ;
-	return r;
+	//const {ele,id,idleft,right}=parseAddress(nextlva||'')
+	//! left 表示下面是被剖開的後半部，只作用在上半部前一行
+	//const r=(eleid).endsWith('@'+tagname+key) && !left; 
+	//return r;
 }
 
 </script>

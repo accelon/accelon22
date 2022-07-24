@@ -1,1 +1,0 @@
-LaunchBrowser('index.html')

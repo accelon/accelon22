@@ -8,7 +8,8 @@ const redbeancom="redbean.com";
 const distfolder='dist';
 const locals=[]; //locals pitaka in dist
 const makeAccelon22=async ()=>{
-	const distFiles=dev?('.args,.init.lua,myself.lua'.split(',').map(it=>distfolder+'/'+it))
+//.com must more than 512KB , otherwise windows cannot run
+	const distFiles=dev?('.args,codemirror.js'.split(',').map(it=>distfolder+'/'+it))
 	:(await deepReadDir(distfolder)).flat();
 	console.log(distFiles.length,'files',distFiles.slice(0,12));
 
@@ -18,7 +19,7 @@ const makeAccelon22=async ()=>{
 	const sources=[];
 	for (let f of zip.files) {
 		const {name}=f;
-		if ( name=='.symtab' ||name.endsWith('.lua')|| name.startsWith('tool')||name.startsWith('usr')
+		if ( name.endsWith('.lua')|| name.startsWith('tool')||name.startsWith('usr')
 			||name.startsWith('redbean.justine.lol')||name.startsWith('.lua')
 			||name.endsWith('.png') || name.endsWith('.txt')
 			||name.endsWith('.ico') ) {
