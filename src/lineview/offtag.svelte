@@ -8,7 +8,7 @@ let taggers=[];
 export let tag;
 export let close;
 export let ptkname;
-export let nextlva;
+export let firstchild;
 
 const getTaggers=()=>{
 	const defines=usePtk(ptkname).typedefOf(tag.name);
@@ -19,7 +19,7 @@ const getTaggers=()=>{
 			const {keys,type,foreign}=defines[name];
 			if(Taggers[type]) {
 				taggers.push([Taggers[type], {name,  tagname:tag.name, masterid:tag.attrs.id,
-					keys, type,	ptkname,foreign, nextlva, value:tag.attrs[name]}]);
+					keys, type,	ptkname,foreign, firstchild, value:tag.attrs[name]}]);
 
 			}
 		}
@@ -27,7 +27,7 @@ const getTaggers=()=>{
 
 	taggers=taggers;
 }
-$: getTaggers(nextlva);
+$: getTaggers(firstchild);
 </script>
 {#if close}
 {#each taggers as tagger}

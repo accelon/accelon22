@@ -31,12 +31,16 @@ const insert=({detail})=>{
 
 const remove=(seq)=>{
 	if (seq.detail) seq=seq.detail; //from dispatch
-	let idx=data[seq].idx;
-	while (idx==-1 && seq) {
-		seq--;
-		idx=data[seq].idx;
+	if (typeof seq=='number') { //delete by close button
+		let idx=data[seq].idx;
+		while (idx==-1 && seq) {
+			seq--;
+			idx=data[seq].idx;
+		}
+		lva.remove( idx );
+	} else {
+		lva.remove( seq );// delete by link 
 	}
-	lva.remove( idx );
 	lvaddr.set( lva.stringify() );
 }
 const slideshow=depth=>{

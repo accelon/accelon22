@@ -9,7 +9,7 @@ export let value;
 export let keys;
 export let ptkname;
 export let tagname;
-export let nextlva;
+export let firstchild;
 export let masterid;
 export let classes='';
 
@@ -22,7 +22,7 @@ const forward=(keyidx)=>{
 
 </script>
 <span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key}
-<ToggleLink {tagname} {classes} {nextlva} {name} {keys} {key}/><span on:click={()=>forward(key)} class="clickable" >…</span>
+<ToggleLink {tagname} {classes} {firstchild} {name} {keys} {key}/><span on:click={()=>forward(key)} class="clickable" >…</span>
 {#if showing==key}
 <KeyRow caption={keys.get(key)} {name} {ptkname} {tagname} {masterid} {keys} {classes} {key} {foreign}/>{/if}
 {/each}
