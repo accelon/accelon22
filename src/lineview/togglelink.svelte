@@ -25,4 +25,4 @@ const closeit=(firstchild)=>{
 }
 
 </script>
-{#if ptk.validId(tagname,key)}<span on:click={()=>toggle()} class={classes+' clickable '+name+(closeit(firstchild)?' closelink':'')}>{keys.get(key)}</span>{:else}<span class={classes+' '+name}>{keys.get(key)}</span>{/if}
+{#if ptk.validId(tagname,key)}<span on:click={()=>toggle()} class={classes+' clickable '+name+(closeit(firstchild)?' closelink':'')}>{keys&&keys.get(key)}</span>{:else}<span class={classes+' '+name}>{keys&&keys.get(key)}</span>{/if}

@@ -9,8 +9,9 @@ import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
 import LibraryMain from './librarymain.svelte'
 import {isMobileDevice} from './ts/utils.ts'
+import {initTaggers} from './lineview/taggers.ts'
+initTaggers();
 </script>
-
 
 {#if isMobileDevice()}
 <LibraryMain/>

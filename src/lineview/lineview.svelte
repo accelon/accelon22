@@ -51,7 +51,7 @@ const slideshow=depth=>{
 <VirtualScroll bind:this={list} key="key" keeps={50} {data} height="95vh" let:data={item}>
 {#if (item.edge==1||item.edge==3) && item.depth}<span on:click={()=>remove(item.seq)} class='closebutton clickable'>⨯</span>{/if}
 <div in:slide={ slideshow(item.depth)} out:slide>
-<LineViewItem {...item} on:insert={insert} on:remove={remove} nextlvaseq={item.next} nextlva={((data[item.next]||[]).lva||[]).value} ptkname={item.key.replace(/:.+/,'')}/>
+<LineViewItem {...item} on:insert={insert} on:remove={remove} ptkname={item.key.replace(/:.+/,'')}/>
 </div>
 </VirtualScroll>
 <style>

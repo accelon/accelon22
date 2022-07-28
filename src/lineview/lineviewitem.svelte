@@ -7,7 +7,7 @@ export let edge;
 export let depth;
 export let text;
 export let key;
-export let choff;
+export let seq;
 export let ptkname;
 export let firstchild;
 export let lva;
@@ -15,13 +15,13 @@ const dispatch = createEventDispatcher();
 // const clickHandlers={note};
 
 const insertAddress=(address)=>{
-	dispatch('insert',{address,seq:choff})
+	dispatch('insert',{address,seq})
 }
 const remove=(lva)=>{
 	dispatch('remove',lva)
 }
 
-setContext('LV',{ ptkname, choff, insertAddress, remove, firstchild ,lva });
+setContext('LV',{ ptkname, seq, insertAddress, remove, firstchild ,lva });
 
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)}>

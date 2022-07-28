@@ -3,7 +3,8 @@ import {onMount} from 'svelte'
 import {usePtk} from 'ptk'
 import keys from './keys.svelte';
 import note from './note.svelte';
-const Taggers={keys,note};
+import {Taggers} from './taggers.ts'
+
 let taggers=[];
 export let offtext;
 export let ntag;

@@ -23,11 +23,11 @@ const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);
 })
-setTimeout(async()=>{ //a failure will stop loading process
-	const out=[];
-	for (let i=0;i<locals.length;i++) {
-		const ptk=await openPtk(locals[i]);
-		out.push({ptk,location:'local'});
-	}
-	pitakas.set(out);
-},100);
+// setTimeout(async()=>{ //a failure will stop loading process
+// 	const out=[];
+// 	for (let i=0;i<locals.length;i++) {
+// 		const ptk=await openPtk(locals[i]);
+// 		out.push({ptk,location:'local'});
+// 	}
+// 	pitakas.set(out);
+// },100);
