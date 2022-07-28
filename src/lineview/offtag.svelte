@@ -7,7 +7,7 @@ const Taggers={keys,note};
 let taggers=[];
 export let offtext;
 export let ntag;
-export let close;
+export let after;
 export let ptkname;
 export let firstchild;
 
@@ -23,8 +23,9 @@ const getTaggers=()=>{
 		const tagger=Taggers[defines.type?.type];
 		if (tagger) {
 			const {keys,type,foreign} = defines.type;
+			const text=offtext.tagText(tag);
 			taggers.push([tagger,{name,  tagname:tag.name, masterid:tag.attrs.id,
-						keys, ptkname,foreign, firstchild}]);
+						keys, ptkname,foreign, text , firstchild}]);
 		}
 	}
 
@@ -43,8 +44,6 @@ const getTaggers=()=>{
 }
 $: getTaggers(firstchild);
 </script>
-{#if close}
 {#each taggers as tagger}
-<svelte:component this={tagger[0]} classes={ptkname+" "+tagger.tagname} {...tagger[1]}/>
+<svelte:component this={tagger[0]} {after} classes={ptkname+" "+tagger.tagname} {...tagger[1]}/>
 {/each}
-{/if}

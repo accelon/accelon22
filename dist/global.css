@@ -14,6 +14,7 @@ body {
 }
 
 .clickable:hover{text-decoration: underline;cursor: pointer;}
+.closelink{background: hsl(40,20%,30%); }
 .closelink:hover {text-decoration: line-through;}
 .closelink:after {
 	content: '⨯';
@@ -33,10 +34,13 @@ body {
 
 /* default reader stying */
 .e {color: goldenrod; font-size: 110%}
+.f  {color: goldenrod}
+.f_active  {background: goldenrod; color: black}
 .ref {background: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 
+.inlinenote { font-size: 80%}
 /* editor styling, fix font size, no hiding */
 
 .offtagname {color: salmon;}

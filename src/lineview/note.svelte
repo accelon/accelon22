@@ -1,12 +1,16 @@
 <script>
-export let name='';
-export let foreign;
-export let value;
-export let keys;
+import {onMount} from 'svelte'
+import {usePtk,renderOfftext} from 'ptk';
+import InlineText from './inlinetext.svelte';
+export let text;
 export let ptkname;
 export let tagname;
-export let firstchild;
-export let masterid;
-export let classes='';
+export let after;
+$: notetext='';
+onMount(async ()=>{
+	if (!after) return;
+	const ptk=usePtk(ptkname);
+	notetext=await ptk.inlineNote(tagname,text);
+})
 </script>
-ⵗ
+<span class="inlinenote"><InlineText {ptkname} text={notetext}/></span>
