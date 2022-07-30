@@ -6,7 +6,6 @@ export const Taggers={};
 export const registerTagger=(name,component)=>{
 	if (Taggers[name]) console.warn(name+' already registered, override');
 	Taggers[name]=component;
-
 }
 export const initTaggers=()=>{ 
 	registerTagger('note',note);

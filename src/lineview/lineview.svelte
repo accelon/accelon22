@@ -15,7 +15,7 @@ const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	data = await lva.load();
 	if (data&&data.length) {
-		loadScript(data[0].host+'/ptk.css');
+		loadScript(data[0].ptkname+'/ptk.css');
 	}
 }
 
