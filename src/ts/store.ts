@@ -6,6 +6,7 @@ export const maintab=writable('library');
 
 export const panepos=writable(settings.panepos);
 export const pitakas=writable([]);
+export const activepitaka=writable(-1);
 export const lvaddr=writable(addressFromUrl())
 export const deployable=writable(true)
 export const errormsg=writable('');
@@ -23,11 +24,12 @@ const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);
 })
-// setTimeout(async()=>{ //a failure will stop loading process
-// 	const out=[];
-// 	for (let i=0;i<locals.length;i++) {
-// 		const ptk=await openPtk(locals[i]);
-// 		out.push({ptk,location:'local'});
-// 	}
-// 	pitakas.set(out);
-// },100);
+export async function openPitakas() { //a failure will stop loading process
+	const out=[];
+	for (let i=0;i<locals.length;i++) {
+		const ptk=await openPtk(locals[i]);
+		out.push({name:ptk.name,ptk,location:'local'});
+	}
+	pitakas.set(out);
+	out.length&&activepitaka.set(0);
+};

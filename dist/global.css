@@ -1,3 +1,7 @@
+:root{
+	--panel-background: rgba(44,44,44,0.9);
+
+}
 html {
 	position: relative;
 	overflow:hidden;
@@ -13,6 +17,7 @@ body {
 	margin: 0px;
 }
 
+.toolbar {background:  var(--panel-background) ; width: 100%}
 .clickable:hover{text-decoration: underline;cursor: pointer;}
 .closelink{background: hsl(40,20%,30%); }
 .closelink:hover {text-decoration: line-through;}
@@ -31,7 +36,7 @@ body {
 .tocdepth6  {content:attr(id) ;color:  hsl(280,70%,70%)}
 .tocdepth7  {content:attr(id) ;color: hsl(320,70%,70%)}
 .tocdepth8  {content:attr(id) ;color:  hsl(360,80%,70%)}
-
+.field {color: lightsalmon;}
 /* default reader stying */
 .e {color: goldenrod; font-size: 110%}
 .f  {color: goldenrod}
@@ -40,7 +45,8 @@ body {
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 
-.inlinenote { font-size: 80%}
+.inlinenote { position: absolute; background: silver; color: black;
+	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
 .offtagname {color: salmon;}

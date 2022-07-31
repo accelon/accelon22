@@ -3,6 +3,8 @@ import { createEventDispatcher,setContext } from 'svelte';
 import {getLVStyle} from '../ts/styling.ts'
 import Offtags from './offtags.svelte'
 import InlineText from './inlinetext.svelte';
+import {Painters} from './painters.ts';
+
 export let edge;
 export let depth;
 export let text;
@@ -11,6 +13,7 @@ export let seq;
 export let ptkname;
 export let firstchild;
 export let lva;
+export let ownerdraw;
 const dispatch = createEventDispatcher();
 // const clickHandlers={note};
 
@@ -25,5 +28,9 @@ setContext('LV',{ ptkname, seq, insertAddress, remove, firstchild ,lva });
 
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)}>
+{#if ownerdraw}
+<svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} />
+{:else}
 <InlineText {ptkname} {firstchild} {text} before={Offtags} after={Offtags}/>
+{/if}
 </div>

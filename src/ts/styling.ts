@@ -1,6 +1,6 @@
 export const getLVStyle=(depth,edge)=>{
 	if (depth==0)return '';
-	const background="background: hsl("+(depth*60)+",30%,13%);";
+	const background="background: hsl("+(depth*60)+",15%,20%);";
 	//padding-left:"+(depth*10)+"px;"
 	const style="1px dashed hsl("+(depth*60)+",50%,50%);";
 	if (edge==1) {

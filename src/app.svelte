@@ -1,18 +1,29 @@
 ﻿<script>
+import {onMount} from 'svelte';
 import SplitPane from './3rdparty/splitpane.svelte';
 import RightPanel from './rightpanel.svelte'
 import LeftPanel from './leftpanel.svelte'
 import FloatPanel from './floatpanel.svelte'
 import TocMenu from './tocmenu.svelte'
-import {panepos} from './ts/store.ts'
+import {panepos,openPitakas} from './ts/store.ts'
 import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
 import LibraryMain from './librarymain.svelte'
 import {isMobileDevice} from './ts/utils.ts'
-import {initTaggers} from './lineview/taggers.ts'
-initTaggers();
-</script>
+import note from './lineview/note.svelte'
+import keys from './lineview/keys.svelte'
+import queryresult from './lineview/queryresult.svelte'
+import {initPainters} from './lineview/painters.ts'
+initPainters({note,keys,queryresult});
+$: ready=false;
 
+onMount( async ()=>{
+    await openPitakas();
+    ready=true;
+});
+
+</script>
+{#if ready}
 {#if isMobileDevice()}
 <LibraryMain/>
 {:else}
@@ -33,6 +44,9 @@ initTaggers();
         </div>
     </SplitPane>
     </div>
+{/if}
+{:else}
+Loading...
 {/if}
 <style>
     .container {height:100vh }
