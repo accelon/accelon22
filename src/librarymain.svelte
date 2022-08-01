@@ -10,7 +10,7 @@ const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
 	if (items&&items.length) {
-		loadScript(items[0].ptkname+'/ptk.css');
+		loadScript(items[0].ptkname+'/accelon22.css');
 	}
 }
 

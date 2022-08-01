@@ -48,7 +48,7 @@ export const  deploy=async (com:false)=>{
 }
 export const addSources=(fileHandles)=>{
     const newsources=fileHandles.map(it=>NamedBuffer(it,it.name))
-    .filter(it=>!it.name.endsWith('.css') || it.name=='ptk.css');
+    .filter(it=>!it.name.endsWith('.css') || it.name=='accelon22.css');
     newsources.sort(fileNameSorter);
     sources.set(newsources);
     editing.set(-1);

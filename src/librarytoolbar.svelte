@@ -1,14 +1,14 @@
 <script>
 import {onMount} from 'svelte';
-import Pitakas from './pitakas.svelte';
+import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
 export let oninsert;
-
-let ptkname='cyd';
+let ptkname;
 let value='青';
 $: items=[];
-const dosearch=()=>{
+const dosearch=(ptkname)=>{
 	const ptk=usePtk(ptkname);
+	if (!ptk)return;
 	items=ptk.scanPrimaryKeys(value);
 }
 onMount(()=>value&&dosearch());
@@ -18,10 +18,10 @@ const insert=(keyname,mode=0)=>{
 	else if (mode==2) tofind=value+'$';
 	oninsert({detail:{seq:0,address:ptkname+':'+ keyname +'='+tofind}});
 }
-
+$: dosearch(ptkname);
 </script>
 <div class="toolbar">
-<Pitakas/>
+<SelectPitakas bind:ptkname/>
 <input bind:value size=3 on:input={debounce(dosearch,250)}/>
 {#each items as item}
 {#if item.start.length+item.middle.length+item.end.length}

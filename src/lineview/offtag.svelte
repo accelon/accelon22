@@ -1,9 +1,7 @@
 <script>
 import {onMount} from 'svelte'
 import {usePtk} from 'ptk'
-import keys from './keys.svelte';
-import note from './note.svelte';
-import {Painters} from './painters.ts'
+import {Painters} from '../painters/painters.ts'
 
 let painters=[];
 export let offtext;

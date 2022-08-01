@@ -10,10 +10,10 @@ import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
 import LibraryMain from './librarymain.svelte'
 import {isMobileDevice} from './ts/utils.ts'
-import note from './lineview/note.svelte'
-import keys from './lineview/keys.svelte'
-import queryresult from './lineview/queryresult.svelte'
-import {initPainters} from './lineview/painters.ts'
+import note from './painters/note.svelte'
+import keys from './painters/keys.svelte'
+import queryresult from './painters/queryresult.svelte'
+import {initPainters} from './painters/painters.ts'
 initPainters({note,keys,queryresult});
 $: ready=false;
 

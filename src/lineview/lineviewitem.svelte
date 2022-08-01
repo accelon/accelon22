@@ -2,8 +2,8 @@
 import { createEventDispatcher,setContext } from 'svelte';
 import {getLVStyle} from '../ts/styling.ts'
 import Offtags from './offtags.svelte'
-import InlineText from './inlinetext.svelte';
-import {Painters} from './painters.ts';
+import InlineText from '../painters/inlinetext.svelte';
+import {Painters} from '../painters/painters.ts';
 
 export let edge;
 export let depth;
