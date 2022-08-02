@@ -9,5 +9,5 @@ const setActive=n=>{
 
 </script>
 {#each $pitakas as pitaka,idx}
-{idx?'|':''}<span on:click={()=>setActive(idx)} class:active_clickable={idx==$activepitaka}>{pitaka.ptk.humanName()}</span>
+{idx?'|':''}<span class="clickable" on:click={()=>setActive(idx)} class:active_clickable={idx==$activepitaka}>{pitaka.ptk.humanName()}</span>
 {/each}

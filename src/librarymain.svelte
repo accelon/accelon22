@@ -40,4 +40,4 @@ const onremove=(seq)=>{
 }
 </script>
 <LibraryToolbar {oninsert}/>
-<LineView {onremove} {oninsert} {items}/>
+<LineView {onremove} {oninsert} {items} {lva}/>

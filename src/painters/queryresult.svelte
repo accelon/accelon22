@@ -1,13 +1,12 @@
 <script>
-import Keys from './keys.svelte';
-export let name;
+import {usePtk} from 'ptk';
+import BMEResult from './bmeresult.svelte';
 export let caption;
 export let tofind;
 export let tagname;
-export let keys;
 export let ptkname;
-export let enummode;
-export let items=[];
-const humanMode=mode=>mode?mode==1?'中間有':'結尾為':'開頭為'
+export let items=[]; //index in lexicon
+export let lexicon;  
+
 </script>
-<span class="field">{caption}</span>{humanMode(enummode)}「{tofind}」共{items.length}筆：<Keys {items} {keys} {tagname} {ptkname} foreign={name}/>
+{usePtk(ptkname).humanName()}<span class="field">{caption}</span>({items.length})<BMEResult {items} {tagname} {lexicon} {ptkname} {tofind}/>

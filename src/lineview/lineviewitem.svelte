@@ -24,7 +24,7 @@ const remove=(lva)=>{
 	dispatch('remove',lva)
 }
 
-setContext('LV',{ ptkname, seq, insertAddress, remove, firstchild ,lva });
+setContext('LV',{ ptkname, seq, insertAddress, remove, lva });
 
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)}>

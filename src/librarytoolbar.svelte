@@ -6,19 +6,19 @@ export let oninsert;
 let ptkname;
 let value='青';
 $: items=[];
-const dosearch=(ptkname)=>{
+const dosearch=()=>{
 	const ptk=usePtk(ptkname);
 	if (!ptk)return;
 	items=ptk.scanPrimaryKeys(value);
 }
-onMount(()=>value&&dosearch());
+onMount(()=>value&&dosearch(ptkname));
 const insert=(keyname,mode=0)=>{
 	let tofind=value;
 	if (mode==0) tofind='^'+value;
 	else if (mode==2) tofind=value+'$';
 	oninsert({detail:{seq:0,address:ptkname+':'+ keyname +'='+tofind}});
 }
-$: dosearch(ptkname);
+$: dosearch(ptkname,value);
 </script>
 <div class="toolbar">
 <SelectPitakas bind:ptkname/>
