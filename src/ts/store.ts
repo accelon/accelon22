@@ -1,6 +1,6 @@
 import {updateSettings,settings} from './savestore.ts'
 import {derived, writable ,get} from 'svelte/store';
-import {openPtk} from 'ptk'
+import {openPtk,usePtk} from 'ptk'
 import {addressFromUrl, updateUrl} from './urlhash.ts';
 export const maintab=writable('library');
 
@@ -20,7 +20,8 @@ errormsg.subscribe(msg=>{
  	}
 });
 const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
-
+export const activePtkName=()=>get(pitakas)[get(activepitaka)].name;
+export const activePtk=()=>usePtk(activePtkName());
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);
 })

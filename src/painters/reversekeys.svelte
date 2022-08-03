@@ -7,13 +7,20 @@ export let ptkname;
 export let tagname;
 export let keys;
 export let items;
-export let classes;
 const ctx=getContext('LV');
 const onclick=(id)=>{
 	ctx.insertAction(tagname+id);
 }
+const ITEMPERPAGE=10;
+let showcount=ITEMPERPAGE;
+const showmore=()=>{
+	showcount+=ITEMPERPAGE;
+}
+
+$: displayitems=items.slice(0,showcount);
+
 </script>
 {#if items.length}
-<span class={ptkname+" "+tagname+" "+name+" keys_start"}>(</span>{#each items as key,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}<span class={ptkname+" "+tagname+" "+name+" keys_end"}>)</span>
-{/if}
+<span class={ptkname+" "+tagname+" "+name+" keys_start"}>(</span>{#each displayitems as key,idx}
+{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}
+{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptkname+" "+tagname+" "+name+" keys_end"}>)</span>

@@ -10,7 +10,6 @@ export let depth;
 export let text;
 export let key;
 export let seq; //seq in lineview
-export let idx; //-1 if not first line of division, idx of division
 export let remain;
 export let ptkname;
 export let firstchild;

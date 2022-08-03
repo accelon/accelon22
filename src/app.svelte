@@ -10,11 +10,13 @@ import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
 import LibraryMain from './librarymain.svelte'
 import {isMobileDevice} from './ts/utils.ts'
+
+import {initPainters} from './painters/painters.ts'
 import note from './painters/note.svelte'
 import keys from './painters/keys.svelte'
 import queryresult from './painters/queryresult.svelte'
-import {initPainters} from './painters/painters.ts'
-initPainters({note,keys,queryresult});
+import key from './painters/key.svelte'; //generic column field
+initPainters({note,keys,key,queryresult});
 $: ready=false;
 
 onMount( async ()=>{
