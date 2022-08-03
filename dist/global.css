@@ -41,13 +41,15 @@ body {
 .e {color: goldenrod; font-size: 110%}
 .f  {color: goldenrod}
 .f_active  {background: goldenrod; color: black}
-.ref {background: pink}
+.ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
+
+.highlight {color: salmon;}
 
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}

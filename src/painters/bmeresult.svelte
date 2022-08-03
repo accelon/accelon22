@@ -1,18 +1,24 @@
 <script>
-import {usePtk,makeAddress,sameAddress} from 'ptk'
-import {getContext} from 'svelte';
+import {usePtk,makeAddress} from 'ptk'
+import {onMount,getContext} from 'svelte';
 import ToggleLink from './togglelink.svelte';
 import BackRef from './backref.svelte';
 const ctx=getContext('LV');
+let ptk;
 
 export let items=[]; //index in lexicon
 export let lexicon;
 export let tofind;
+export let name;
 export let tagname;
+
 let displayitems=[];
 let showcount=items.length;
 const ITEMPERPAGE=10;
 if (showcount>ITEMPERPAGE) showcount=ITEMPERPAGE;
+onMount(()=>{
+	ptk=usePtk(ctx.ptkname);
+})
 const getItems=()=>{
 	const out=[];
 	for (let i=0;i<showcount  && i<items.length;i++) {
@@ -24,22 +30,21 @@ const getItems=()=>{
 const showmore=()=>{
 	showcount+=ITEMPERPAGE;
 }
+
 $: displayitems=getItems(showcount);
 const onclick=idx=>{
 	const id=items[idx];
-	const address=makeAddress(ctx.ptkname,tagname+id);
-	ctx.insertAddress(address);
+	ctx.insertAddress(makeAddress(ctx.ptkname,tagname+id));
 }
 const isclickable=idx=>{
+	if (!ptk) return;
 	const id=items[idx];
-	const ptk=usePtk(ctx.ptkname);
-	return ptk.validId(tagname,id);
+	return ptk.validId(name,id);
 }
-let foreign=''
 
 </script>
 {#each displayitems as item,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef  {foreign} {tagname} keys={lexicon} />
+{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef {name} {tagname} ptkname={ctx.ptkname} keys={lexicon} key={items[idx]}/>
 {/each}
 {#if showcount<items.length}
 <span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>

@@ -23,21 +23,30 @@ const oninsert=({detail})=>{
 	lva.dig(detail.address, items[nearest]?.idx||0, breakat);
 	lvaddr.set(lva.stringify());
 }
-
+const findDivisionIndex=seq=>{
+	let idx=items[seq].idx;
+	while (idx==-1 && seq) {
+		seq--;
+		idx=items[seq].idx;
+	}
+	return idx;
+}
 const onremove=(seq)=>{
 	if (seq.detail) seq=seq.detail; //from dispatch
 	if (typeof seq=='number') { //delete by close button
-		let idx=items[seq].idx;
-		while (idx==-1 && seq) {
-			seq--;
-			idx=items[seq].idx;
-		}
+		const idx=findDivisionIndex(seq);
 		lva.remove( idx );
 	} else {
 		lva.remove( seq );// delete by link 
 	}
 	lvaddr.set( lva.stringify() );
 }
+
+const onmore=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.more(idx).stringify() );
+}
 </script>
 <LibraryToolbar {oninsert}/>
-<LineView {onremove} {oninsert} {items} {lva}/>
+<LineView {onremove} {oninsert} {onmore} {items} {lva}/>

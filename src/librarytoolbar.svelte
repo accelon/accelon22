@@ -2,8 +2,9 @@
 import {onMount} from 'svelte';
 import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
+import {activePtkName}  from './ts/store.ts';
 export let oninsert;
-let ptkname;
+let ptkname=activePtkName();
 let value='青';
 $: items=[];
 const dosearch=()=>{
@@ -11,7 +12,7 @@ const dosearch=()=>{
 	if (!ptk)return;
 	items=ptk.scanPrimaryKeys(value);
 }
-onMount(()=>value&&dosearch(ptkname));
+
 const insert=(keyname,mode=0)=>{
 	let tofind=value;
 	if (mode==0) tofind='^'+value;
@@ -19,6 +20,7 @@ const insert=(keyname,mode=0)=>{
 	oninsert({detail:{seq:0,address:ptkname+':'+ keyname +'='+tofind}});
 }
 $: dosearch(ptkname,value);
+onMount(()=>value&&dosearch());
 </script>
 <div class="toolbar">
 <SelectPitakas bind:ptkname/>
