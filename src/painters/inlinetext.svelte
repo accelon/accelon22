@@ -1,8 +1,8 @@
 <script>
 /* just render the offtext , without */
 import {getRenderUnitClasses,renderOfftext} from 'ptk';
-export let ptkname;
-export let firstchild;
+export let ptk;
+
 export let text='';
 export let before,after;
 export let extraclass='';
@@ -30,7 +30,7 @@ const click=ru=>{
 }
 </script>
 {#key refreshcount}
-{#each runits as ru}<svelte:component this={before} ntags={tagsAt(ru)} {ru} {ptkname} {firstchild}/><t class={getRenderUnitClasses(ru,ptkname,extraclass)} on:click={()=>click(ru)} idx={ru.seq}>{ru.text}</t><svelte:component this={after} ntags={tagsAt(ru,true)} {ru} {ptkname} {firstchild} after={true}/>
+{#each runits as ru}<svelte:component this={before} ntags={tagsAt(ru)} {ru} {ptk}/><t class={getRenderUnitClasses(ru,ptk.name,extraclass)} on:click={()=>click(ru)} idx={ru.seq}>{ru.text}</t><svelte:component this={after} ntags={tagsAt(ru,true)} {ru} {ptk} after={true}/>
 {/each}
 {/key}
 

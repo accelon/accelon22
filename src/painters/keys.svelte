@@ -1,5 +1,4 @@
 <script>
-import {usePtk} from 'ptk';
 import {getContext} from 'svelte';
 import ToggleLink from './togglelink.svelte';
 import BackRef from './backref.svelte';
@@ -9,7 +8,7 @@ export let foreign;
 export let items; //from action/search engine
 export let value; //from offtext
 export let keys;
-export let ptkname;
+export let ptk;
 export let tagname;
 export let masterid;
 export let classes='';
@@ -22,11 +21,14 @@ const onclick=id=>{
 	ctx.insertAction(tagname+id);
 }
 const isclickable=id=>{
-	const ptk=usePtk(ctx.ptkname);
 	return ptk.validId(tagname,id);
 }
-
+const hasColumnRow=(key)=>{
+	const row=ptk.rowOf(foreign, key);
+	return row.reduce((prev,item)=>item.value.filter(it=>it!=masterid).length+prev,0);
+}
 </script>
 {#if after || !value}
-<span class={ptkname+" "+tagname+" "+name+" keys_start"}></span>{#each items as key}
-<ToggleLink onclick={()=>onclick(key)}  clickable={isclickable(key)} {tagname} {classes} {name} text={keys.get(key)}/><BackRef {ptkname} {name} {masterid} {foreign} {tagname} {keys} {key}/>{/each}<span class={ptkname+" "+tagname+" "+name+" keys_end"}></span>{/if}
+<span class={ptk.name+" "+tagname+" "+name+" keys_start"}></span>{#each items as key,idx}
+<ToggleLink onclick={()=>onclick(key)} clickable={isclickable(key)} {tagname} {classes} {name} text={keys.get(key)}/>{#if hasColumnRow(key)}<BackRef {ptk} name={foreign} {masterid} {foreign} {tagname} {keys} {key}/>{:else}{' '}{/if}
+{/each}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>{/if}

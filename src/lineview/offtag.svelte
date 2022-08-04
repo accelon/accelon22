@@ -1,18 +1,17 @@
 <script>
 import {onMount} from 'svelte'
-import {usePtk,removeBracket} from 'ptk'
+import {removeBracket} from 'ptk'
 import {Painters} from '../painters/painters.ts'
 
 let painters=[];
 export let offtext;
 export let ntag;
 export let after;
-export let ptkname;
+export let ptk;
 export let firstchild;
 
 const getPainters=()=>{
 	const tag=offtext.getTag(ntag);
-	const ptk=usePtk(ptkname);
 	const typedef=ptk.typedefOf(tag.name);
 	const fields=typedef?.fields;
 	if (!fields) return;
@@ -25,7 +24,7 @@ const getPainters=()=>{
 				const {name,keys,type,foreign} = fields.type;
 				const text=removeBracket(offtext.tagText(tag));
 				painters.push([painter,{name, field:typedef.attrs.field, tagname:tag.name, masterid:tag.attrs.id,
-							keys, ptkname,foreign, text , firstchild}]);
+							keys, ptk ,foreign, text , firstchild}]);
 			}
 		}
 	}
@@ -35,7 +34,7 @@ const getPainters=()=>{
 			const {keys,type,foreign}=fields[name];
 			if(Painters[type]) {
 				const props={name,  tagname:tag.name, masterid:tag.attrs.id,
-					keys, type,	ptkname,foreign, firstchild, value:tag.attrs[name]}
+					keys, type,	ptk,foreign, firstchild, value:tag.attrs[name]}
 				painters.push([Painters[type],props]);
 
 			}
@@ -46,5 +45,5 @@ const getPainters=()=>{
 $: getPainters(firstchild);
 </script>
 {#each painters as painter}
-<svelte:component this={painter[0]} {after} classes={ptkname+" "+painter.tagname} {...painter[1]}/>
+<svelte:component this={painter[0]} {after} classes={ptk.name+" "+painter.tagname} {...painter[1]}/>
 {/each}

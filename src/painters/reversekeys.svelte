@@ -3,7 +3,7 @@ import {getContext} from 'svelte';
 
 import ToggleLink from './togglelink.svelte';
 export let name;
-export let ptkname;
+export let ptk;
 export let tagname;
 export let keys;
 export let items;
@@ -20,7 +20,6 @@ const showmore=()=>{
 $: displayitems=items.slice(0,showcount);
 
 </script>
-{#if items.length}
-<span class={ptkname+" "+tagname+" "+name+" keys_start"}>(</span>{#each displayitems as key,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}
-{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptkname+" "+tagname+" "+name+" keys_end"}>)</span>
+{#if displayitems.length}
+<span class={ptk.name+" "+tagname+" "+name+" keys_start"}></span>{#each displayitems as key,idx}
+{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>

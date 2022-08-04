@@ -25,9 +25,9 @@ onMount(()=>value&&dosearch());
 <div class="toolbar">
 <SelectPitakas bind:ptkname/>
 <input bind:value size=3 on:input={debounce(dosearch,250)}/>
-{#each items as item}
+{#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}
-<span class="clickable" on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span><span class="clickable" on:click={()=>item.middle.length&&insert(item.name,1)}>[{item.middle.length}]</span><span class="clickable" on:click={()=>item.end.length&&insert(item.name,2)}>{item.end.length}|</span>
+<span class="clickable" title="beginsWith 开头符合" on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span><span title="inMiddle 中间符合" class="clickable" on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}·</span><span title="endsWith 结尾符合" class="clickable" on:click={()=>item.end.length&&insert(item.name,2)}>{item.end.length} </span>
 {/if}
 {/each}
 </div>

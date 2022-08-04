@@ -3,9 +3,9 @@ import Offtag from './offtag.svelte'
 export let ntags;
 export let after;
 export let ru;
-export let ptkname;
-export let firstchild;
+export let ptk;
+
 </script>
 {#each ntags as ntag}
-<Offtag {ptkname} {firstchild} offtext={ru.offtext} {ntag} {after}/>
+<Offtag {ptk} offtext={ru.offtext} {ntag} {after}/>
 {/each}

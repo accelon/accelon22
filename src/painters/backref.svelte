@@ -1,10 +1,9 @@
 <script>
 import ColumnRow from './columnrow.svelte';
 export let keys;
-export let ptkname;
+export let ptk;
 export let name;
 export let classes;
-
 export let tagname;
 export let masterid;
 export let key;
@@ -15,4 +14,4 @@ const forward=(keyidx)=>{
 }
 
 </script>
-<span on:click={()=>forward(key)} class="clickable" class:active={showing==key}>…</span>{#if showing==key}<ColumnRow caption={keys.get(key)} {key} {name} {ptkname} {tagname} {masterid} {keys} {classes} />{/if}
+<span on:click={()=>forward(key)} class="clickable" class:active={showing==key}>⮒</span>{#if showing==key}(<ColumnRow caption={keys.get(key)} {key} {name} {ptk} {tagname} {masterid} {keys} {classes} />){/if}
