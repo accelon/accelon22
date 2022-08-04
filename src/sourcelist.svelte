@@ -2,21 +2,22 @@
 import {onMount} from 'svelte'
 import {get} from "svelte/store"
 import {errormsg,deployable,comimage} from "./ts/store.ts";
-import {editing,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
-import {setEditingBuffer,discardchanges} from "./ts/editorupdate.ts";
+import {editing,editingFilename,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
+import {setEditingBuffer,discardchanges,compiler,setCompileErrors} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission,humanBytes} from "ptk"
 
 import {deploy,addBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
 
 onMount(()=>getComImage()) //try to fetch from 
 
-let readytodeploy=false;
+let readytodeploy=false ,buildcount=0;
 const openfiles=async ()=>{
     const fileHandles=await showOpenFilePicker(openSourceOption);
     if (fileHandles.length) addSources(fileHandles);
     readytodeploy=false;
 }
-const inMemoryFile=()=>((get(sources)[get(editing)||0])||{name:''}).name.startsWith('*')
+
+const inMemoryFile=()=>editingFilename().startsWith('*')
 const changefile=async idx=>{
 	if (inMemoryFile())	await savefile(); //auto save inMemoryFile
 	if (get(editorClean)) editing.set(idx);
@@ -39,9 +40,28 @@ const discard=()=>{
 	discardchanges();
 }
 const startbuild=async ()=>{
+	await savefile();
 	readytodeploy=false;
-	await addBuffers();
-	readytodeploy=hasComImage();
+	const ok=await addBuffers();
+	if (ok) {
+		buildmessage='ready';
+		readytodeploy=true;
+	}
+	setCompileErrors();
+	buildcount++;
+}
+const compileErrorCount=filename=>{
+	if (typeof filename=='undefined') filename=editingFilename();
+	const compiled=compiler.compiledFiles[filename];
+	return compiled?compiled.errors.length||'':'';
+}
+const gotoError=(filename)=>{
+	if (typeof filename=='undefined') filename=editingFilename();
+	const compiled=compiler.compiledFiles[editingFilename()];
+	const errors=compiled?compiled.errors:null;
+
+	const line=errors&&errors.length&&errors[0].line;
+	line && scrollToLine.set(-(line+2));
 }
 const dodeploy=async ()=>{
 	try{
@@ -54,7 +74,7 @@ const dodeploy=async ()=>{
 	}
 	readytodeploy=false;
 }
-$: buildmessage=$comimage?(readytodeploy?"打包存档":"生成"):"选程序底本";
+$: buildmessage=''
 </script>
 <div>
 <span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
@@ -67,13 +87,11 @@ $: buildmessage=$comimage?(readytodeploy?"打包存档":"生成"):"选程序底�
 
 
 {#if readytodeploy}
-	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">🎁📦</span>
-{:else if $comimage}
+	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">📦</span>
+{:else}
 	{#if !$editingErrors.length}
 	<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
 	{/if}
-{:else}
-	<span on:click={()=>getComImage(true)} title="Select Image 选程序底本" class="clickable">🚧</span>
 {/if}
 
 {buildmessage}
@@ -81,7 +99,7 @@ $: buildmessage=$comimage?(readytodeploy?"打包存档":"生成"):"选程序底�
 <div class="sourcelist">
 {#each $sources as source,idx}
 <div class:active_clickable={idx==$editing} class="clickable" 
-on:click={()=>changefile(idx)}>{source.name}
+on:click={()=>changefile(idx)}>{source.name} <span on:click={()=>gotoError(source.name)} class='errorcount'>{compileErrorCount(source.name,buildcount)}</span>
 </div>
 {/each}
 </div>

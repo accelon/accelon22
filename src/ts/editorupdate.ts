@@ -1,12 +1,14 @@
 import {errormsg} from "./store.ts"
 import {get} from "svelte/store";
-import {sources,scrollY,editorToc,
-  editing,editorCursor,editorClean,editingErrors,getEditing,
+import ErrorLineWidget from "../errorlinewidget.svelte"
+import {sources,scrollY,editorToc,compileErrors,
+  editing,editingFilename,editorCursor,editorClean,editingErrors,getEditing,
   editorViewport,scrollToLine,setEditingSource} from "./editor.ts";
 import {hightLightOfftext} from "./syntaxhighlight.ts"
-import {Offtext,OfftextContext} from "ptk"
+import {Offtext,OfftextContext,Compiler} from "ptk"
 let oldtags=[];
 let timer,updatetimer;
+export const compiler=new Compiler();
 export const viewportChange=(cm:CodeMirror)=>{
   clearTimeout(timer);
   timer=setTimeout(()=>{
@@ -26,23 +28,15 @@ const enumTags=(cm:CodeMirror,from:number,to:number)=>{
 }
 
 const parseFile=(cm:CodeMirror)=>{
+  console.log('parse file')
 }
 
 export const beforeChange=(cm:CodeMirror,obj)=>{
   oldtags=enumTags(cm,obj.from.line,obj.to.line);
 }
 export const change=(cm:CodeMirror,obj)=>{
-  //no diffing, just see if need to refresh toc
-  const newtags=obj?enumTags(cm,obj.from.line,obj.to.line):[]; 
-  if (!obj || oldtags.length!==newtags.length) {
-  	parseFile(cm);
-  } else {
-  	for (let i=0;i<oldtags.length;i++) {
-  		if (oldtags[i].id!==newtags[i].id || oldtags[i].name!==newtags[i].name || oldtags[i].text!==newtags[i].text) {
-  			parseFile(cm);
-  			break;
-  		}
-  	}
+  if (!cm.doc.isClean()) {
+    const namedbuf=get(sources)[ get(editing) ];
   }
   editorClean.set(cm.doc.isClean());
   viewportChange(cm);
@@ -81,13 +75,20 @@ export const discardchanges=()=>{
 const MAXEDITABLESIZE=1024*1024*10;
 let unsubscribeScrollToLine;
 let unsubscribeEditing;
+let unsubscribeCompileErrors;
 
-
+export const setCompileErrors=(newerrors)=>{
+    if (typeof newerrors=='undefined') {
+      newerrors=compiler.compiledFiles[editingFilename()]?.errors || [];
+    }
+    get(compileErrors).forEach(error=>error.widget?.clear());
+    compileErrors.set(newerrors);
+}
 export const setEditor=(cm:CodeMirror)=>{
-
   if (!cm) {
     unsubscribeEditing();
     unsubscribeScrollToLine();
+    unsubscribeCompileErrors();
     return;
   }
   cm.on("change",(cm,obj)=>change(cm,obj));
@@ -107,7 +108,16 @@ export const setEditor=(cm:CodeMirror)=>{
     cm.doc.markClean();
     editorClean.set(true);
     cm.doc.clearHistory();
+    setCompileErrors(compiler.compiledFiles[e.name]?.errors)
     cm.focus();
+  })
+  unsubscribeCompileErrors=compileErrors.subscribe( errors=>{
+      for (let i=0;i<errors.length;i++) {
+        const error=errors[i];
+        const target=document.createElement('span');
+        const linewidget=new ErrorLineWidget({target,props:error});
+        error.widget= cm.addLineWidget(error.line+2,target);
+      }
   })
   unsubscribeScrollToLine=scrollToLine.subscribe(line=>{
       let setCursorToo=false;

@@ -19,6 +19,7 @@ body {
 
 .toolbar {background:  var(--panel-background) ; width: 100%}
 .clickable:hover{text-decoration: underline;cursor: pointer;}
+.unclickable{color: gray}
 .closelink{background: hsl(40,20%,30%); }
 .closelink:hover {text-decoration: line-through;}
 .closelink:after {
@@ -50,7 +51,7 @@ body {
 /* editor styling, fix font size, no hiding */
 
 .highlight {color: salmon;}
-
+.errorcount {color: red}
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}
 .htmltag {color: lightsalmon; }

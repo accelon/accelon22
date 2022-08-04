@@ -1,14 +1,14 @@
-import {LineBaser,saveComOption,openComOption,loadScript, makePtk} from "ptk";
+import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, makePtk,Compiler} from "ptk";
 import {sources,editing,NamedBuffer,getEditing} from "./editor.ts";
+import {compiler} from "./editorupdate.ts";
 import {comimage} from "./store.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
-let lbase;
+let lbaser;
 export const hasComImage=()=>!!comimage;
 export const getComImage=async(askuser=false)=>{
 	let image;
 	if (get(comimage)) return true;
-	/*
 	if (location.protocol!=='file:') {
 		try {
 			const response=await fetch("myself.lua");
@@ -18,7 +18,7 @@ export const getComImage=async(askuser=false)=>{
 		} catch(e) {
 
 		}
-	}*/
+	}
 	if (!image && askuser) {
     	const [handle]=await showOpenFilePicker(openComOption);
     	if (handle) {
@@ -28,15 +28,12 @@ export const getComImage=async(askuser=false)=>{
 	}
 	comimage.set(image);
 }
-
 export const  deploy=async (com:false)=>{
-
-    const handle=await showSaveFilePicker(saveComOption);
+    const handle=await showSaveFilePicker(com?saveComOption:savePtkOption);
     const name=handle.name.replace(/\.([^.]+)$/,'');
-	if (!lbase.name) lbase.setName(name);
+	if (!lbaser.name) lbaser.setName(name);
 
-	const newimage=com?makePtk(lbase,comimage):lbase.zip;
-
+	const newimage=makePtk(lbaser,get(comimage));
 	buildmessage='creating com '+name;
 	let size=0;
 
@@ -55,11 +52,16 @@ export const addSources=(fileHandles)=>{
     editing.set(0);
 }
 export const addBuffers=async ()=>{
-	lbase=new LineBaser();
+	lbaser=new LineBaser();
 	const sourcebuffers=get(sources);
+	let errorscount=0;
+	compiler.reset();
 	for (let i=0;i<sourcebuffers.length;i++) {
 		let {name}=sourcebuffers[i];
-		const [text]=await getEditing(i)
-		await lbase.append(text,name.replace('*',''));
+		const {text}=await getEditing(i);
+		compiler.compileBuffer(text,name);
+		errorscount+=compiler.compiledFiles[name].errors.length;
+		await lbaser.append(text,name.replace('*',''));
 	}
+	return !errorscount;
 }

@@ -9,6 +9,9 @@ export const editorCursor=writable([0,0,'','']);
 export const scrollToLine=writable(0);
 export const editing=writable(-1);
 export const editingErrors=writable([]);
+export const compileErrors=writable([]);
+
+export const editingFilename=()=>((get(sources)[get(editing)||0])||{name:''}).name;
 export const setEditingSource =newsource=> get(sources).splice(get(editing) , 1, newsource) ;
 export const tocInViewport=()=>{
 	const ancestors=[];
@@ -28,7 +31,7 @@ export const tocInViewport=()=>{
 	return out;
 }
 export const NamedBuffer = (handle=null,name:string, text='',mode='') =>{
-	return {handle,name,text,mode,toc:[], errors:[],state:{}};
+	return {handle,name,text,mode,toc:[], errors:[],state:{} , compiled:{} };
 }
 setTimeout(async()=>{
 	try{
@@ -53,7 +56,6 @@ export const inputScrollToLine=(ele)=>{
 	clearTimeout(inputtimer)
 	inputtimer=setTimeout(()=>{
 		const n=parseInt(ele.value)||0;
-		console.log(n)
 		scrollToLine.set(-n);
 	},200)
 }
@@ -65,11 +67,12 @@ export const getEditing=async (n:number)=>{
   if (typeof n=='undefined') n= get(editing);
   const namedbuf=get(sources)[n];
   if (!namedbuf) return null;
-
+  const name=namedbuf.name;
   const editState=namedbuf.state;
   if (namedbuf.handle) {
-      const file = await namedbuf.handle.getFile();
-      namedbuf.text=await file.text();
+  	namedbuf.mode= (name.endsWith('.tsv')||name.endsWith('.csv'))?'tabular':'';
+    const file = await namedbuf.handle.getFile();
+    namedbuf.text=await file.text();
   }
   return namedbuf;
 }
