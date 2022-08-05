@@ -25,6 +25,12 @@ export const activePtk=()=>usePtk(activePtkName());
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);
 })
+export async function addPitaka(ptk,location='local'){
+	let arr=get(pitakas);
+	arr=arr.filter(it=>it.name!==ptk.name);
+	arr.unshift({name:ptk.name,ptk,location});
+	pitakas.set(arr);
+}
 export async function openPitakas() { //a failure will stop loading process
 	const out=[];
 	for (let i=0;i<locals.length;i++) {

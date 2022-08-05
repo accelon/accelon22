@@ -1,10 +1,10 @@
-import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, makePtk,Compiler} from "ptk";
+import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, makeInMemoryPtk,Compiler,openInMemoryPtk} from "ptk";
 import {sources,editing,NamedBuffer,getEditing} from "./editor.ts";
 import {compiler} from "./editorupdate.ts";
-import {comimage} from "./store.ts";
+import {comimage,addPitaka} from "./store.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
-let lbaser;
+let lbaser, accelon22css='';
 export const hasComImage=()=>!!comimage;
 export const getComImage=async(askuser=false)=>{
 	let image;
@@ -28,20 +28,21 @@ export const getComImage=async(askuser=false)=>{
 	}
 	comimage.set(image);
 }
-export const  deploy=async (com:false)=>{
-    const handle=await showSaveFilePicker(com?saveComOption:savePtkOption);
-    const name=handle.name.replace(/\.([^.]+)$/,'');
-	if (!lbaser.name) lbaser.setName(name);
 
-	const newimage=makePtk(lbaser,get(comimage));
-	buildmessage='creating com '+name;
-	let size=0;
+export const inMemoryPtk=()=>{
+	const ptkimage=makeInMemoryPtk(lbaser,compiler,accelon22css,get(comimage));
+	openInMemoryPtk(lbaser.name,ptkimage).then((ptk)=>{
+		addPitaka(ptk);//update the store
+	});
+	return ptkimage;
+}
 
+export const  writePtk=async (ptkimage)=>{
+    const handle=await showSaveFilePicker(get(comimage)?saveComOption:savePtkOption);
     const writable = await handle.createWritable();
-    await writable.write(newimage);
+    await writable.write(ptkimage);
     await writable.close();
-    size=newimage.length;
-	return {name:handle.name,size};
+	return {name:handle.name,size:ptkimage.length};
 }
 export const addSources=(fileHandles)=>{
     const newsources=fileHandles.map(it=>NamedBuffer(it,it.name))
@@ -51,17 +52,33 @@ export const addSources=(fileHandles)=>{
     editing.set(-1);
     editing.set(0);
 }
-export const addBuffers=async ()=>{
+export const compileBuffers=async ()=>{
 	lbaser=new LineBaser();
 	const sourcebuffers=get(sources);
 	let errorscount=0;
+
+	const alldefines=[];
 	compiler.reset();
 	for (let i=0;i<sourcebuffers.length;i++) {
-		let {name}=sourcebuffers[i];
+		const buf=sourcebuffers[i];
 		const {text}=await getEditing(i);
-		compiler.compileBuffer(text,name);
-		errorscount+=compiler.compiledFiles[name].errors.length;
+		if (buf.name.endsWith('.css')) {
+			accelon22css=text;
+			continue;
+		}
+		compiler.compileBuffer(text,buf.name);
+		errorscount+=compiler.compiledFiles[buf.name].errors.length;
+		
+		const {name,errors,sourcetype,processed,samepage,preload,defines}=compiler.compiledFiles[buf.name];
+		alldefines.push(...defines);
+		if (preload) lbaser.header.preload.push(name);
+
 		await lbaser.append(text,name.replace('*',''));
 	}
-	return !errorscount;
+	lbaser.payload=alldefines.join('\n');
+	if (!compiler.ptkname) {
+		return "missing ptk name";	
+	}
+	lbaser.setName(compiler.ptkname);
+	return errorscount?errorscount+' errors':'';
 }

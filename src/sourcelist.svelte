@@ -6,17 +6,23 @@ import {editing,editingFilename,sources,editorClean,editingErrors,scrollToLine} 
 import {setEditingBuffer,discardchanges,compiler,setCompileErrors} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission,humanBytes} from "ptk"
 
-import {deploy,addBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
+import {writePtk,inMemoryPtk,compileBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
 
 onMount(()=>getComImage()) //try to fetch from 
 
-let readytodeploy=false ,buildcount=0;
+let readytodeploy=false ,buildcount=0, buildmessage='', ptkimage;
 const openfiles=async ()=>{
     const fileHandles=await showOpenFilePicker(openSourceOption);
     if (fileHandles.length) addSources(fileHandles);
     readytodeploy=false;
 }
-
+const setDeployable=deployable=>{
+	readytodeploy=deployable;
+	if (deployable) {
+		ptkimage=inMemoryPtk();
+	}
+	buildmessage=deployable?'ready':'';
+}
 const inMemoryFile=()=>editingFilename().startsWith('*')
 const changefile=async idx=>{
 	if (inMemoryFile())	await savefile(); //auto save inMemoryFile
@@ -33,19 +39,20 @@ const savefile=async ()=>{
 			await setEditingBuffer(fileHandle);		
 		}
 	}
-	readytodeploy=false;
+	setDeployable(false);
 }
 const discard=()=>{
-	readytodeploy=false;
+	setDeployable(false);
 	discardchanges();
 }
 const startbuild=async ()=>{
 	await savefile();
-	readytodeploy=false;
-	const ok=await addBuffers();
-	if (ok) {
-		buildmessage='ready';
-		readytodeploy=true;
+	setDeployable(false);
+	const err=await compileBuffers();
+	if (!err) {
+		setDeployable(true);
+	} else {
+		errormsg.set(err);
 	}
 	setCompileErrors();
 	buildcount++;
@@ -65,16 +72,16 @@ const gotoError=(filename)=>{
 }
 const dodeploy=async ()=>{
 	try{
-		const r=await deploy();
+		const r=await writePtk(ptkimage);
 		if (r) {
 			buildmessage=r.name+' '+humanBytes(r.size).join(' ');
 		}
 	}catch(e){
 		buildmessage=e;
 	}
-	readytodeploy=false;
+	setDeployable(false);
 }
-$: buildmessage=''
+
 </script>
 <div>
 <span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
