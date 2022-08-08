@@ -6,7 +6,7 @@ import {editing,editingFilename,sources,editorClean,editingErrors,scrollToLine} 
 import {setEditingBuffer,discardchanges,compiler,setCompileErrors} from "./ts/editorupdate.ts";
 import {openSourceOption,saveSourceOption,verifyPermission,humanBytes} from "ptk"
 
-import {writePtk,inMemoryPtk,compileBuffers,addSources,hasComImage,getComImage} from "./ts/builder.ts";
+import {writePtk,inMemoryPtk,compileFiles,addSources,hasComImage,getComImage} from "./ts/builder.ts";
 
 onMount(()=>getComImage()) //try to fetch from 
 
@@ -48,7 +48,7 @@ const discard=()=>{
 const startbuild=async ()=>{
 	await savefile();
 	setDeployable(false);
-	const err=await compileBuffers();
+	const err=await compileFiles();
 	if (!err) {
 		setDeployable(true);
 	} else {

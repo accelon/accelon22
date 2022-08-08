@@ -1,10 +1,11 @@
-import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, makeInMemoryPtk,Compiler,openInMemoryPtk} from "ptk";
-import {sources,editing,NamedBuffer,getEditing} from "./editor.ts";
+import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, 
+	cssSkeleton,makeInMemoryPtk,Compiler,openInMemoryPtk,makeLineBaser} from "ptk";
+import {sources,editing,NamedBuffer,getEditing,getSource} from "./editor.ts";
 import {compiler} from "./editorupdate.ts";
 import {comimage,addPitaka} from "./store.ts";
 import {get} from "svelte/store"
 import {fileNameSorter} from "./utils.ts"
-let lbaser, accelon22css='';
+let lbaser;
 export const hasComImage=()=>!!comimage;
 export const getComImage=async(askuser=false)=>{
 	let image;
@@ -30,9 +31,10 @@ export const getComImage=async(askuser=false)=>{
 }
 
 export const inMemoryPtk=()=>{
-	const ptkimage=makeInMemoryPtk(lbaser,compiler,accelon22css,get(comimage));
+	accelon22css=getSource('accelon22.css')||cssSkeleton(compiler.typedefs, compiler.ptkname);
+	const ptkimage=makeInMemoryPtk(lbaser,accelon22css,get(comimage));
 	openInMemoryPtk(lbaser.name,ptkimage).then((ptk)=>{
-		addPitaka(ptk);//update the store
+		addPitaka(ptk,'memory');//update the store
 	});
 	return ptkimage;
 }
@@ -52,33 +54,11 @@ export const addSources=(fileHandles)=>{
     editing.set(-1);
     editing.set(0);
 }
-export const compileBuffers=async ()=>{
-	lbaser=new LineBaser();
-	const sourcebuffers=get(sources);
+export const compileFiles=async ()=>{
+	lbaser=await makeLineBaser(get(sources),compiler, getEditing);
 	let errorscount=0;
-
-	const alldefines=[];
-	compiler.reset();
-	for (let i=0;i<sourcebuffers.length;i++) {
-		const buf=sourcebuffers[i];
-		const {text}=await getEditing(i);
-		if (buf.name.endsWith('.css')) {
-			accelon22css=text;
-			continue;
-		}
-		compiler.compileBuffer(text,buf.name);
-		errorscount+=compiler.compiledFiles[buf.name].errors.length;
-		
-		const {name,errors,sourcetype,processed,samepage,preload,defines}=compiler.compiledFiles[buf.name];
-		alldefines.push(...defines);
-		if (preload) lbaser.header.preload.push(name);
-
-		await lbaser.append(text,name.replace('*',''));
+	for (let n in compiler.compiledFiles) {
+		errorscount+=compiler.compiledFiles[n]?.errors?.length;	
 	}
-	lbaser.payload=alldefines.join('\n');
-	if (!compiler.ptkname) {
-		return "missing ptk name";	
-	}
-	lbaser.setName(compiler.ptkname);
 	return errorscount?errorscount+' errors':'';
 }

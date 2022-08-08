@@ -26,5 +26,5 @@ const openremotezip=async()=>{
 <span class="clickable" on:click={openlocalzip}>local📖</span>
 <span class="clickable" on:click={openremotezip}>remote📖</span>
 {#each $pitakas as loaded }
-	<div>{loaded.ptk.name} {loaded.location}</div>
+	<div>{loaded.ptk.name} {loaded.ptk.humanName()} {loaded.location}</div>
 {/each}

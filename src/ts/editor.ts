@@ -63,6 +63,12 @@ export const getEditingSync=(n:number)=>{
   if (typeof n=='undefined') n= get(editing);
   return get(sources)[n];
 }
+export const getSource=(name:string)=>{
+	const srcs=get(sources);
+	for (let i=0;i<srcs.length;i++) {
+		if (srcs[i].name==name) return getEditing(i);
+	}
+}
 export const getEditing=async (n:number)=>{
   if (typeof n=='undefined') n= get(editing);
   const namedbuf=get(sources)[n];
