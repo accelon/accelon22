@@ -7,6 +7,7 @@ export let foreign;
 export let tagname;
 export let ptk;
 export let items=[]; //index in lexicon
-export let lexicon;  
+export let lexicon; 
+
 </script>
 {ptk.humanName()}<span class="field">{caption}</span>({items.length})<BMEResult {items} {name} {tagname} {lexicon} {ptk} {tofind} {foreign}/>

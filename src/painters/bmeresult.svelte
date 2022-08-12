@@ -10,6 +10,7 @@ export let lexicon;
 export let tofind;
 export let name;
 export let tagname;
+export let foreign;
 
 let displayitems=[];
 let showcount=items.length;
@@ -39,7 +40,7 @@ const isclickable=idx=>{
 
 </script>
 {#each displayitems as item,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef {name} {tagname} {ptk} keys={lexicon} key={items[idx]}/>
+{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef {name} tagname={foreign||tagname} {ptk} keys={lexicon} key={items[idx]}/>
 {/each}
 {#if showcount<items.length}
 <span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>
