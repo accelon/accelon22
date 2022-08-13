@@ -16,7 +16,8 @@ import note from './painters/note.svelte'
 import keys from './painters/keys.svelte'
 import queryresult from './painters/queryresult.svelte'
 import key from './painters/key.svelte'; //generic column field
-initPainters({note,keys,key,queryresult});
+import excerpt from './painters/excerpt.svelte'; 
+initPainters({note,keys,key,queryresult,excerpt});
 $: ready=false;
 
 onMount( async ()=>{

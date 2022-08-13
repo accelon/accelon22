@@ -6,15 +6,18 @@ import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
 
 let lisp ,lva , items;
+$: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
-	items = await lva.load();
 	if (items&&items.length) {
-		loadScript(items[0].ptkname+'/accelon22.css');
+		await loadScript(items[0].ptkname+'/accelon22.css');
 	}
+	items = await lva.load();
+	loaded=true; //load toolbar after all lines are loaded, prevent racing.
 }
 
-$: updateLVA( $lvaddr)
+$: updateLVA( $lvaddr);
+
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
 	while (nearest && items[nearest].idx==-1) nearest--;
@@ -48,5 +51,5 @@ const onmore=(seq)=>{
 	lvaddr.set( lva.more(idx).stringify() );
 }
 </script>
-<LibraryToolbar {oninsert}/>
+{#if loaded}<LibraryToolbar {oninsert}/>{/if}
 <LineView {onremove} {oninsert} {onmore} {items} {lva}/>
