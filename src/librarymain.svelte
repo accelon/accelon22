@@ -9,10 +9,10 @@ let lisp ,lva , items;
 $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
+	items = await lva.load();
 	if (items&&items.length) {
 		await loadScript(items[0].ptkname+'/accelon22.css');
 	}
-	items = await lva.load();
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.
 }
 

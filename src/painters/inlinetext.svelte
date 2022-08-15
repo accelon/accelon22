@@ -2,11 +2,12 @@
 /* just render the offtext , without */
 import {getRenderUnitClasses,renderOfftext} from 'ptk';
 export let ptk;
-
+export let hits=[];
+export let phraselength=[];
 export let text='';
 export let before,after;
 export let extraclass='';
-$: runits=renderOfftext(text);
+$: runits=renderOfftext(text,{hits,phraselength});
 
 const tagsAt=(ru,closing=false)=>{
 	const out=[];
@@ -19,6 +20,7 @@ const tagsAt=(ru,closing=false)=>{
 	}
 	return out;
 }
+
 let refreshcount=1;
 const closestTag=ru=>ru.offtext.getTag(ru.tags[ru.tags.length-1]);
 

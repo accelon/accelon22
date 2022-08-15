@@ -5,7 +5,7 @@ import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
 export let oninsert;
 let ptkname=activePtkName();
-let value='梅';
+let value='憲';
 $: items=[];
 $: ftsitems=[];
 
@@ -13,13 +13,11 @@ const dosearch=async ()=>{
 	const ptk=usePtk(ptkname);
 	if (!ptk)return;
 	items=ptk.scanPrimaryKeys(value);
-	console.log('1')
 	setTimeout(()=>{
 		ptk.scanSections(value).then(res=>{
-			console.log('2')
 			ftsitems=res;
 		});
-		
+
 	})
 }
 
