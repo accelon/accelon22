@@ -1,6 +1,6 @@
 :root{
 	--panel-background: rgba(44,44,44,0.9);
-
+	--excerptbar:  rgba(66,66,66,0.9);
 }
 html {
 	position: relative;
@@ -45,12 +45,12 @@ body {
 .ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
-
+.abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
-.highlight {color: salmon;}
+.highlight {background:yellow;color: black}
 .errorcount {color: red}
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}

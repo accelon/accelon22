@@ -1,6 +1,6 @@
-<script>
+<script>/* 顯示有關鍵字的行*/
 import {onMount} from 'svelte';
-import InlineText from './inlinetext.svelte';
+import Abridge from './abridge.svelte';
 import ExcerptBar from './excerptbar.svelte';
 export let caption;
 export let name;
@@ -11,7 +11,8 @@ export let tofind;
 const PAGE_SIZE=10;
 let from=0, pfrom=-1;
 
-$: displayitems=[];
+$: displayitems=[] ;
+$: name;
 
 async function load(){
 	if (pfrom==from) return;
@@ -32,5 +33,5 @@ $: load(from);
 <!-- todo highlight , abridge text //-->
 <ExcerptBar {caption} {ptk} {tofind} max={lines.length} pagesize={PAGE_SIZE} bind:from/>
 {#each displayitems as item,idx}
-<div><InlineText {...item} {ptk}/></div>
+<div><Abridge {...item} {ptk}/></div>
 {/each}
