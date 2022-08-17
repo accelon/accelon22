@@ -1,6 +1,6 @@
 <script>
-import {onMount} from 'svelte'
-import {LVA,loadScript,parseAddress} from 'ptk'
+import {onMount,setContext} from 'svelte'
+import {LVA,makeAddress,loadScript,parseAddress} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
@@ -15,7 +15,7 @@ const updateLVA=async (address)=>{
 	}
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.
 }
-
+const getLVA=()=>lva;
 $: updateLVA( $lvaddr);
 
 const oninsert=({detail})=>{
@@ -50,6 +50,20 @@ const onmore=(seq)=>{
 	const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.more(idx).stringify() );
 }
+
+const setFrom=(seq,from)=>{
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.setFrom(idx,from).stringify() );	
+}
+
+const insertAddress=(address)=>{
+	oninsert({detail:{address,seq}});
+}
+const insertAction=(action)=>{
+	insertAddress(makeAddress(ptkname,action));
+}
+setContext('LV',{ insertAction, insertAddress, setFrom,onremove, getLVA });
+
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}
-<LineView {onremove} {oninsert} {onmore} {items} {lva}/>
+<LineView {onremove} {onmore} {items} {lva}/>
