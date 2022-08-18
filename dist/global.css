@@ -17,7 +17,7 @@ body {
 	margin: 0px;
 }
 
-.toolbar {background:  var(--panel-background) ; width: 100%}
+.toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;}
 .clickable:hover{text-decoration: underline;cursor: pointer;}
 .unclickable{color: gray}
 .closelink{background: hsl(40,20%,30%); }

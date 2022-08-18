@@ -21,10 +21,16 @@ $: updateLVA( $lvaddr);
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
 	while (nearest && items[nearest].idx==-1) nearest--;
-	const seq=items[nearest]?.seq||0;
-	breakat=detail.seq-nearest;
-	lva.dig(detail.address, items[nearest]?.idx||0, breakat);
+	const nearestItem=items[nearest];
+	const seq=nearestItem?.seq||0;
+	if (nearestItem?.ownerdraw) {
+		lva.insert(detail.address,nearest+1);
+	} else {
+		breakat=detail.seq-nearest;
+		lva.dig(detail.address, items[nearest]?.idx||0, breakat);
+	}
 	lvaddr.set(lva.stringify());
+
 }
 const findDivisionIndex=seq=>{
 	let idx=items[seq].idx;
@@ -56,11 +62,11 @@ const setFrom=(seq,from)=>{
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
 
-const insertAddress=(address)=>{
+const insertAddress=(address,seq)=>{
 	oninsert({detail:{address,seq}});
 }
-const insertAction=(action)=>{
-	insertAddress(makeAddress(ptkname,action));
+const insertAction=(action,seq)=>{
+	insertAddress(makeAddress(ptkname,action),seq);
 }
 setContext('LV',{ insertAction, insertAddress, setFrom,onremove, getLVA });
 

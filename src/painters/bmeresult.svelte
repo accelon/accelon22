@@ -4,7 +4,7 @@ import ToggleLink from './togglelink.svelte';
 import BackRef from './backref.svelte';
 const ctx=getContext('LV');
 export let ptk;
-
+export let seq;
 export let items=[]; //index in lexicon
 export let lexicon;
 export let tofind;
@@ -29,7 +29,7 @@ const showmore=()=>{
 $: displayitems=getItems(showcount);
 const onclick=idx=>{
 	const id=items[idx];
-	ctx.insertAction(tagname+id);
+	ctx.insertAction(tagname+id,seq);
 }
 const isclickable=idx=>{
 	if (!ptk) return;

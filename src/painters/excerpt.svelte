@@ -2,6 +2,7 @@
 import {onMount,getContext} from 'svelte';
 import Abridge from './abridge.svelte';
 import ExcerptBar from './excerptbar.svelte';
+import ExcerptHeading from './excerptheading.svelte';
 export let caption;
 export let name;
 export let lines;
@@ -18,7 +19,7 @@ let pfrom=from;
 async function load(){
 	await ptk.loadLines(lines);
 	displayitems=lines.map((line,idx)=>{
-		return {text:ptk.getLine(line) , hits:hits[idx] };
+		return {line,text:ptk.getLine(line),  hits:hits[idx],  };
 	});
 }
 const setFrom=()=>{
@@ -32,5 +33,5 @@ $: load(lines);
 <!-- todo highlight , abridge text //-->
 <ExcerptBar {caption} {ptk} {tofind} {end} bind:from/>
 {#each displayitems as item,idx}
-<div><Abridge {...item} {ptk}/></div>
+<div><ExcerptHeading {seq} {...ptk.getHeading(item.line)} /><Abridge {...item} {ptk}/></div>
 {/each}

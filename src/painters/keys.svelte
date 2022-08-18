@@ -3,6 +3,7 @@ import {getContext} from 'svelte';
 import ToggleLink from './togglelink.svelte';
 import BackRef from './backref.svelte';
 export let name=''; //name of field
+export let seq;
 export let after;
 export let foreign;
 export let items; //from action/search engine
@@ -18,7 +19,7 @@ let showing=-1;
 items= items||value.split(',');
 
 const onclick=id=>{
-	ctx.insertAction(tagname+id);
+	ctx.insertAction(tagname+id,seq);
 }
 const isclickable=id=>{
 	return ptk.validId(tagname,id);

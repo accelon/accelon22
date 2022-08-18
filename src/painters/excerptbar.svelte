@@ -16,8 +16,5 @@ const prev=()=>{
 }
 </script>
 
-<div class=excerptheader>{#if from>0}<span class='clickable' on:click={prev}>⯇</span>{/if}{from+1}/{end}{#if from+pagesize<end}<span class=clickable on:click={next}>⯈</span>{/if}{ptk.humanName()} {caption} {tofind} order by : score, chunk</div>
+<div class="toolbar excerptheader"><span class=clickable on:click={prev}>{from+1}</span>/<span class='clickable' on:click={next}>{end}</span> {ptk.humanName()} {caption} {tofind}</div>
 
-<style>
-.excerptheader {background: var(--excerptbar)}
-</style>

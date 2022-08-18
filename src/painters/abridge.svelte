@@ -12,18 +12,19 @@ $: runits=renderOfftext(text,{hits,phraselength});
 $: abridges=abridgeRenderUnits(runits,30,refreshcount);
 let refreshcount=1;
 const onUpdate=()=> refershcount++;
-const expand=(idx,left=false)=>{
+const expand=(idx,direction=0)=>{
 	const R=runits;
 	const [len,from]=abridges[idx];
-	const start=from + (left?len:0);
+	const start=from + (direction==-1?len:0);
 	let j=start;
-	if (left) {
+	if (direction==-1) {
 		while (j>0&& (R[j].token.type>=TokenType.SEARCHABLE|| start-j<MIN_ABRIDGE )) j--;
 		for (let i=j;i<start;i++) R[i].luminate++;
-		
-	} else {
+	} else if (direction==1){
 		while (j<R.length&& (R[j].token.type>=TokenType.SEARCHABLE||j-start<MIN_ABRIDGE)) j++;
 		for (let i=start;i<j;i++) R[i].luminate++;
+	} else {
+		for (let i=from;i<from+len;i++) R[i].luminate++;
 	}
 	refreshcount++;
 }
@@ -32,7 +33,7 @@ const expand=(idx,left=false)=>{
 {#key refreshcount}
 {#each abridges as ab,idx}
 {#if Array.isArray(ab)}
-{#if ab[1]}<span class="clickable" on:click={()=>expand(idx)}>…</span>{/if}<span class="abridged">{ab[0]}</span>{#if !ab[2]}<span class="clickable" on:click={()=>expand(idx,true)}>…</span>{/if}
+{#if ab[1]}<span class="clickable" on:click={()=>expand(idx,1)}>…</span>{/if}<span class="clickable abridged" on:click={()=>expand(idx)}>{ab[0]}</span>{#if !ab[2]}<span class="clickable" on:click={()=>expand(idx,-1)}>…</span>{/if}
 {:else}
 <RenderUnit {ptk} {before} {after} ru={ab} {onUpdate} {extraclass}/>
 {/if}
