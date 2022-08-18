@@ -7,7 +7,7 @@ export let field; //column field of foriegn lexicon
 export let text;
 export let keys;
 export let ptk;
-
+export let seq;
 let items=[], master;
 const getRow=()=>{
 	const at=keys.find(text.replace(/．.+/,'')); //hack for book title 
@@ -18,5 +18,5 @@ const getRow=()=>{
 getRow();
 </script>
 {#if after}
-<ReverseKeys tagname={ptk.attributes.chunktag} {ptk} keys={ptk.columns[master].keys}  {items}/>
+<ReverseKeys name={foreign} {seq} tagname={ptk.attributes.chunktag} {ptk} keys={ptk.columns[master].keys}  {items}/>
 {/if}

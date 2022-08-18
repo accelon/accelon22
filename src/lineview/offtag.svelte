@@ -9,6 +9,7 @@ export let ntag;
 export let after;
 export let ptk;
 export let firstchild;
+export let seq;
 
 const getPainters=()=>{
 	const tag=offtext.getTag(ntag);
@@ -45,5 +46,5 @@ const getPainters=()=>{
 $: getPainters(firstchild);
 </script>
 {#each painters as painter}
-<svelte:component this={painter[0]} {after} classes={ptk.name+" "+painter.tagname} {...painter[1]}/>
+<svelte:component this={painter[0]} {after} {seq} classes={ptk.name+" "+painter.tagname} {...painter[1]}/>
 {/each}

@@ -1,7 +1,6 @@
 <script>
 import {getContext} from 'svelte';
 export let caption; //from ptk.getHeading
-export let lineoff;
 export let id;
 export let tagname;
 export let seq;

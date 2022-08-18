@@ -11,9 +11,7 @@ export let key;
 export let seq; //seq in lineview
 export let remain;
 export let onmore;
-export let ptkname;
 export let firstchild;
-export let lva;
 export let ownerdraw;
 export let ptk;
 </script>

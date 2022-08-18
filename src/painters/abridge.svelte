@@ -11,7 +11,7 @@ export let extraclass='';
 $: runits=renderOfftext(text,{hits,phraselength});
 $: abridges=abridgeRenderUnits(runits,30,refreshcount);
 let refreshcount=1;
-const onUpdate=()=> refershcount++;
+const onUpdate=()=> refreshcount++;
 const expand=(idx,direction=0)=>{
 	const R=runits;
 	const [len,from]=abridges[idx];

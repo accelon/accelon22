@@ -4,7 +4,7 @@ import {slide,fade } from 'svelte/transition';
 import {get} from 'svelte/store';
 import {VirtualScroll} from '../3rdparty/virtualscroll';
 import LineViewItem from './lineviewitem.svelte';
-export let onremove,onmore,lva ,seq;
+export let onremove,onmore,lva;
 let list;
 export let items=[] ;
 const slideshow=depth=>{
@@ -13,8 +13,8 @@ const slideshow=depth=>{
 }
 </script>
 <VirtualScroll bind:this={list} key="key" keeps={50} data={items} height="95vh" let:data={item}>
-{#if item.closable }<span on:click={()=>onremove(item.seq)} class='closebutton clickable'>⨯</span>{/if}
-<div in:slide={ slideshow(item.depth)} out:slide>
+{#if item.closable}<span on:click={()=>onremove(item.seq)} class='closebutton clickable'>⨯</span>{/if}
+<div class:lineviewitem={item.closable&&!item.depth} in:slide={slideshow(item.depth)} out:slide>
 <LineViewItem {...item} {lva} {onmore} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 </div>
 </VirtualScroll>

@@ -22,5 +22,5 @@ $: displayitems=items.slice(0,showcount);
 
 </script>
 {#if displayitems.length}
-<span class={ptk.name+" "+tagname+" "+name+" keys_start"}></span>{#each displayitems as key,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>
+⮒<span class={ptk.name+" "+tagname+" "+(name?name:'')+" keys_start"}>{#each displayitems as key,idx}
+{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}</span>{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>

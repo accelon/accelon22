@@ -2,6 +2,7 @@
 import {getRenderUnitClasses} from 'ptk';	
 export let ru;
 export let ptk;
+export let seq;
 export let before;
 export let after;
 export let onUpdate;
@@ -13,4 +14,4 @@ const click=ru=>{
 	onUpdate&&onUpdate();
 }
 </script>
-<svelte:component this={before} {ru} {ptk}/><t class={getRenderUnitClasses(ru,ptk.name,extraclass)} on:click={()=>click(ru)} idx={ru.seq}>{ru.text}</t><svelte:component this={after} {ru} {ptk} after={true}/>
+<svelte:component this={before} {ru} {seq} {ptk}/><t class={getRenderUnitClasses(ru,ptk.name,extraclass)} on:click={()=>click(ru)} idx={seq}>{ru.text}</t><svelte:component this={after} {seq} {ru} {ptk} after={true}/>
