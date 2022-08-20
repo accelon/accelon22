@@ -31,5 +31,5 @@ const hasColumnRow=(key)=>{
 </script>
 {#if after || !value}
 <span class={ptk.name+" "+tagname+" "+name+" keys_start"}></span>{#each items as key,idx}
-<ToggleLink onclick={()=>onclick(key)} clickable={isclickable(key)} {tagname} {classes} {name} text={keys.get(key)}/>{#if hasColumnRow(key)}<BackRef {ptk} name={foreign} {masterid} {foreign} {tagname} {keys} {key}/>{:else}{' '}{/if}
+<ToggleLink onclick={()=>onclick(key)} clickable={isclickable(key)} {tagname} {classes} {name} text={keys.get(key)}/>{#if hasColumnRow(key)}<BackRef {ptk} {seq} name={foreign} {masterid} {foreign} {tagname} {keys} {key}/>{:else}{' '}{/if}
 {/each}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>{/if}

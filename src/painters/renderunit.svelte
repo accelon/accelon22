@@ -10,6 +10,7 @@ export let extraclass;
 const click=ru=>{
 	const tag=ru.closestTag();
 	if (!tag) return;
+	
 	tag.active=!tag.active;
 	onUpdate&&onUpdate();
 }

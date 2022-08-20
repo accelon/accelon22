@@ -20,14 +20,16 @@ $: updateLVA( $lvaddr);
 
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
-	while (nearest && items[nearest].idx==-1) nearest--;
+	while (nearest>0 && items[nearest] && items[nearest].idx==-1) nearest--;
 	const nearestItem=items[nearest];
 	const seq=nearestItem?.seq||0;
-	if (nearestItem?.ownerdraw) {
-		lva.insert(detail.address,nearest+1);
+	if (nearestItem?.ownerdraw || detail.seq==-1) {
+		let insertat=nearestItem?.idx;
+		if (detail.seq==-1) insertat=-1; //from toolbar
+		lva.insert(detail.address,insertat+1);
 	} else {
 		breakat=detail.seq-nearest;
-		lva.dig(detail.address, items[nearest]?.idx||0, breakat);
+		lva.dig(detail.address,nearestItem?.idx||0, breakat);
 	}
 	lvaddr.set(lva.stringify());
 

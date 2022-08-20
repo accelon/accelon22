@@ -45,6 +45,8 @@ body {
 .ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
+
+.lineviewitem {border-top: 1px dashed gray}
 .abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}

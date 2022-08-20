@@ -3,7 +3,7 @@ import {renderOfftext,abridgeRenderUnits,TokenType,MIN_ABRIDGE} from 'ptk';
 import RenderUnit from './renderunit.svelte';
 export let ptk;
 export let hits=[];
-export let phraselength=[];
+export let phraselength;
 export let text='';
 export let before,after;
 export let extraclass='';

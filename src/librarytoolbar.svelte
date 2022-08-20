@@ -5,7 +5,7 @@ import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
 export let oninsert;
 let ptkname=activePtkName();
-let value='憲';
+let value='反常';
 $: items=[];
 $: ftsitems=[];
 
@@ -25,11 +25,11 @@ const insert=(keyname,mode=0)=>{
 	let tofind=value;
 	if (mode==0) tofind='^'+value;
 	else if (mode==2) tofind=value+'$';
-	oninsert({detail:{seq:0,address:ptkname+':'+ keyname +'='+tofind}});
+	oninsert({detail:{seq:-1,address:ptkname+':'+ keyname +'='+tofind}});
 }
 const fulltext=(sectionname)=>{
 	let tofind=value;
-	oninsert({detail:{seq:0,address:ptkname+':*'+ sectionname +'='+tofind}});
+	oninsert({detail:{seq:-1,address:ptkname+':*'+ sectionname +'='+tofind}});
 }
 $: dosearch(ptkname,value);
 // onMount(()=>value&&dosearch());

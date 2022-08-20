@@ -7,6 +7,7 @@ export let caption;
 export let name;
 export let lines;
 export let hits;
+export let phraselength;
 export let seq;
 export let ptk;
 export let end;
@@ -19,7 +20,7 @@ let pfrom=from;
 async function load(){
 	await ptk.loadLines(lines);
 	displayitems=lines.map((line,idx)=>{
-		return {line,text:ptk.getLine(line),  hits:hits[idx],  };
+		return {line,text:ptk.getLine(line),  hits:hits[idx], phraselength:phraselength[idx] };
 	});
 }
 const setFrom=()=>{
@@ -29,6 +30,7 @@ const setFrom=()=>{
 }
 $: setFrom(from);
 $: load(lines);
+
 </script>
 <!-- todo highlight , abridge text //-->
 <ExcerptBar {caption} {ptk} {tofind} {end} bind:from/>

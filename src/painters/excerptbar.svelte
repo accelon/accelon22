@@ -7,6 +7,7 @@ export let end;
 import {EXCERPT_PAGESIZE} from 'ptk';
 export let pagesize=EXCERPT_PAGESIZE;
 const next=()=>{
+	if (from+pagesize>=end) return; //is last page
 	from+=pagesize;
 	if (from>end) from=end-1;
 }
