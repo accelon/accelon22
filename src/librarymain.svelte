@@ -20,6 +20,7 @@ $: updateLVA( $lvaddr);
 
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
+	const lineoff=detail.lineoff;
 	while (nearest>0 && items[nearest] && items[nearest].idx==-1) nearest--;
 	const nearestItem=items[nearest];
 	const seq=nearestItem?.seq||0;
@@ -64,11 +65,11 @@ const setFrom=(seq,from)=>{
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
 
-const insertAddress=(address,seq)=>{
+const insertAddress=(address,seq,lineoff)=>{
 	oninsert({detail:{address,seq}});
 }
-const insertAction=(action,seq)=>{
-	insertAddress(makeAddress(ptkname,action),seq);
+const insertAction=(action,seq,lineoff)=>{
+	insertAddress(makeAddress(ptkname,action,0,0,lineoff),seq);
 }
 setContext('LV',{ insertAction, insertAddress, setFrom,onremove, getLVA });
 

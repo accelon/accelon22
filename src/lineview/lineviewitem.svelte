@@ -14,8 +14,9 @@ export let onmore;
 export let firstchild;
 export let ownerdraw;
 export let ptk;
+export let active;
 </script>
-<div {key} style={"contain: content;"+getLVStyle(depth,edge)}>
+<div {key} style={"contain: content;"+getLVStyle(depth,edge)} class:activeline={active}>
 {#if ownerdraw}
 <svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} {seq} />
 {:else}

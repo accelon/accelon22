@@ -52,7 +52,9 @@ body {
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
+.activeline:before {content: '⮩';color:yellow}
 .highlight {background:yellow;color: black}
+.excerptheading {background: var(--excerptbar) ; margin-right: 0.3em}
 .errorcount {color: red}
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}
