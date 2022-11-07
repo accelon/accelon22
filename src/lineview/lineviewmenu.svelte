@@ -1,6 +1,6 @@
 <script>
 import {getContext} from 'svelte';
-export let item,onremove, onnext, onprev;
+export let item;
 export let ptk ,lva;
 const LV=getContext('LV');
 let caption='';
@@ -14,11 +14,11 @@ const from=division.from?division.from+1:'1';
 
 <span class='rightmenu'>
 {#if caption}<!-- navigating a reading segment -->
-{#if LV.canless(item.seq)}<span class='clickable' on:click={()=>LV.onless(item.seq)}>-</span>{/if}
-
+{#if LV.canless(item.seq)}<span class='clickable' on:click={()=>LV.onless(item.seq)}>⯅</span>{/if}
+<span class='clickable' on:click={()=>LV.onmore(item.seq)}>⯆</span>
 <span class='clickable' on:click={()=>LV.onprev(item.seq)}>{from}/</span><span class='clickable' on:click={()=>LV.onnext(item.seq)}>{division.last-division.first}</span>
-<span class='clickable' on:click={()=>LV.onmore(item.seq)}>+</span>
-<span class='clickable' on:click={()=>gototop()}>{caption}</span>
+
+<span class='clickable' on:click={()=>LV.ontop(item.seq)}>{caption}</span>
 {/if}
 <span class='clickable'on:click={()=>LV.onremove(item.seq)}>⨯</span>
 </span>

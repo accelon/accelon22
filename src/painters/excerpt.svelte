@@ -10,7 +10,7 @@ export let hits;
 export let phraselength;
 export let seq;
 export let ptk;
-export let end;
+export let last;
 export let tofind;
 export let from;
 $: displayitems=[] ;
@@ -33,7 +33,7 @@ $: load(lines);
 
 </script>
 <!-- todo highlight , abridge text //-->
-<ExcerptBar {caption} {ptk} {tofind} {end} bind:from/>
+<ExcerptBar {caption} {ptk} {tofind} {last} bind:from/>
 {#each displayitems as item,idx}
 <div><ExcerptHeading {seq} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>
 {/each}

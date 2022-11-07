@@ -3,13 +3,13 @@ export let ptk;
 export let caption;
 export let tofind;
 export let from;
-export let end;
+export let last;
 import {EXCERPT_PAGESIZE} from 'ptk';
 export let pagesize=EXCERPT_PAGESIZE;
 const next=()=>{
-	if (from+pagesize>=end) return; //is last page
+	if (from+pagesize>=last) return; //is last page
 	from+=pagesize;
-	if (from>end) from=end-1;
+	if (from>last) from=last-1;
 }
 const prev=()=>{
 	from-=pagesize;
@@ -17,5 +17,5 @@ const prev=()=>{
 }
 </script>
 
-<div class="toolbar excerptheader"><span class=clickable on:click={prev}>{from+1}</span>/<span class='clickable' on:click={next}>{end}</span> {ptk.humanName()} {caption} {tofind}</div>
+<div class="toolbar excerptheader"><span class=clickable on:click={prev}>{from+1}</span>/<span class='clickable' on:click={next}>{last}</span> {ptk.humanName()} {caption} {tofind}</div>
 

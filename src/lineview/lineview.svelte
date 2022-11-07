@@ -5,7 +5,7 @@ import {get} from 'svelte/store';
 import {VirtualScroll} from '../3rdparty/virtualscroll';
 import LineViewItem from './lineviewitem.svelte';
 import LineViewMenu from './lineviewmenu.svelte';
-export let onmore,lva;
+export let lva;
 let list;
 export let items=[] ;
 const slideshow=depth=>{

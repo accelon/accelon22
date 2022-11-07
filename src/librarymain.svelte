@@ -1,6 +1,6 @@
 <script>
 import {onMount,setContext} from 'svelte'
-import {LVA,makeAddress,loadScript,parseAddress} from 'ptk'
+import {LVA,makeAddress,loadScript,parseAddress,ACTIONPAGESIZE} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
@@ -74,6 +74,11 @@ const onless=(seq)=>{
 	const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.less(idx).stringify() );
 }
+const ontop=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.top(idx).stringify() );
+}
 const canless=(seq)=>{
 	if (seq.detail) seq=seq.detail; //from dispatch
 	const idx=findDivisionIndex(seq);
@@ -88,9 +93,14 @@ const insertAddress=(address,seq,lineoff)=>{
 	oninsert({detail:{address,seq}});
 }
 const insertAction=(action,seq,lineoff)=>{
-	insertAddress(makeAddress(ptkname,action,0,0,lineoff),seq);
+	let from=0,till=0;
+	if (lineoff>ACTIONPAGESIZE) {
+		from=lineoff- Math.floor(ACTIONPAGESIZE/2);
+		till=from+ACTIONPAGESIZE;
+	}
+	insertAddress(makeAddress(ptkname,action,from,till,lineoff),seq);
 }
-setContext('LV',{ insertAction, insertAddress, setFrom,canless,onremove,onnext,onprev, onmore,onless,getLVA });
+setContext('LV',{ insertAction, insertAddress, setFrom,canless,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}
