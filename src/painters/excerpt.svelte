@@ -35,5 +35,5 @@ $: load(lines);
 <!-- todo highlight , abridge text //-->
 <ExcerptBar {caption} {ptk} {tofind} {end} bind:from/>
 {#each displayitems as item,idx}
-<div><ExcerptHeading {seq} {...ptk.getHeading(item.line)} /><Abridge {...item} {ptk}/></div>
+<div><ExcerptHeading {seq} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>
 {/each}

@@ -10,6 +10,7 @@ export const hasComImage=()=>!!comimage;
 export const getComImage=async(askuser=false)=>{
 	let image;
 	if (get(comimage)) return true;
+	/*
 	if (location.protocol!=='file:') {
 		try {
 			const response=await fetch("myself.lua");
@@ -20,6 +21,7 @@ export const getComImage=async(askuser=false)=>{
 
 		}
 	}
+	*/
 	if (!image && askuser) {
     	const [handle]=await showOpenFilePicker(openComOption);
     	if (handle) {

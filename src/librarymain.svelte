@@ -54,12 +54,31 @@ const onremove=(seq)=>{
 	lvaddr.set( lva.stringify() );
 }
 
+const onnext=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.next(idx).stringify() );
+}
+const onprev=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.prev(idx).stringify() );
+}
 const onmore=(seq)=>{
 	if (seq.detail) seq=seq.detail; //from dispatch
 	const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.more(idx).stringify() );
 }
-
+const onless=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	lvaddr.set( lva.less(idx).stringify() );
+}
+const canless=(seq)=>{
+	if (seq.detail) seq=seq.detail; //from dispatch
+	const idx=findDivisionIndex(seq);
+	return lva.canless(idx);
+}
 const setFrom=(seq,from)=>{
 	const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
@@ -71,8 +90,8 @@ const insertAddress=(address,seq,lineoff)=>{
 const insertAction=(action,seq,lineoff)=>{
 	insertAddress(makeAddress(ptkname,action,0,0,lineoff),seq);
 }
-setContext('LV',{ insertAction, insertAddress, setFrom,onremove, getLVA });
+setContext('LV',{ insertAction, insertAddress, setFrom,canless,onremove,onnext,onprev, onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}
-<LineView {onremove} {onmore} {items} {lva}/>
+<LineView   {items} {lva}/>

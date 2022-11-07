@@ -45,7 +45,7 @@ body {
 .ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
-
+.ck {color: goldenrod; font-size: 110%}
 .lineviewitem {border-top: 1px dashed gray}
 .abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;
@@ -54,7 +54,8 @@ body {
 
 .activeline:before {content: '⮩';color:yellow}
 .highlight {background:yellow;color: black}
-.excerptheading {background: var(--excerptbar) ; margin-right: 0.3em}
+.excerptheading {background: hsl(240,70%,7%) ; 
+	margin-right: 0.3em}
 .errorcount {color: red}
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}

@@ -19,7 +19,7 @@ errormsg.subscribe(msg=>{
  		},3000)
  	}
 });
-const locals=(accelon22?.locals||'').split(',').filter(it=>!!it);
+const locals=(accelon22?.preload||'').split(',').filter(it=>!!it);
 export const activePtkName=()=>get(pitakas)[get(activepitaka)].name;
 export const activePtk=()=>usePtk(activePtkName());
 lvaddr.subscribe(lva=>{

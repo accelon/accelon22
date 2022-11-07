@@ -1,8 +1,8 @@
 ﻿<script>
 import {onMount} from 'svelte';
-import SplitPane from './3rdparty/splitpane.svelte';
+// import SplitPane from './3rdparty/splitpane.svelte';
+// import LeftPanel from './leftpanel.svelte'
 import RightPanel from './rightpanel.svelte'
-import LeftPanel from './leftpanel.svelte'
 import FloatPanel from './floatpanel.svelte'
 import TocMenu from './tocmenu.svelte'
 import {panepos,openPitakas} from './ts/store.ts'
@@ -39,7 +39,8 @@ onMount( async ()=>{
         <TocMenu/>
     {/if}
     </div></FloatPanel>
-    <SplitPane type="horizontal" bind:pos={$panepos} min={15} max={85}>
+
+<!--     <SplitPane type="horizontal" bind:pos={$panepos} min={15} max={85}>
         <div slot="a">
             <LeftPanel/>
         </div>
@@ -47,7 +48,10 @@ onMount( async ()=>{
             <RightPanel/>
         </div>
     </SplitPane>
-    </div>
+ -->
+        <RightPanel/>
+
+     </div>
 {/if}
 {:else}
 Loading...

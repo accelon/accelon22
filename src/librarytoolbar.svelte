@@ -5,7 +5,7 @@ import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
 export let oninsert;
 let ptkname=activePtkName();
-let value='反常';
+let value='';//bUdVDsVs';//反常';
 $: items=[];
 $: ftsitems=[];
 
@@ -17,7 +17,6 @@ const dosearch=async ()=>{
 		ptk.scanSections(value).then(res=>{
 			ftsitems=res;
 		});
-
 	})
 }
 
@@ -43,6 +42,8 @@ $: dosearch(ptkname,value);
 {/if}
 {/each}
 {#each ftsitems as item,idx}
+{#if item.count}
 <span class='clickable' title='fulltext 全文' on:click={()=>fulltext(item.name)}>{item.caption}{item.count}</span>{' '}
+{/if}
 {/each}
 </div>

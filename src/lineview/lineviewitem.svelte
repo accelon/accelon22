@@ -9,8 +9,6 @@ export let depth;
 export let text;
 export let key;
 export let seq; //seq in lineview
-export let remain;
-export let onmore;
 export let firstchild;
 export let ownerdraw;
 export let ptk;
@@ -22,5 +20,4 @@ export let active;
 {:else}
 <InlineText {ptk} {seq} {firstchild} {text} before={Offtags} after={Offtags}/>
 {/if}
-{#if remain}<span class="clickable" on:click={()=>onmore(seq)}>+{remain}</span>{/if}
 </div>

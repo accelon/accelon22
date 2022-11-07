@@ -32,3 +32,9 @@ create a developer build (http serving local folder)
 
     cd dist
     start accelon22-dev.com
+
+
+## todo
+remove build tools
+pack into a redbean to freeze a working version
+mao english and chinese

@@ -1,6 +1,6 @@
 <script>
 import {LineBase,openPtkOption, RemoteZipStore, ZipStore} from 'ptk'
-import {pitakas} from './ts/store.ts';
+import {pitakas,} from './ts/store.ts';
 
 const openlocalzip=async ()=>{
 	const [fileHandle]=await showOpenFilePicker(openPtkOption);
@@ -15,16 +15,11 @@ const openlocalzip=async ()=>{
 	await lbase.loadLines(0,10);
 	console.log(lbase.slice(0,10));
 }
-const openremotezip=async()=>{
-	const zip=new RemoteZipStore();
-	await zip.open("cyd.ptk");
-	//await zip.load(['001.js','1001.js']);
-	console.log(zip.content('cyd/000.js'));
-}
+
 </script>
 
-<span class="clickable" on:click={openlocalzip}>local📖</span>
-<span class="clickable" on:click={openremotezip}>remote📖</span>
+<span class="clickable" on:click={openlocalzip} title='open 开启'>📖</span>
+config.js preload
 {#each $pitakas as loaded }
 	<div>{loaded.ptk.name} {loaded.ptk.humanName()} {loaded.location}</div>
 {/each}

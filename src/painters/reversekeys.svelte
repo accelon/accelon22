@@ -8,9 +8,9 @@ export let ptk;
 export let tagname;
 export let keys;
 export let items;
-const ctx=getContext('LV');
+const LV=getContext('LV');
 const onclick=(id)=>{
-	ctx.insertAction(tagname+id,seq);
+	LV.insertAction(tagname+id,seq);
 }
 const ITEMPERPAGE=10;
 let showcount=ITEMPERPAGE;

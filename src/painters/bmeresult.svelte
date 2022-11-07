@@ -1,8 +1,9 @@
 <script>
+// Begin-Middle-End search result
 import {onMount,getContext} from 'svelte';
 import ToggleLink from './togglelink.svelte';
 import BackRef from './backref.svelte';
-const ctx=getContext('LV');
+const LV=getContext('LV');
 export let ptk;
 export let seq;
 export let items=[]; //index in lexicon
@@ -10,6 +11,7 @@ export let lexicon;
 export let tofind;
 export let name;
 export let tagname;
+赤外線
 
 let displayitems=[];
 let showcount=items.length;
@@ -29,7 +31,7 @@ const showmore=()=>{
 $: displayitems=getItems(showcount);
 const onclick=idx=>{
 	const id=items[idx];
-	ctx.insertAction(tagname+id,seq);
+	LV.insertAction(tagname+id,seq);
 }
 const isclickable=idx=>{
 	if (!ptk) return;

@@ -13,13 +13,13 @@ export let ptk;
 export let tagname;
 export let masterid;
 export let classes='';
-const ctx=getContext('LV');
+const LV=getContext('LV');
 
 let showing=-1;
 items= items||value.split(',');
 
 const onclick=id=>{
-	ctx.insertAction(tagname+id,seq);
+	LV.insertAction(tagname+id,seq);
 }
 const isclickable=id=>{
 	return ptk.validId(tagname,id);

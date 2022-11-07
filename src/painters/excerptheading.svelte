@@ -5,10 +5,10 @@ export let id;
 export let tagname;
 export let seq;
 export let lineoff;
-const ctx=getContext('LV');
+const LV=getContext('LV');
 const open=()=>{
-	ctx.insertAction(tagname+id,seq,lineoff);
+	LV.insertAction(tagname+id,seq,lineoff);
 }
 
 </script>
-<span class='excerptheading clickable' on:click={open}>{caption}</span>
+<span title={id} class='excerptheading clickable' on:click={open}>{caption}</span>
