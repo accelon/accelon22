@@ -9,6 +9,7 @@ export let lines;
 export let hits;
 export let phraselength;
 export let seq;
+export let dividx;
 export let ptk;
 export let last;
 export let tofind;
@@ -25,7 +26,7 @@ async function load(){
 }
 const setFrom=()=>{
 	if (pfrom==from) return;
-	LV.setFrom(seq,from);
+	LV.setFrom(dividx,from);
 	pfrom=from;
 }
 $: setFrom(from);
@@ -35,5 +36,5 @@ $: load(lines);
 <!-- todo highlight , abridge text //-->
 <ExcerptBar {caption} {ptk} {tofind} {last} bind:from/>
 {#each displayitems as item,idx}
-<div><ExcerptHeading {seq} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>
+<div><ExcerptHeading {seq} {dividx} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>
 {/each}

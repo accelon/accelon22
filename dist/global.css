@@ -1,6 +1,8 @@
 :root{
 	--panel-background: rgba(44,44,44,0.9);
 	--excerptbar:  rgba(66,66,66,0.9);
+	--selected-line:  rgba(255,255,128,0.1);
+	--heading :hsl(30,70%,70%);
 }
 html {
 	position: relative;
@@ -52,10 +54,11 @@ body {
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
-.activeline:before {content: '⮩';color:yellow}
-.highlight {background:yellow;color: black}
-.excerptheading {background: hsl(240,70%,7%) ; 
-	margin-right: 0.3em}
+.highlightline:before {content: '⮩';color:yellow}
+.activeline {background: var(--selected-line);}
+.highlight {color:rgb(255,255,196)}
+.excerptheading {color: var(--heading) ; padding-right: 0.2em}
+.lineviewheading {color: var(--heading) ;padding: 0.1em}
 .errorcount {color: red}
 .offtagname {color: salmon;}
 .offtag     {background: #444444;}

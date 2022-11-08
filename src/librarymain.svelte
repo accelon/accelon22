@@ -1,11 +1,11 @@
 <script>
-import {onMount,setContext} from 'svelte'
+import {setContext} from 'svelte'
 import {LVA,makeAddress,loadScript,parseAddress,ACTIONPAGESIZE} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
 
-let lisp ,lva , items;
+let lva , items;
 $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
@@ -35,7 +35,7 @@ const oninsert=({detail})=>{
 	lvaddr.set(lva.stringify());
 
 }
-const findDivisionIndex=seq=>{
+const findDivisionIndex=seq=>{ //find closest division
 	let idx=items[seq].idx;
 	while (idx==-1 && seq) {
 		seq--;
@@ -43,53 +43,53 @@ const findDivisionIndex=seq=>{
 	}
 	return idx;
 }
-const onremove=(seq)=>{
+const onremove=(idx)=>{
 	if (seq.detail) seq=seq.detail; //from dispatch
 	if (typeof seq=='number') { //delete by close button
-		const idx=findDivisionIndex(seq);
-		lva.remove( idx );
+		// const idx=findDivisionIndex(seq);
+		lva.remove(idx);
 	} else {
-		lva.remove( seq );// delete by link 
+		lva.remove(idx);// delete by link 
 	}
 	lvaddr.set( lva.stringify() );
 }
 
-const onnext=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const onnext=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.next(idx).stringify() );
 }
-const onprev=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const onprev=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.prev(idx).stringify() );
 }
-const onmore=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const onmore=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.more(idx).stringify() );
 }
-const onless=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const onless=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.less(idx).stringify() );
 }
-const ontop=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const ontop=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.top(idx).stringify() );
 }
-const canless=(seq)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	const idx=findDivisionIndex(seq);
+const canless=(idx)=>{
+	if (idx.detail) idx=idx.detail; //from dispatch
+	// const idx=findDivisionIndex(seq);
 	return lva.canless(idx);
 }
-const setFrom=(seq,from)=>{
-	const idx=findDivisionIndex(seq);
+const setFrom=(idx,from)=>{
+	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
 
-const insertAddress=(address,seq,lineoff)=>{
+const insertAddress=(address,seq)=>{
 	oninsert({detail:{address,seq}});
 }
 const insertAction=(action,seq,lineoff)=>{
@@ -100,8 +100,9 @@ const insertAction=(action,seq,lineoff)=>{
 	}
 	insertAddress(makeAddress(ptkname,action,from,till,lineoff),seq);
 }
-setContext('LV',{ insertAction, insertAddress, setFrom,canless,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
+setContext('LV',{ insertAction, insertAddress, setFrom,
+	canless,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}
-<LineView   {items} {lva}/>
+<LineView  {items} {lva}/>

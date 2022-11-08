@@ -10,13 +10,13 @@ export let text='';
 export let before,after;
 export let extraclass='';
 export let seq;
+export let active;
 $: runits=renderOfftext(text,{hits,phraselength});
 
 let refreshcount=1;
 const onUpdate=()=> refreshcount++;
 </script>
 {#key refreshcount}
-{#each runits as ru}<RenderUnit {ptk} {before} {after} {ru} {seq} {onUpdate} {extraclass} />
-{/each}
+<span class:activeline={active} >{#each runits as ru}<RenderUnit {ptk} {before} {after} {ru} {seq} {onUpdate} {extraclass} />{/each}</span>
 {/key}
 
