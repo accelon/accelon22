@@ -1,6 +1,6 @@
 <script>
 import {setContext} from 'svelte'
-import {LVA,makeAddress,loadScript,parseAddress,ACTIONPAGESIZE} from 'ptk'
+import {LVA,makeAddress,loadScript,ACTIONPAGESIZE} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
@@ -35,18 +35,9 @@ const oninsert=({detail})=>{
 	lvaddr.set(lva.stringify());
 
 }
-const findDivisionIndex=seq=>{ //find closest division
-	let idx=items[seq].idx;
-	while (idx==-1 && seq) {
-		seq--;
-		idx=items[seq].idx;
-	}
-	return idx;
-}
 const onremove=(idx)=>{
-	if (seq.detail) seq=seq.detail; //from dispatch
-	if (typeof seq=='number') { //delete by close button
-		// const idx=findDivisionIndex(seq);
+	if (idx.detail) idx=idx.detail; //from dispatch
+	if (typeof idx=='number') { //delete by close button
 		lva.remove(idx);
 	} else {
 		lva.remove(idx);// delete by link 
@@ -56,36 +47,29 @@ const onremove=(idx)=>{
 
 const onnext=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.next(idx).stringify() );
 }
 const onprev=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.prev(idx).stringify() );
 }
 const onmore=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.more(idx).stringify() );
 }
 const onless=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.less(idx).stringify() );
 }
 const ontop=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.top(idx).stringify() );
 }
 const canless=(idx)=>{
 	if (idx.detail) idx=idx.detail; //from dispatch
-	// const idx=findDivisionIndex(seq);
 	return lva.canless(idx);
 }
 const setFrom=(idx,from)=>{
-	// const idx=findDivisionIndex(seq);
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
 

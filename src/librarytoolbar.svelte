@@ -1,5 +1,4 @@
 <script>
-import {onMount} from 'svelte';
 import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';

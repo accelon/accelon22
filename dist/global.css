@@ -21,6 +21,7 @@ body {
 
 .toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;}
 .clickable:hover{text-decoration: underline;cursor: pointer;}
+.closelink {text-decoration: line-through;}
 .unclickable{color: gray}
 .closelink{background: hsl(40,20%,30%); }
 .closelink:hover {text-decoration: line-through;}
@@ -48,6 +49,7 @@ body {
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 .ck {color: goldenrod; font-size: 110%}
+.ptkHuman {background:goldenrod;color:black}
 .lineviewitem {border-top: 1px dashed gray}
 .abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;

@@ -8,10 +8,10 @@ export let edge;
 export let depth;
 export let text;
 export let key;
+export let line;
 export let lva; 
 export let seq; //seq in lineview
 export let dividx;    
-export let firstchild;
 export let ownerdraw;
 export let ptk;
 export let highlight;
@@ -22,7 +22,7 @@ export let active;
 {#if ownerdraw}
 <svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} {seq} />
 {:else}
-<InlineText {ptk} {seq} {firstchild} {text} {active} before={Offtags} after={Offtags}/>
-{#if active}<ActiveLineMenu {key} {lva} {ptk} {seq} {dividx} division={lva.getNode(dividx)}/>{/if}
+<InlineText {ptk} {seq} {text} {active} before={Offtags} after={Offtags}/>
+{#if active}<ActiveLineMenu {key} {lva} {ptk} {seq} {line} {dividx} division={lva.getNode(dividx)}/>{/if}
 {/if}
 </div>

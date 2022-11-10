@@ -1,5 +1,5 @@
 <script>
-import {editorViewport,scrollToLine,editorCursor,inputScrollToLine} from './ts/editor.ts'
+import {editorCursor,inputScrollToLine} from './ts/editor.ts'
 import {UnicodeBlock} from "ptk"
 $: [cursorline,cursorch, ch, linetext] = $editorCursor;
 

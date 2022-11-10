@@ -1,6 +1,6 @@
 <script>
 /* just render the offtext , without */
-import {getRenderUnitClasses,renderOfftext} from 'ptk';
+import {renderOfftext} from 'ptk';
 import RenderUnit from './renderunit.svelte';
 
 export let ptk;
