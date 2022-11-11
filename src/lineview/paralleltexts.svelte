@@ -1,15 +1,26 @@
 <script>
+import {getContext} from 'svelte';
 import InlineText from '../painters/inlinetext.svelte';
 export let ptk
 export let seq
 export let line;
 export let parallels;
-export let updatecount;
-$: console.log('update count',updatecount)
+export let division;
+const LV=getContext('LV');
+const addDivision=(pptkname,line,linediff)=>{
+//create a division under me and set highlight line
+    const highlightline = line-division.first;
+    let from=highlightline;
+    if (from<0) from =0;
+    const address=division.action+':'+from+'>'+highlightline;
+    LV.insertAction(address,seq,0,pptkname);
+    //keep active line, easier to toogle division
+}
 </script>
 
 {#each parallels as [pptk,linediff] }
 {#if ptk.parallels[pptk.name]}
-<br/><span class='ptkHuman clickable'>{pptk.humanName()}</span> <InlineText active=true ptk={pptk} {seq} text={pptk.getLine(line+linediff)}/>
+<br/><span on:click={()=>addDivision(pptk.name,line,linediff)} class={'parallelptk clickable'}>{pptk.humanName()}</span>
+<InlineText active=true ptk={pptk} {seq} text={pptk.getLine(line+linediff)}/>
 {/if}
 {/each}

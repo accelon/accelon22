@@ -1,6 +1,5 @@
 <script>
 import {onMount} from 'svelte'
-import {renderOfftext} from 'ptk';
 import InlineText from './inlinetext.svelte';
 
 export let text;

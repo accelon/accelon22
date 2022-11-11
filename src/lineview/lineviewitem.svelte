@@ -22,7 +22,7 @@ export let active;
 {#if ownerdraw}
 <svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} {seq} />
 {:else}
-<InlineText {ptk} {seq} {text} {active} before={Offtags} after={Offtags}/>
+<InlineText {ptk} {line} {seq} {text} {active} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {key} {lva} {ptk} {seq} {line} {dividx} division={lva.getNode(dividx)}/>{/if}
 {/if}
 </div>

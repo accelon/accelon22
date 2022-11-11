@@ -10,9 +10,11 @@ export let text='';
 export let before,after;
 export let extraclass='';
 export let seq;
+export let line;
 export let active;
-$: runits=renderOfftext(text,{hits,phraselength});
 
+$: [offtext,runits]=renderOfftext(text,{line,hits,phraselength});
+// $: console.log(runits.filter(ru=>ru.tags.length))
 let refreshcount=1;
 const onUpdate=()=> refreshcount++;
 </script>

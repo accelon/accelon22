@@ -23,8 +23,8 @@ const oninsert=({detail})=>{
 	const lineoff=detail.lineoff;
 	while (nearest>0 && items[nearest] && items[nearest].idx==-1) nearest--;
 	const nearestItem=items[nearest];
-	const seq=nearestItem?.seq||0;
-	if (nearestItem?.ownerdraw || detail.seq==-1) {
+	// const seq=nearestItem?.seq||0;
+	if (nearestItem?.ownerdraw || detail.seq==-1) { //seq==-1 insert as top, seq==-2 insert at next division
 		let insertat=nearestItem?.idx;
 		if (detail.seq==-1) insertat=-1; //from toolbar
 		lva.insert(detail.address,insertat+1);
@@ -33,9 +33,9 @@ const oninsert=({detail})=>{
 		lva.dig(detail.address,nearestItem?.idx||0, breakat);
 	}
 	lvaddr.set(lva.stringify());
-
 }
 const onremove=(idx)=>{
+	clearActive();  // svelte runtime error if activeline lower than division to be removed
 	if (idx.detail) idx=idx.detail; //from dispatch
 	if (typeof idx=='number') { //delete by close button
 		lva.remove(idx);
@@ -76,15 +76,25 @@ const setFrom=(idx,from)=>{
 const insertAddress=(address,seq)=>{
 	oninsert({detail:{address,seq}});
 }
-const insertAction=(action,seq,lineoff)=>{
+const insertAction=(action,seq=0,lineoff=0,_ptkname=null)=>{
 	let from=0,till=0;
 	if (lineoff>ACTIONPAGESIZE) {
 		from=lineoff- Math.floor(ACTIONPAGESIZE/2);
 		till=from+ACTIONPAGESIZE;
 	}
-	insertAddress(makeAddress(ptkname,action,from,till,lineoff),seq);
+	insertAddress(makeAddress(_ptkname||ptkname,action,from,till,lineoff),seq);
 }
-setContext('LV',{ insertAction, insertAddress, setFrom,
+const setActive=item=>{
+	if (!item.text)return;
+	clearActive();
+	item.active=true;
+}
+const clearActive=()=>{
+	for (let i=0;i<items.length;i++) {
+		if (items[i].active) items[i].active=false;
+	}
+}
+setContext('LV',{ insertAction, insertAddress, setFrom, setActive, clearActive,
 	canless,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>

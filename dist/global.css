@@ -18,7 +18,7 @@ body {
 	font-family:"consolas", "Microsoft Yahei UI Light";font-size: 100%;
 	margin: 0px;
 }
-
+.parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
 .toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;}
 .clickable:hover{text-decoration: underline;cursor: pointer;}
 .closelink {text-decoration: line-through;}
@@ -43,8 +43,6 @@ body {
 .field {color: lightsalmon;}
 /* default reader stying */
 .e {color: goldenrod; font-size: 110%}
-.f  {color: goldenrod}
-.f_active  {background: goldenrod; color: black}
 .ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
@@ -68,3 +66,7 @@ body {
 .CodeMirror-line span.e {color: goldenrod}
 .CodeMirror-line span.b {font-weight: bold;}
 .CodeMirror-line span.u {text-decoration: underline;}
+
+.footnote {font-size:75%; color:goldenrod}
+.footnotebutton {font-size:75%; color:goldenrod}
+.footnotepopup {background:black}

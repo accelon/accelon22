@@ -2,7 +2,7 @@
 export let ptk;
 export let update;
 export let division;
-const parallels=division.getParallelWithDiff();
+const parallels=division?.getParallelWithDiff();
 const  toggleParallel=async (e,ptkname,onoff)=>{
     setTimeout(async function(){
         if (onoff) await division.loadParallel(ptkname);

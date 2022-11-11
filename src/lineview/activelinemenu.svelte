@@ -7,10 +7,10 @@ export let division;
 export let ptk;
 export let key;
 $: show=false;
-$:parallels=division.getParallelWithDiff();
+$:parallels=division?.getParallelWithDiff();
 
 const toggleshow=(e)=>{
-	parallels=division.getParallelWithDiff();
+	parallels=division?.getParallelWithDiff();
 	e.stopPropagation();
 	show=!show;
 }
@@ -24,7 +24,7 @@ const update=()=>{
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
-<ParallelTexts {seq} {line} {ptk} {parallels} {updatecount}/>
+<ParallelTexts {division} {seq} {line} {ptk} {parallels} {updatecount}/>
 {/key}
 <style>
 	.menu {padding-right: 0.4em;}
