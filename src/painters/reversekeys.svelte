@@ -10,7 +10,7 @@ export let keys;
 export let items;
 const LV=getContext('LV');
 const onclick=(id)=>{
-	LV.insertAction(tagname+id,seq);
+	LV.insertAddress(tagname+id,seq);
 }
 const ITEMPERPAGE=10;
 let showcount=ITEMPERPAGE;

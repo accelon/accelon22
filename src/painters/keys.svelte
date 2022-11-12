@@ -19,7 +19,7 @@ let showing=-1;
 items= items||value.split(',');
 
 const onclick=id=>{
-	LV.insertAction(tagname+id,seq);
+	LV.insertAddress(tagname+id,seq);
 }
 const isclickable=id=>{
 	return ptk.validId(tagname,id);

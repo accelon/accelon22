@@ -4,6 +4,7 @@ export let caption;
 export let tofind;
 export let from;
 export let last;
+export let hitcount;
 import {EXCERPT_PAGESIZE} from 'ptk';
 export let pagesize=EXCERPT_PAGESIZE;
 const next=()=>{
@@ -17,5 +18,7 @@ const prev=()=>{
 }
 </script>
 
-<div class="toolbar excerptheader"><span class=clickable on:click={prev}>{from+1}</span>/<span class='clickable' on:click={next}>{last}</span> {ptk.humanName()} {caption} {tofind}</div>
-
+<div class="toolbar excerptheader">
+{ptk.humanName()} {caption} <span class="tofind">{tofind}</span><span class="hitcount">{hitcount}</span>
+<span class=clickable on:click={prev}>{from+1}/</span><span class='clickable' on:click={next}>{last}</span>
+</div>

@@ -31,7 +31,7 @@ const showmore=()=>{
 $: displayitems=getItems(showcount);
 const onclick=idx=>{
 	const id=items[idx];
-	LV.insertAction(tagname+id,seq);
+	LV.insertAddress(tagname+id,seq);
 }
 const isclickable=idx=>{
 	if (!ptk) return;

@@ -11,7 +11,6 @@ export let before,after;
 export let extraclass='';
 export let seq;
 export let line;
-export let active;
 
 $: [offtext,runits]=renderOfftext(text,{line,hits,phraselength});
 // $: console.log(runits.filter(ru=>ru.tags.length))
@@ -19,6 +18,6 @@ let refreshcount=1;
 const onUpdate=()=> refreshcount++;
 </script>
 {#key refreshcount}
-<span class:activeline={active} >{#each runits as ru}<RenderUnit {ptk} {before} {after} {ru} {seq} {onUpdate} {extraclass} />{/each}</span>
+<span>{#each runits as ru}<RenderUnit {ptk} {before} {after} {ru} {seq} {onUpdate} {extraclass} />{/each}</span>
 {/key}
 

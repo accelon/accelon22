@@ -30,6 +30,10 @@ const fulltext=(sectionname)=>{
 	oninsert({detail:{seq:-1,address:ptkname+':*'+ sectionname +'='+tofind}});
 }
 $: dosearch(ptkname,value);
+const listchunk=(sectionname)=>{
+	let tofind=value;
+	oninsert({detail:{seq:-1,address:ptkname+':~'+ sectionname+'='+tofind}});
+}
 // onMount(()=>value&&dosearch());
 </script>
 <div class="toolbar">
@@ -41,8 +45,8 @@ $: dosearch(ptkname,value);
 {/if}
 {/each}
 {#each ftsitems as item,idx}
-{#if item.count}
-<span class='clickable' title='fulltext 全文' on:click={()=>fulltext(item.name)}>{item.caption}{item.count}</span>{' '}
-{/if}
+<span class='clickable' title='fulltext 全文' 
+on:click={()=>listchunk(item.name)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
+on:click={()=>fulltext(item.name)}>{item.count+' '}</span>{:else}0{/if}{' '}
 {/each}
 </div>

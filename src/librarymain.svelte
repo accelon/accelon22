@@ -1,6 +1,6 @@
 <script>
 import {setContext} from 'svelte'
-import {LVA,makeAddress,loadScript,ACTIONPAGESIZE} from 'ptk'
+import {LVA,loadScript} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
@@ -46,43 +46,38 @@ const onremove=(idx)=>{
 }
 
 const onnext=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	lvaddr.set( lva.next(idx).stringify() );
 }
 const onprev=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	lvaddr.set( lva.prev(idx).stringify() );
 }
 const onmore=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	lvaddr.set( lva.more(idx).stringify() );
 }
 const onless=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	lvaddr.set( lva.less(idx).stringify() );
 }
 const ontop=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	lvaddr.set( lva.top(idx).stringify() );
 }
 const canless=(idx)=>{
-	if (idx.detail) idx=idx.detail; //from dispatch
+	if (idx.detail) idx=idx.detail;
 	return lva.canless(idx);
+}
+const canmore=(idx)=>{
+	if (idx.detail) idx=idx.detail; 
+	return lva.canmore(idx);
 }
 const setFrom=(idx,from)=>{
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
-
 const insertAddress=(address,seq)=>{
 	oninsert({detail:{address,seq}});
-}
-const insertAction=(action,seq=0,lineoff=0,_ptkname=null)=>{
-	let from=0,till=0;
-	if (lineoff>ACTIONPAGESIZE) {
-		from=lineoff- Math.floor(ACTIONPAGESIZE/2);
-		till=from+ACTIONPAGESIZE;
-	}
-	insertAddress(makeAddress(_ptkname||ptkname,action,from,till,lineoff),seq);
 }
 const setActive=item=>{
 	if (!item.text)return;
@@ -94,8 +89,8 @@ const clearActive=()=>{
 		if (items[i].active) items[i].active=false;
 	}
 }
-setContext('LV',{ insertAction, insertAddress, setFrom, setActive, clearActive,
-	canless,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
+setContext('LV',{ insertAddress, setFrom, setActive, clearActive,
+	canless,canmore,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}

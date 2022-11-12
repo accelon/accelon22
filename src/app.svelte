@@ -14,12 +14,15 @@ import {isMobileDevice} from './ts/utils.ts'
 import {initPainters} from './painters/painters.ts'
 import note from './painters/note.svelte'
 import f from './painters/f.svelte'
+import fn from './painters/fn.svelte'
 import keys from './painters/keys.svelte'
 import queryresult from './painters/queryresult.svelte'
 import key from './painters/key.svelte'; //generic column field
 import excerpt from './painters/excerpt.svelte'; 
 import confer from './painters/confer.svelte'; 
-initPainters({note,keys,key,queryresult,excerpt,confer,f});
+import titlecount from './painters/titlecount.svelte'; 
+
+initPainters({note,keys,key,queryresult,excerpt,confer,f,fn,titlecount});
 $: ready=false;
 
 onMount( async ()=>{

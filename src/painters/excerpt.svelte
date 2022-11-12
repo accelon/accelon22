@@ -1,5 +1,5 @@
 <script>/* 顯示有關鍵字的行*/
-import {onMount,getContext} from 'svelte';
+import {getContext} from 'svelte';
 import Abridge from './abridge.svelte';
 import ExcerptBar from './excerptbar.svelte';
 import ExcerptHeading from './excerptheading.svelte';
@@ -33,7 +33,7 @@ $: setFrom(from);
 $: load(lines);
 
 </script>
-<!-- todo highlight , abridge text //-->
+
 <ExcerptBar {caption} {ptk} {tofind} {last} bind:from/>
 {#each displayitems as item,idx}
 <div><ExcerptHeading {seq} {dividx} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>

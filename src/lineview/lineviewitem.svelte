@@ -18,9 +18,10 @@ export let highlight;
 export let active;
 
 </script>
-<div {key} style={"contain: content;"+getLVStyle(depth,edge)} class:highlightline={highlight}>
+<div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
+ class="lineviewitem" class:highlightline={highlight}  class:activeline={active} >
 {#if ownerdraw}
-<svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} {seq} />
+<svelte:component this={Painters[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
 <InlineText {ptk} {line} {seq} {text} {active} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {key} {lva} {ptk} {seq} {line} {dividx} division={lva.getNode(dividx)}/>{/if}

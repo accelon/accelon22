@@ -8,15 +8,17 @@ if (item.line) caption=ptk.getHeading(item.line+1).caption; //readable
 
 const division=lva.getNode(item.idx);
 const from=division.from?division.from+1:'1';
-
+const canless=LV.canless(item.idx);
+const canmore=LV.canmore(item.idx);
 </script>
 
 <span class='rightmenu'>
 {#if caption}<!-- navigating a reading segment -->
-{#if LV.canless(item.idx)}<span class='clickable' on:click={()=>LV.onless(item.idx)}>⭱</span>{/if}
-<span class='clickable' on:click={()=>LV.onmore(item.idx)}>⭳</span>
+{#if canless}<span class='clickable' on:click={()=>LV.onless(item.idx)}>⭱</span>{/if}
+{#if canmore}<span class='clickable' on:click={()=>LV.onmore(item.idx)}>⭳</span>{/if}
+{#if canless||canmore}
 <span class='clickable' on:click={()=>LV.onprev(item.idx)}>{from}/</span><span class='clickable' on:click={()=>LV.onnext(item.idx)}>{division.last-division.first}</span>
-
+{/if}
 <span class='clickable lineviewheading' on:click={()=>LV.ontop(item.idx)}>{caption}</span>
 {/if}
 <span class='clickable'on:click={()=>LV.onremove(item.idx)}>⨯</span>

@@ -7,7 +7,7 @@ export let seq;
 export let lineoff;
 const LV=getContext('LV');
 const open=()=>{
-	LV.insertAction(tagname+id,seq,lineoff);
+	LV.insertAddress(tagname+id+':'+lineoff,seq);
 }
 
 </script>

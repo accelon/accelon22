@@ -15,7 +15,7 @@ html {
 
 }
 body {
-	font-family:"consolas", "Microsoft Yahei UI Light";font-size: 100%;
+	font-family:"Tahoma","San-Serif" , "Microsoft Yahei UI Light";font-size: 100%;
 	margin: 0px;
 }
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
@@ -48,14 +48,26 @@ body {
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 .ck {color: goldenrod; font-size: 110%}
 .ptkHuman {background:goldenrod;color:black}
-.lineviewitem {border-top: 1px dashed gray}
+
 .abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
 .highlightline:before {content: '⮩';color:yellow}
-.activeline {background: var(--selected-line);}
+/* .lineview {
+	border:1px dashed gray
+} */
+.lineviewitem {
+	padding-left: 5px;
+    line-height: 1.8;
+    padding-right: 5px;
+}
+.activeline { 
+	padding-left: 1px;
+    border-left: 4px solid gray;
+    border-right: 4px solid gray;
+}
 .highlight {color:rgb(255,255,196)}
 .excerptheading {color: var(--heading) ; padding-right: 0.2em}
 .lineviewheading {color: var(--heading) ;padding: 0.1em}
@@ -67,6 +79,8 @@ body {
 .CodeMirror-line span.b {font-weight: bold;}
 .CodeMirror-line span.u {text-decoration: underline;}
 
-.footnote {font-size:75%; color:goldenrod}
-.footnotebutton {font-size:75%; color:goldenrod}
-.footnotepopup {background:black}
+.footnote { color:salmon;}
+.footnotebutton {font-family: 'Courier New', Courier, monospace;
+	 font-size:75%;position:absolute;color:salmon;font-weight: bold;}
+.hitcount {color:goldenrod}
+.tofind {border:1px silver solid}

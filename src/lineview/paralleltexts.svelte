@@ -12,8 +12,8 @@ const addDivision=(pptkname,line,linediff)=>{
     const highlightline = line-division.first;
     let from=highlightline;
     if (from<0) from =0;
-    const address=division.action+':'+from+'>'+highlightline;
-    LV.insertAction(address,seq,0,pptkname);
+    const address=division.action+'>'+from+':'+highlightline;
+    LV.insertAddress(pptkname+':'+address,seq);
     //keep active line, easier to toogle division
 }
 </script>
