@@ -46,31 +46,31 @@ const onremove=(idx)=>{
 }
 
 const onnext=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.next(idx).stringify() );
 }
 const onprev=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.prev(idx).stringify() );
 }
 const onmore=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.more(idx).stringify() );
 }
 const onless=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.less(idx).stringify() );
 }
 const ontop=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.top(idx).stringify() );
 }
 const canless=(idx)=>{
-	if (idx.detail) idx=idx.detail;
+	if (idx?.detail) idx=idx.detail;
 	return lva.canless(idx);
 }
 const canmore=(idx)=>{
-	if (idx.detail) idx=idx.detail; 
+	if (idx?.detail) idx=idx.detail; 
 	return lva.canmore(idx);
 }
 const setFrom=(idx,from)=>{
