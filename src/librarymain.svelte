@@ -21,6 +21,10 @@ $: updateLVA( $lvaddr);
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
 	const lineoff=detail.lineoff;
+	if (detail.singleton) {
+		const at=lva.findAction(detail.address);
+		if (~at) lva.remove(at);
+	}
 	while (nearest>0 && items[nearest] && items[nearest].idx==-1) nearest--;
 	const nearestItem=items[nearest];
 	// const seq=nearestItem?.seq||0;

@@ -35,12 +35,12 @@ const listchunk=(sectionname)=>{
 	oninsert({detail:{seq:-1,address:ptkname+':~'+ sectionname+'='+tofind}});
 }
 const systeminfo=()=>{
-	oninsert({detail:{seq:-1,address:'@systeminfo'}});
+	oninsert({detail:{seq:-1,address:'@$systeminfo',singleton:true}});
 }
 </script>
 <div class="toolbar">
 <span class="clickable" on:click={()=>systeminfo()}><img alt="logo" src="favicon.svg" width="20" height="20"/></span>
-<SelectPitakas bind:ptkname/>
+<SelectPitakas bind:ptkname {oninsert}/>
 <input bind:value size=3 on:input={debounce(dosearch,250)}/>
 {#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}

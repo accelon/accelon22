@@ -20,7 +20,7 @@ body {
 }
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
 .toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;}
-.clickable:hover{text-decoration: underline;cursor: pointer;}
+.clickable:hover{text-decoration: underline;cursor:pointer}
 .closelink {text-decoration: line-through;}
 .unclickable{color: gray}
 .closelink{background: hsl(40,20%,30%); }
@@ -83,4 +83,4 @@ body {
 .footnotebutton {font-family: 'Courier New', Courier, monospace;
 	 font-size:75%;position:absolute;color:salmon;font-weight: bold;}
 .hitcount {color:goldenrod;}
-.tofind {border:1px silver solid}
+.tofind {background:silver;color:black;padding-left:0.1em;padding-right:0.1em}
