@@ -4,13 +4,13 @@ import {LVA,loadScript} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {lvaddr} from './ts/store.ts';
-
+let value=''; //input
 let lva , items;
 $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
-	if (items&&items.length) {
+	if (items.length) {
 		await loadScript(items[0].ptkname+'/accelon22.css');
 	}
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.
@@ -97,9 +97,12 @@ const clearActive=()=>{
 		if (items[i].active) items[i].active=false;
 	}
 }
-setContext('LV',{ insertAddress, setFrom, setActive, clearActive,
+const setTofind=tofind=>{
+	value=tofind;
+}
+setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,
 	canless,canmore,cannext,canprev,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
-{#if loaded}<LibraryToolbar {oninsert}/>{/if}
+{#if loaded}<LibraryToolbar {value} {oninsert}/>{/if}
 <LineView  {items} {lva}/>

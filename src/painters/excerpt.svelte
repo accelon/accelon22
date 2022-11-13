@@ -4,6 +4,7 @@ import Abridge from './abridge.svelte';
 import ExcerptBar from './excerptbar.svelte';
 import ExcerptHeading from './excerptheading.svelte';
 export let caption;
+export let action;
 export let name;
 export let lines;
 export let hits;
@@ -36,8 +37,7 @@ $: load(lines);
 $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 
 </script>
-
-<ExcerptBar {caption} {ptk} {tofind} {last} {seq} {dividx} bind:from {chunk}/>
+<ExcerptBar {caption} {ptk} {tofind} {last} {seq} {dividx} bind:from {chunk} {action}/>
 {#each displayitems as item,idx}
 <div>
 <ExcerptHeading {seq} {dividx} {...ptk.getHeading(item.line)} hidechunk={!!chunk}/>

@@ -82,5 +82,5 @@ body {
 .footnote { color:salmon;}
 .footnotebutton {font-family: 'Courier New', Courier, monospace;
 	 font-size:75%;position:absolute;color:salmon;font-weight: bold;}
-.hitcount {color:goldenrod}
+.hitcount {color:goldenrod;}
 .tofind {border:1px silver solid}

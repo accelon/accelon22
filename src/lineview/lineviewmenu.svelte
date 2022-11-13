@@ -13,10 +13,10 @@ $: division=lva.getNode(item.idx);
 {#if LV.canless(division)}<span class='clickable' on:click={()=>LV.onless(division)}>{"⭱　"}</span>{/if}
 {#if LV.canmore(division)}<span class='clickable' on:click={()=>LV.onmore(division)}>{"⭳　"}</span>{/if}
 
-{#if LV.canprev(division)}<span class='clickable' on:click={()=>LV.onprev(division)}>{division.from+1}/
-</span>{#if LV.cannext(division)}<span class='clickable' 
+<span class='clickable' on:click={()=>LV.onprev(division)}>{division?.from+1}/</span>
+{#if LV.cannext(division)}<span class='clickable' 
 on:click={()=>LV.onnext(item.idx)}>{division.last-division.first}</span>{/if}
-{/if}
+
 <span class='clickable lineviewheading' on:click={()=>LV.ontop(division)}>{caption}</span>
 {/if}
 <span class='clickable'on:click={()=>LV.onremove(division)}>⨯</span>

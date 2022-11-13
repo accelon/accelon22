@@ -4,7 +4,7 @@ import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
 export let oninsert;
 let ptkname=activePtkName();
-let value='';//bUdVDsVs';//反常';
+export let value='';//bUdVDsVs';//反常';
 $: items=[];
 $: ftsitems=[];
 
@@ -34,6 +34,7 @@ const listchunk=(sectionname)=>{
 	let tofind=value;
 	oninsert({detail:{seq:-1,address:ptkname+':~'+ sectionname+'='+tofind}});
 }
+$: console.log('value',value)
 // onMount(()=>value&&dosearch());
 </script>
 <div class="toolbar">

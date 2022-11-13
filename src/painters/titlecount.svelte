@@ -30,9 +30,9 @@
         LV.insertAddress(address,seq);
     }
     </script>
-    <ExcerptBar {caption} {ptk} {tofind} {last} {hitcount} bind:from/>
+    <ExcerptBar {caption} {ptk} {tofind} {last} {hitcount} bind:from {name}/>
     {#each items as item,idx}
     <div>{item.id}.<span class="clickable" on:click={()=>newdivision(item.address)}>{item.title}</span>
-        <span class="clickable hitcount" on:click={()=>newexcerpt(item.id)}>{item.count}</span></div>
+        {#if item.count>=0}<span class="clickable hitcount" on:click={()=>newexcerpt(item.id)}>{'　'+item.count}</span>{/if}</div>
     {/each}
     

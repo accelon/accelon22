@@ -3,7 +3,7 @@ import {getContext} from 'svelte';
 import {usePtk} from 'ptk';
 import LineViewItem from './lineviewitem.svelte';
 import LineViewMenu from './lineviewmenu.svelte';
-import { slide ,fly} from 'svelte/transition';
+// import { slide ,fly} from 'svelte/transition';
 const LV=getContext('LV');
 export let lva;
 export let items=[] ;
@@ -21,7 +21,7 @@ const setActive=item=>{
 }
 </script>
 {#each items as item}
-<div in:slide on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}>
+<div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}>
 {#if item.closable}
 	<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}
