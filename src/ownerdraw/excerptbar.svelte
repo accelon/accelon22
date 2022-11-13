@@ -1,6 +1,5 @@
 <script>
 import {getContext} from 'svelte';
-import ExcerptHeading from './excerptheading.svelte';
 export let ptk;
 export let name;
 export let caption;
@@ -9,7 +8,7 @@ export let from;
 export let last;
 export let seq;
 export let hitcount;
-export let dividx;
+
 export let chunk; //show single chunk
 import {EXCERPT_PAGESIZE} from 'ptk';
 const LV=getContext('LV');
@@ -30,7 +29,10 @@ const listChunk=()=>{
 	const address=name+'=';
 	LV.insertAddress(address,seq);
 }
-
+const openChunk=(tagname,id)=>{
+	const address=tagname+id;
+	LV.insertAddress(address,seq);
+}
 </script>
 
 <div class="toolbar excerptheader">
@@ -38,7 +40,8 @@ const listChunk=()=>{
 {#if caption}<span class="clickable" on:click={()=>listChunk()}>{caption}</span>{/if}
 {#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
 {#if chunk}
-<ExcerptHeading {seq} {dividx} {...chunk} lineoff={0}/>
+{chunk.id}.<span class='excerptheading clickable'
+ on:click={()=>openChunk(chunk.tagname,chunk.id)}>{chunk.caption}</span>
 {/if}
 <span class=clickable on:click={prev}>{from+1}/</span><span class='clickable' on:click={next}>{last}</span>
 </div>

@@ -1,6 +1,6 @@
 <script>/* 隱藏不含關鍵字的句子 */
 import {renderOfftext,abridgeRenderUnits,TokenType,MIN_ABRIDGE} from 'ptk';
-import RenderUnit from './renderunit.svelte';
+import RenderUnit from '../painters/renderunit.svelte';
 export let ptk;
 export let hits=[];
 export let phraselength;

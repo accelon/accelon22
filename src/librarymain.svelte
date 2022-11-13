@@ -10,7 +10,7 @@ $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
-	if (items.length) {
+	if (items.length && items[0].ptkname) {
 		await loadScript(items[0].ptkname+'/accelon22.css');
 	}
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.

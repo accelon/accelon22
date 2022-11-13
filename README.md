@@ -35,6 +35,9 @@ create a developer build (http serving local folder)
 
 
 ## todo
-remove build tools
 pack into a redbean to freeze a working version
 mao english and chinese
+
+filter chunk name, full text search in filtered titled
+introductory page by click ptk name
+

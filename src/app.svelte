@@ -5,24 +5,28 @@ import {onMount} from 'svelte';
 import RightPanel from './rightpanel.svelte'
 import FloatPanel from './floatpanel.svelte'
 import TocMenu from './tocmenu.svelte'
-import {panepos,openPitakas} from './ts/store.ts'
+import {openPitakas} from './ts/store.ts'
 import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
 import LibraryMain from './librarymain.svelte'
 import {isMobileDevice} from './ts/utils.ts'
 
 import {initPainters} from './painters/painters.ts'
+import {initOwnerdraws} from './ownerdraw/ownerdraw.ts'
 import note from './painters/note.svelte'
 import f from './painters/f.svelte'
 import fn from './painters/fn.svelte'
 import keys from './painters/keys.svelte'
-import queryresult from './painters/queryresult.svelte'
 import key from './painters/key.svelte'; //generic column field
-import excerpt from './painters/excerpt.svelte'; 
 import confer from './painters/confer.svelte'; 
-import titlecount from './painters/titlecount.svelte'; 
 
-initPainters({note,keys,key,queryresult,excerpt,confer,f,fn,titlecount});
+import excerpt from './ownerdraw/excerpt.svelte'; 
+import queryresult from './ownerdraw/queryresult.svelte'
+import titlecount from './ownerdraw/titlecount.svelte'; 
+import systeminfo from './ownerdraw/systeminfo.svelte'; 
+
+initPainters({note,keys,key,confer,f,fn});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo});
 $: ready=false;
 
 onMount( async ()=>{

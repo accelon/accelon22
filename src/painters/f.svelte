@@ -2,8 +2,6 @@
 import {getContext} from 'svelte'
 import InlineText from './inlinetext.svelte';
 export let ptk;
-export let tagname;
-export let before;
 export let masterid;
 export let line;
 export let seq;

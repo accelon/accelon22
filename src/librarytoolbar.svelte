@@ -34,10 +34,12 @@ const listchunk=(sectionname)=>{
 	let tofind=value;
 	oninsert({detail:{seq:-1,address:ptkname+':~'+ sectionname+'='+tofind}});
 }
-$: console.log('value',value)
-// onMount(()=>value&&dosearch());
+const systeminfo=()=>{
+	oninsert({detail:{seq:-1,address:'@systeminfo'}});
+}
 </script>
 <div class="toolbar">
+<span class="clickable" on:click={()=>systeminfo()}><img alt="logo" src="favicon.svg" width="20" height="20"/></span>
 <SelectPitakas bind:ptkname/>
 <input bind:value size=3 on:input={debounce(dosearch,250)}/>
 {#each items as item,idx}
@@ -48,6 +50,6 @@ $: console.log('value',value)
 {#each ftsitems as item,idx}
 <span class='clickable' title='fulltext 全文' 
 on:click={()=>listchunk(item.name)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
-on:click={()=>fulltext(item.name)}>{item.count+' '}</span>{:else}0{/if}{' '}
+on:click={()=>fulltext(item.name)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
 {/each}
 </div>

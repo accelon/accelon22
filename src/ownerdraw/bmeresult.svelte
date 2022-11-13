@@ -1,8 +1,8 @@
 <script>
 // Begin-Middle-End search result
-import {onMount,getContext} from 'svelte';
-import ToggleLink from './togglelink.svelte';
-import BackRef from './backref.svelte';
+import {getContext} from 'svelte';
+import ToggleLink from '../painters/togglelink.svelte';
+import BackRef from '../painters/backref.svelte';
 const LV=getContext('LV');
 export let ptk;
 export let seq;

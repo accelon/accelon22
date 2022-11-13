@@ -3,3 +3,4 @@ node_modules
 3rdparty
 *.com
 *.zip
+bin
