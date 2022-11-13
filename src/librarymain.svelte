@@ -73,6 +73,14 @@ const canmore=(idx)=>{
 	if (idx?.detail) idx=idx.detail; 
 	return lva.canmore(idx);
 }
+const cannext=(idx)=>{
+	if (idx?.detail) idx=idx.detail;
+	return lva.cannext(idx);
+}
+const canprev=(idx)=>{
+	if (idx?.detail) idx=idx.detail; 
+	return lva.canprev(idx);
+}
 const setFrom=(idx,from)=>{
 	lvaddr.set( lva.setFrom(idx,from).stringify() );	
 }
@@ -90,7 +98,7 @@ const clearActive=()=>{
 	}
 }
 setContext('LV',{ insertAddress, setFrom, setActive, clearActive,
-	canless,canmore,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
+	canless,canmore,cannext,canprev,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {oninsert}/>{/if}

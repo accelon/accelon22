@@ -10,10 +10,12 @@ $: division=lva.getNode(item.idx);
 
 <span class='rightmenu'>
 {#if caption}<!-- navigating a reading segment -->
-{#if LV.canless(division)||LV.canmore(division)}
 {#if LV.canless(division)}<span class='clickable' on:click={()=>LV.onless(division)}>{"⭱　"}</span>{/if}
 {#if LV.canmore(division)}<span class='clickable' on:click={()=>LV.onmore(division)}>{"⭳　"}</span>{/if}
-<span class='clickable' on:click={()=>LV.onprev(division)}>{division.from+1}/</span><span class='clickable' on:click={()=>LV.onnext(item.idx)}>{division.last-division.first}</span>
+
+{#if LV.canprev(division)}<span class='clickable' on:click={()=>LV.onprev(division)}>{division.from+1}/
+</span>{#if LV.cannext(division)}<span class='clickable' 
+on:click={()=>LV.onnext(item.idx)}>{division.last-division.first}</span>{/if}
 {/if}
 <span class='clickable lineviewheading' on:click={()=>LV.ontop(division)}>{caption}</span>
 {/if}

@@ -13,7 +13,9 @@ export let dividx;
 export let ptk;
 export let last;
 export let tofind;
+export let hitcount;
 export let from;
+export let samechunkline; //all hits in same chunk if not -1
 $: displayitems=[] ;
 $: name;
 const LV=getContext('LV');
@@ -31,10 +33,13 @@ const setFrom=()=>{
 }
 $: setFrom(from);
 $: load(lines);
+$: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 
 </script>
 
-<ExcerptBar {caption} {ptk} {tofind} {last} bind:from/>
+<ExcerptBar {caption} {ptk} {tofind} {last} {seq} {dividx} bind:from {chunk}/>
 {#each displayitems as item,idx}
-<div><ExcerptHeading {seq} {dividx} {...ptk.getHeading(item.line)} /> <Abridge {...item} {ptk}/></div>
+<div>
+<ExcerptHeading {seq} {dividx} {...ptk.getHeading(item.line)} hidechunk={!!chunk}/>
+<Abridge {...item} {ptk}/></div>
 {/each}

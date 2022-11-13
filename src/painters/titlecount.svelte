@@ -1,14 +1,15 @@
 <script>// see ptk/lineview/titlecountaction.ts
     import {getContext} from 'svelte';
     import ExcerptBar from './excerptbar.svelte';
+    import {makeExcerptAddress} from 'ptk'
     export let caption;
     export let name;
+    export let tofind;
     export let items;
     export let seq;
     export let dividx;
     export let ptk;
     export let last;
-    export let tofind;
     export let from;
     export let hitcount;
     $: name;
@@ -25,12 +26,13 @@
         LV.insertAddress(address,seq);
     }
     const newexcerpt=(chunk)=>{
-        LV.insertAAddress(address,seq);
+        const address=makeExcerptAddress(name,tofind,ptk.attributes.chunktag+chunk);
+        LV.insertAddress(address,seq);
     }
     </script>
     <ExcerptBar {caption} {ptk} {tofind} {last} {hitcount} bind:from/>
     {#each items as item,idx}
     <div>{item.id}.<span class="clickable" on:click={()=>newdivision(item.address)}>{item.title}</span>
-        <span class="hitcount" on:click={()=>newexcerpt(item.id)}>{item.count}</span></div>
+        <span class="clickable hitcount" on:click={()=>newexcerpt(item.id)}>{item.count}</span></div>
     {/each}
     
