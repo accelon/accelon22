@@ -1,5 +1,5 @@
 import {updateSettings,settings} from './savestore.ts'
-import {derived, writable ,get} from 'svelte/store';
+import {writable ,get} from 'svelte/store';
 import {openPtk,usePtk} from 'ptk'
 import {addressFromUrl, updateUrl} from './urlhash.ts';
 export const maintab=writable('library');
@@ -11,7 +11,14 @@ export const lvaddr=writable(addressFromUrl())
 export const deployable=writable(true)
 export const errormsg=writable('');
 export const comimage=writable(null);
+export const palitrans=writable(settings.palitrans);
+export const tosim=writable(settings.tosim);
+export const factorization=writable(settings.factorization);
 panepos.subscribe(panepos=>updateSettings({panepos}));
+tosim.subscribe(tosim=>updateSettings({tosim}));
+palitrans.subscribe(palitrans=>updateSettings({palitrans}));
+factorization.subscribe(factorization=>updateSettings({factorization}));
+
 errormsg.subscribe(msg=>{
  	if (msg.length) {
  		setTimeout(()=>{

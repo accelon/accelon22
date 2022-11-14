@@ -12,6 +12,7 @@ export let extraclass='';
 export let seq;
 export let line;
 
+
 $: [offtext,runits]=renderOfftext(text,{line,hits,phraselength});
 // $: console.log(runits.filter(ru=>ru.tags.length))
 let refreshcount=1;

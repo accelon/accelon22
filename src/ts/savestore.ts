@@ -1,7 +1,10 @@
 export const AppPrefix='ACC22.'
 export const loadSettings=()=>{
     const panepos=localStorage.getItem(AppPrefix+'panepos')||70;    
-    return {panepos};
+    const palitrans=localStorage.getItem(AppPrefix+'palitrans')||'';
+    const tosim=localStorage.getItem(AppPrefix+'tosim')||'0';
+    const factorization=parseInt(localStorage.getItem(AppPrefix+'factorization')||'1');
+    return {panepos,palitrans,tosim,factorization};
 }
 
 export const saveSettings=()=>{ //immediate save

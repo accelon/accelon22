@@ -84,3 +84,12 @@ body {
 	 font-size:75%;position:absolute;color:salmon;font-weight: bold;}
 .hitcount {color:goldenrod;}
 .tofind {background:silver;color:black;padding-left:0.1em;padding-right:0.1em}
+
+@font-face {
+	font-family:"ProvidentPali";
+	src: local("ProvidentPali"), url("ProvidentPaliSegoe.otf") 
+	}
+.lang-pl- {font-family: "ProvidentPali" ; font-size:120%}
+.lang-pl-iast {font-family: "Segoe UI",Tahoma}
+.lang-pl-tb {font-size:120%}
+.lang-en {font-family: "Times New Roman", Georgia;}

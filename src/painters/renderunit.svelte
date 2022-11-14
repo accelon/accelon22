@@ -1,5 +1,6 @@
 <script>
 import {getRenderUnitClasses} from 'ptk';	
+import {textClasses,_} from '../ts/textout.ts'
 export let ru;
 export let ptk;
 export let seq;
@@ -15,4 +16,6 @@ const click=ru=>{
 	onUpdate&&onUpdate();
 }
 </script>
-<svelte:component this={before} {ru} {seq} {ptk}/><t class={getRenderUnitClasses(ru,ptk.name,extraclass)} on:click={()=>click(ru)} idx={seq}>{ru.text}</t><svelte:component this={after} {seq} {ru} {ptk} after={true}/>
+<svelte:component this={before} {ru} {seq} {ptk}/><t 
+class={getRenderUnitClasses(ru,textClasses(ptk),extraclass)} 
+on:click={()=>click(ru)} idx={seq}>{_(ru.text,ptk.lang)}</t><svelte:component this={after} {seq} {ru} {ptk} after={true}/>

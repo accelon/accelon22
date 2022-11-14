@@ -37,6 +37,9 @@ const listchunk=(sectionname)=>{
 const systeminfo=()=>{
 	oninsert({detail:{seq:-1,address:'@$systeminfo',singleton:true}});
 }
+const opensetting=()=>{
+	oninsert({detail:{seq:-1,address:'@$setting',singleton:true}});
+}
 </script>
 <div class="toolbar">
 <span class="clickable" on:click={()=>systeminfo()}><img alt="logo" src="favicon.svg" width="20" height="20"/></span>
@@ -52,4 +55,8 @@ const systeminfo=()=>{
 on:click={()=>listchunk(item.name)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
 on:click={()=>fulltext(item.name)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
 {/each}
+<span class="setting clickble" on:click={()=>opensetting()}>⛏</span>
 </div>
+<style>
+.setting {float:right}
+</style>

@@ -3,27 +3,34 @@ import {setContext} from 'svelte'
 import {LVA,loadScript} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
-import {lvaddr} from './ts/store.ts';
+import {palitrans, tosim,lvaddr} from './ts/store.ts';
+
 let value=''; //input
 let lva , items;
 $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
-	if (items.length && items[0].ptkname) {
-		await loadScript(items[0].ptkname+'/accelon22.css');
+	for (let i=0;i<items.length;i++) {
+		if (items.length && items[i].ptkname) {
+			await loadScript(items[i].ptkname+'/accelon22.css');
+		}
 	}
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.
 }
 const getLVA=()=>lva;
-$: updateLVA( $lvaddr);
+$: updateLVA( $lvaddr, $palitrans,$tosim);
 
 const oninsert=({detail})=>{
 	let nearest=detail.seq;
 	const lineoff=detail.lineoff;
 	if (detail.singleton) {
 		const at=lva.findAction(detail.address);
-		if (~at) lva.remove(at);
+		if (~at) {
+			lva.remove(at); //move to top
+			lvaddr.set(lva.stringify());
+			if (at==0) return; //toggle to remove
+		}
 	}
 	while (nearest>0 && items[nearest] && items[nearest].idx==-1) nearest--;
 	const nearestItem=items[nearest];
