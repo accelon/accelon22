@@ -13,7 +13,7 @@ const dosearch=async ()=>{
 	if (!ptk)return;
 	items=ptk.scanPrimaryKeys(value);
 	setTimeout(()=>{
-		ptk.scanSections(value).then(res=>{
+		ptk.scanText(value).then(res=>{
 			ftsitems=res;
 		});
 	})
@@ -47,13 +47,18 @@ const opensetting=()=>{
 <input bind:value size=3 on:input={debounce(dosearch,250)}/>
 {#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}
-<span class="clickable" title="beginsWith 开头符合" on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span><span title="inMiddle 中间符合" class="clickable" on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}·</span><span title="endsWith 结尾符合" class="clickable" on:click={()=>item.end.length&&insert(item.name,2)}>{item.end.length}{' '}</span>
+<span class="clickable" title="beginsWith 开头符合"
+ on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span>
+<span title="inMiddle 中间符合" class="clickable"
+ on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}·
+</span><span title="endsWith 结尾符合" class="clickable"
+ on:click={()=>item.end.length&&insert(item.name,2)}>{item.end.length}{' '}</span>
 {/if}
 {/each}
 {#each ftsitems as item,idx}
 <span class='clickable' title='fulltext 全文' 
-on:click={()=>listchunk(item.name)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
-on:click={()=>fulltext(item.name)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
+on:click={()=>listchunk(item.scope)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
+on:click={()=>fulltext(item.scope)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
 {/each}
 <span class="setting clickble" on:click={()=>opensetting()}>⛏</span>
 </div>

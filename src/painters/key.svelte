@@ -18,5 +18,5 @@ const getRow=()=>{
 getRow();
 </script>
 {#if after}
-<ReverseKeys name={foreign} {seq} tagname={ptk.attributes.chunktag} {ptk} keys={ptk.columns[master].keys}  {items}/>
+<ReverseKeys name={foreign} {seq} tagname="ck" {ptk} keys={ptk.columns[master].keys}  {items}/>
 {/if}

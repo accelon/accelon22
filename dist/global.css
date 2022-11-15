@@ -46,7 +46,7 @@ body {
 .ref {color: pink}
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
-.ck {color: goldenrod; font-size: 110%}
+.ck {color: goldenrod;}
 .ptkHuman {background:goldenrod;color:black}
 
 .abridged{ font-size:75% }
