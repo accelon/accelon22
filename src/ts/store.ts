@@ -1,9 +1,10 @@
 import {updateSettings,settings} from './savestore.ts'
 import {writable ,get} from 'svelte/store';
-import {openPtk,usePtk} from 'ptk'
+import {openPtk,usePtk,loadScript} from 'ptk'
 import {addressFromUrl, updateUrl} from './urlhash.ts';
 export const maintab=writable('library');
 
+export const activeword=writable('');
 export const panepos=writable(settings.panepos);
 export const pitakas=writable([]);
 export const activepitaka=writable(-1);
@@ -44,11 +45,13 @@ export async function addPitaka(ptk,location='local'){
 	pitakas.set(arr);
 }
 export async function openPitakas() { //a failure will stop loading process
-	const out=[];
+	const out=[],jobs=[];
 	for (let i=0;i<locals.length;i++) {
 		const ptk=await openPtk(locals[i]);
 		out.push({name:ptk.name,ptk,location:'local'});
+		jobs.push(loadScript(ptk.name+'/accelon22.css'));	
 	}
+	await Promise.all(jobs);
 	pitakas.set(out);
 	out.length&&activepitaka.set(0);
 };

@@ -1,9 +1,9 @@
 <script>
 import {setContext} from 'svelte'
-import {LVA,loadScript} from 'ptk'
+import {LVA} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
-import {tofind,palitrans, tosim,lvaddr,parallels} from './ts/store.ts';
+import {tofind,palitrans, tosim,lvaddr,parallels,activeword} from './ts/store.ts';
 import { get } from 'svelte/store';
 
 let value=get(tofind); //input
@@ -13,11 +13,6 @@ $: loaded=false;
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
-	for (let i=0;i<items.length;i++) {
-		if (items.length && items[i].ptkname) {
-			await loadScript(items[i].ptkname+'/accelon22.css');
-		}
-	}
 	loaded=true; //load toolbar after all lines are loaded, prevent racing.
 }
 const getLVA=()=>lva;
@@ -125,9 +120,13 @@ const setParallel=( ptkname, foreign, onoff)=>{
 	p[ptkname][foreign]=onoff;
 	parallels.set(JSON.stringify(p));
 }
-setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,setParallel, parallels,
+const setActiveword=w=>{
+	activeword.set(w);
+}
+
+setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,setParallel, parallels,setActiveword,
 	canless,canmore,cannext,canprev,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
 {#if loaded}<LibraryToolbar {value} {oninsert} {setTofind} />{/if}
-<LineView  {items} {lva}/>
+<LineView  {items} {lva} activeword={$activeword}/>

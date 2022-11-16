@@ -8,6 +8,7 @@ export let line;
 export let division;
 export let ptk;
 export let key;
+export let explainword;
 const LV=getContext('LV');
 
 $: show=false;
@@ -29,6 +30,7 @@ const update=()=>{
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
+{#if explainword}explaining {explainword} {/if}
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
 <style>

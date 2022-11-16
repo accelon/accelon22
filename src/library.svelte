@@ -1,6 +1,6 @@
 <script>
-import {LineBase,openPtkOption, RemoteZipStore, ZipStore} from 'ptk'
-import {pitakas,} from './ts/store.ts';
+import {LineBase,openPtkOption, ZipStore} from 'ptk'
+import {pitakas} from './ts/store.ts';
 
 const openlocalzip=async ()=>{
 	const [fileHandle]=await showOpenFilePicker(openPtkOption);

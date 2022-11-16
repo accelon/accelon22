@@ -29,6 +29,7 @@ body {
 	content: '⨯';
 }
 .active_clickable {background: #555555}
+.activeword {background: hsl(40,70%,70%);color:black}
 .tocitem {font-weight: bold; text-align: right}
 .uppertoc {opacity:0.3} /*上半段 讀過的*/
 .tocdepth0 {content:attr(id) ;color:  hsl(40,70%,70%)}

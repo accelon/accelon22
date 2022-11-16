@@ -7,6 +7,7 @@ import LineViewMenu from './lineviewmenu.svelte';
 const LV=getContext('LV');
 export let lva;
 export let items=[] ;
+export let activeword;
 
 const findDivisionIndex=seq=>{ //find closest division
 	let idx=items[seq].idx;
@@ -19,12 +20,13 @@ const findDivisionIndex=seq=>{ //find closest division
 const setActive=item=>{
 	LV.setActive(item);
 }
+
 </script>
 {#each items as item}
 <div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}>
 {#if item.closable}
 	<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}
-<LineViewItem {...item} {lva} dividx={findDivisionIndex(item.seq)} ptk={usePtk(item.key.replace(/:.+/,''))}/>
+<LineViewItem {...item} {lva} {activeword} dividx={findDivisionIndex(item.seq)} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 </div>
 {/each}
