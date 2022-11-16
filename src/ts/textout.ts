@@ -5,6 +5,7 @@ import { offtext2indic} from 'provident-pali';
 // import {factorizeText} from 'ptk';
 
 export const textClasses=ptk=>{
+	if (!ptk) return '';
 	let out=' '+ptk.name;
 	if (ptk.lang=='pp') { // pp : provident pali, pli : romanize pali
 		const trans=get(palitrans);

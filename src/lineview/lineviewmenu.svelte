@@ -18,7 +18,7 @@ $: division=lva.getNode(item.idx);
 {#if LV.cannext(division)}<span class='clickable' 
 on:click={()=>LV.onnext(item.idx)}>{division.last-division.first}</span>{/if}
 
-<span class={'clickable lineviewheading'+textClasses(ptk)} on:click={()=>LV.ontop(division)}>{_(caption,ptk.lang)}</span>
+<span class={'clickable lineviewheading'+textClasses(ptk)} on:click={()=>LV.ontop(division)}>{_(caption,ptk?.lang)}</span>
 {/if}
 <span class='clickable'on:click={()=>LV.onremove(division)}>⨯</span>
 </span>

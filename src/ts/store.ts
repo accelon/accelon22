@@ -14,10 +14,15 @@ export const comimage=writable(null);
 export const palitrans=writable(settings.palitrans);
 export const tosim=writable(settings.tosim);
 export const factorization=writable(settings.factorization);
+export const tofind=writable(settings.tofind); //system toolbar tofind
+export const parallels=writable(settings.parallels); //parallels setting of each pck
 panepos.subscribe(panepos=>updateSettings({panepos}));
 tosim.subscribe(tosim=>updateSettings({tosim}));
 palitrans.subscribe(palitrans=>updateSettings({palitrans}));
 factorization.subscribe(factorization=>updateSettings({factorization}));
+tofind.subscribe(tofind=>updateSettings({tofind}));
+parallels.subscribe(parallels=>updateSettings({parallels}));
+
 
 errormsg.subscribe(msg=>{
  	if (msg.length) {

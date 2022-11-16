@@ -4,7 +4,15 @@ export const loadSettings=()=>{
     const palitrans=localStorage.getItem(AppPrefix+'palitrans')||'';
     const tosim=localStorage.getItem(AppPrefix+'tosim')||'0';
     const factorization=parseInt(localStorage.getItem(AppPrefix+'factorization')||'1');
-    return {panepos,palitrans,tosim,factorization};
+    const tofind=localStorage.getItem(AppPrefix+'tofind')||'';
+    let parallels=localStorage.getItem(AppPrefix+'parallels')||'{}';
+    try {
+        JSON.parse(parallels);
+    } catch (e){
+        console.log(e);
+        parallels='{}';
+    }
+    return {panepos,palitrans,tosim,factorization,tofind,parallels};
 }
 
 export const saveSettings=()=>{ //immediate save

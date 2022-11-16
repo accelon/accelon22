@@ -4,7 +4,7 @@ import InlineText from '../painters/inlinetext.svelte';
 export let ptk
 export let seq
 export let line;
-export let parallels;
+export let parallels_linediff;
 export let division;
 const LV=getContext('LV');
 const addDivision=(pptkname,line,linediff)=>{
@@ -18,7 +18,7 @@ const addDivision=(pptkname,line,linediff)=>{
 }
 </script>
 
-{#each parallels as [pptk,linediff] }
+{#each parallels_linediff as [pptk,linediff] }
 {#if ptk.parallels[pptk.name]}
 <br/><span on:click={()=>addDivision(pptk.name,line,linediff)} class={'parallelptk clickable'}>{pptk.humanName()}</span>
 <InlineText active=true ptk={pptk} {seq} text={pptk.getLine(line+linediff)}/>

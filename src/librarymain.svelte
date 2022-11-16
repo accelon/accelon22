@@ -3,11 +3,13 @@ import {setContext} from 'svelte'
 import {LVA,loadScript} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
-import {palitrans, tosim,lvaddr} from './ts/store.ts';
+import {tofind,palitrans, tosim,lvaddr,parallels} from './ts/store.ts';
+import { get } from 'svelte/store';
 
-let value=''; //input
+let value=get(tofind); //input
 let lva , items;
 $: loaded=false;
+
 const updateLVA=async (address)=>{
 	lva=new LVA(address);
 	items = await lva.load();
@@ -108,12 +110,24 @@ const clearActive=()=>{
 		if (items[i].active) items[i].active=false;
 	}
 }
-const setTofind=tofind=>{
-	value=tofind;
+const setTofind=tf=>{
+	value=tf;
+	tofind.set(value);
 }
-setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,
+const setParallel=( ptkname, foreign, onoff)=>{
+	try {
+		p=JSON.parse(get(parallels));
+	} catch{
+		p={};
+	}
+	
+	if (!p[ptkname]) p[ptkname]={};	
+	p[ptkname][foreign]=onoff;
+	parallels.set(JSON.stringify(p));
+}
+setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,setParallel, parallels,
 	canless,canmore,cannext,canprev,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
 
 </script>
-{#if loaded}<LibraryToolbar {value} {oninsert}/>{/if}
+{#if loaded}<LibraryToolbar {value} {oninsert} {setTofind} />{/if}
 <LineView  {items} {lva}/>
