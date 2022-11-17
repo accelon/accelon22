@@ -22,7 +22,7 @@ tosim.subscribe((tosim:number)=>updateSettings({tosim}));
 palitrans.subscribe((palitrans:string)=>updateSettings({palitrans}));
 factorization.subscribe((factorization:number)=>updateSettings({factorization}));
 tofind.subscribe((tofind:string)=>updateSettings({tofind}));
-parallels.subscribe((parallels:Record<string,Record<string,boolean> >)=>updateSettings({parallels}));
+parallels.subscribe(parallels=>updateSettings({parallels}));
 
 
 errormsg.subscribe(msg=>{
