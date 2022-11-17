@@ -1,5 +1,5 @@
-import {LineBaser,saveComOption,savePtkOption,openComOption,loadScript, 
-	cssSkeleton,makeInMemoryPtk,Compiler,openInMemoryPtk,makeLineBaser} from "ptk";
+import {saveComOption,savePtkOption,openComOption, 
+	cssSkeleton,makeInMemoryPtk,openInMemoryPtk,makeLineBaser} from "ptk";
 import {sources,editing,NamedBuffer,getEditing,getSource} from "./editor.ts";
 import {compiler} from "./editorupdate.ts";
 import {comimage,addPitaka} from "./store.ts";
@@ -33,7 +33,7 @@ export const getComImage=async(askuser=false)=>{
 }
 
 export const inMemoryPtk=()=>{
-	accelon22css=getSource('accelon22.css')||cssSkeleton(compiler.typedefs, compiler.ptkname);
+	const accelon22css=getSource('accelon22.css')||cssSkeleton(compiler.typedefs, compiler.ptkname);
 	const ptkimage=makeInMemoryPtk(lbaser,accelon22css,get(comimage));
 	openInMemoryPtk(lbaser.name,ptkimage).then((ptk)=>{
 		addPitaka(ptk,'memory');//update the store

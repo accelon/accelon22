@@ -8,7 +8,7 @@ export let text='';
 export let before,after;
 export let extraclass='';
 
-$: [offtext,runits]=renderOfftext(text,{hits,phraselength});
+$: [runits]=renderOfftext(text,{hits,phraselength});
 $: abridges=abridgeRenderUnits(runits,30,refreshcount);
 let refreshcount=1;
 const onUpdate=()=> refreshcount++;

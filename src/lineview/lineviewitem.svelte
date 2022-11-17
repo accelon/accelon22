@@ -20,7 +20,7 @@ export let activeword;
 export let highlight;
 export let active;
 let units;
-$: [offtext,units]=renderOfftext(text,{line});
+$: [units]=renderOfftext(text,{line});
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 

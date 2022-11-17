@@ -1,6 +1,7 @@
 <script>
 import ParallelMenu from './parallelmenu.svelte';
 import ParallelTexts from './paralleltexts.svelte';
+import {_,textClasses} from '../ts/textout.ts'
 import {getContext} from 'svelte';
 import {get} from 'svelte/store';
 export let seq;
@@ -30,7 +31,7 @@ const update=()=>{
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
-{#if explainword}explaining {explainword} {/if}
+{#if explainword}<span class={textClasses(ptk)}>exp {_(explainword,ptk?.lang)} </span>{/if}
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
 <style>

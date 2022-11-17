@@ -33,7 +33,7 @@ const setFrom=()=>{
 	pfrom=from;
 }
 const openChunk=(tagname,id)=>{
-	const address=tagname+id;
+	const address=tagname+(parseInt(id)?id:'#'+id);
 	LV.insertAddress(address,seq);
 }
 $: setFrom(from);
@@ -44,7 +44,7 @@ $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 <ExcerptBar {caption} {ptk} {tofind} {last} {seq} {dividx} bind:from {chunk} {action}/>
 {#each displayitems as item,idx}
 <div>
-<ExcerptHeading {seq} {dividx} {...item.ck}/>
+<ExcerptHeading {ptk} {seq} {dividx} {...item.ck}/>
 <Abridge {...item} {ptk}/>{#if !chunk}
 {'　'+item.ck.id}.<span class='excerptheading clickable'
  on:click={()=>openChunk(item.ck.tagname,item.ck.id)}>{item.ck.caption}</span>

@@ -17,12 +17,12 @@ export const tosim=writable(settings.tosim);
 export const factorization=writable(settings.factorization);
 export const tofind=writable(settings.tofind); //system toolbar tofind
 export const parallels=writable(settings.parallels); //parallels setting of each pck
-panepos.subscribe(panepos=>updateSettings({panepos}));
-tosim.subscribe(tosim=>updateSettings({tosim}));
-palitrans.subscribe(palitrans=>updateSettings({palitrans}));
-factorization.subscribe(factorization=>updateSettings({factorization}));
-tofind.subscribe(tofind=>updateSettings({tofind}));
-parallels.subscribe(parallels=>updateSettings({parallels}));
+panepos.subscribe((panepos:number)=>updateSettings({panepos}));
+tosim.subscribe((tosim:number)=>updateSettings({tosim}));
+palitrans.subscribe((palitrans:string)=>updateSettings({palitrans}));
+factorization.subscribe((factorization:number)=>updateSettings({factorization}));
+tofind.subscribe((tofind:string)=>updateSettings({tofind}));
+parallels.subscribe((parallels:Record<string,Record<string,boolean> >)=>updateSettings({parallels}));
 
 
 errormsg.subscribe(msg=>{
@@ -32,13 +32,13 @@ errormsg.subscribe(msg=>{
  		},3000)
  	}
 });
-const locals=(accelon22?.preload||'').split(',').filter(it=>!!it);
+const locals=(window.accelon22?.preload||'').split(',').filter(it=>!!it);
 export const activePtkName=()=>get(pitakas)[get(activepitaka)].name;
 export const activePtk=()=>usePtk(activePtkName());
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);
 })
-export async function addPitaka(ptk,location='local'){
+export function addPitaka(ptk,location='local'){
 	let arr=get(pitakas);
 	arr=arr.filter(it=>it.name!==ptk.name);
 	arr.unshift({name:ptk.name,ptk,location});

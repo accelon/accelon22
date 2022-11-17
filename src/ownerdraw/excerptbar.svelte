@@ -30,7 +30,7 @@ const listChunk=()=>{
 	LV.insertAddress(address,seq);
 }
 const openChunk=(tagname,id)=>{
-	const address=tagname+id;
+	const address=tagname+(parseInt(id)?id:'#'+id);
 	LV.insertAddress(address,seq);
 }
 </script>

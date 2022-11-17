@@ -48,7 +48,7 @@ onMount(()=>setcaption());
 </span>
 
 <style>
-    .button{ vertical-align: top;cursor:pointer;fill:var(--button-selected);padding-right:0.2em}
+    .button{ user-select: none; vertical-align: top;cursor:pointer;fill:var(--button-selected);padding-right:0.2em}
     .button.disabled {cursor:auto;fill:none;stroke:var(--button-unselected) }
     .button.disabled:hover {fill:none; stroke: var(--button-unselected)}
     .button:hover {color:var(--hover); fill:var(--hover);stroke:var(--hover);}

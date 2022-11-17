@@ -73,9 +73,17 @@ const ontop=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.top(idx).stringify() );
 }
+const onpromote=(idx)=>{
+	if (idx?.detail) idx=idx.detail;
+	lvaddr.set( lva.promote(idx).stringify() );
+}
 const canless=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	return lva.canless(idx);
+}
+const canpromote=(idx)=>{
+	if (idx?.detail) idx=idx.detail; 
+	return lva.canpromote(idx);
 }
 const canmore=(idx)=>{
 	if (idx?.detail) idx=idx.detail; 
@@ -124,8 +132,11 @@ const setActiveword=w=>{
 	activeword.set(w);
 }
 
-setContext('LV',{ insertAddress, setFrom, setActive, clearActive,setTofind,setParallel, parallels,setActiveword,
-	canless,canmore,cannext,canprev,onremove,onnext,onprev, ontop,onmore,onless,getLVA });
+setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
+	setActive,setActiveword, setTofind,setParallel, clearActive,
+	canpromote,canless,canmore,cannext,canprev,
+	onremove,onnext,onprev, ontop,onmore,onless,onpromote,
+	 });
 
 </script>
 {#if loaded}<LibraryToolbar {value} {oninsert} {setTofind} />{/if}
