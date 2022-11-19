@@ -37,10 +37,10 @@ const listchunk=(sectionname)=>{
 	oninsert({detail:{seq:-1,address:ptkname+':~'+ sectionname+'='+tofind}});
 }
 const systeminfo=()=>{
-	oninsert({detail:{seq:-1,address:'@$systeminfo',singleton:true}});
+	oninsert({detail:{seq:-1,address:'@systeminfo',singleton:true}});
 }
 const opensetting=()=>{
-	oninsert({detail:{seq:-1,address:'@$setting',singleton:true}});
+	oninsert({detail:{seq:-1,address:'@setting',singleton:true}});
 }
 </script>
 <div class="toolbar">

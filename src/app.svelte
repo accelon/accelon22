@@ -4,7 +4,7 @@ import {onMount} from 'svelte';
 // import LeftPanel from './leftpanel.svelte'
 import RightPanel from './rightpanel.svelte'
 import FloatPanel from './floatpanel.svelte'
-import TocMenu from './tocmenu.svelte'
+// import TocMenu from './tocmenu.svelte'
 import {openPitakas} from './ts/store.ts'
 import {editingErrors} from './ts/editor.ts'
 import MarkupErrors from './markuperrors.svelte'
@@ -46,7 +46,7 @@ onMount( async ()=>{
     {#if $editingErrors.length}
         <MarkupErrors/>x
     {:else}
-        <TocMenu/>
+        <!-- <TocMenu/> -->
     {/if}
     </div></FloatPanel>
 

@@ -5,7 +5,7 @@ export let ptkname;
 export let oninsert;
 const setActive=n=>{
 	if (get(activepitaka)==n) {
-		oninsert({detail:{seq:-1,address:'@'+ptkname+'$info',singleton:true}});
+		oninsert({detail:{seq:-1,address:ptkname+':~=',singleton:true}});
 		return;
 	}
 	activepitaka.set(n);

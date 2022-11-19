@@ -1,4 +1,8 @@
 <script>
-export let ptkname;
+export let ptk;
+export let items;
 </script>
-{ptkname} info
+{ptk.name} info
+{#each items as item}
+{item.text}
+{/each}
