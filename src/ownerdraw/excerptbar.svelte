@@ -36,7 +36,7 @@ const openChunk=(tagname,id)=>{
 </script>
 
 <div class="toolbar excerptheader">
-{ptk.humanName()} {#if tofind}<span class="tofind clickable" on:click={()=>setTofind()}>{tofind}</span>{/if} 
+<span title={ptk.humanName(true)}>{ptk.name}</span>  {#if tofind}<span class="tofind clickable" on:click={()=>setTofind()}>{tofind}</span>{/if} 
 {#if caption}<span class="clickable" on:click={()=>listChunk()}>{caption}</span>{/if}
 {#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
 {#if chunk}

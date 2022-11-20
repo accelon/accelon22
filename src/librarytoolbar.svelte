@@ -44,7 +44,7 @@ const opensetting=()=>{
 }
 </script>
 <div class="toolbar">
-<span class="clickable" on:click={()=>systeminfo()}><img alt="logo" src="favicon.svg" width="20" height="20"/></span>
+<span class="clickable" on:click={()=>systeminfo()}></span>
 <SelectPitakas bind:ptkname {oninsert}/>
 <input bind:value size=3 on:input={debounce(dosearch,500)}/>
 {#each items as item,idx}

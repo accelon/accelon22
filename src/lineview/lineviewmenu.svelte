@@ -12,8 +12,8 @@ $: division=lva.getNode(item.idx);
 </script>
 <span class='rightmenu'>
 {#if caption && !division?.singleton}<!-- navigating a reading segment and not singleton division-->
-{#if LV.canless(division)}<span class='clickable' on:click={()=>LV.onless(division)}>{"⭱　"}</span>{/if}
-{#if LV.canmore(division)}<span class='clickable' on:click={()=>LV.onmore(division)}>{"⭳　"}</span>{/if}
+{#if LV.canless(division)}<span class='clickable lesstext' on:click={()=>LV.onless(division)}></span>{/if}
+{#if LV.canmore(division)}<span class='clickable moretext' on:click={()=>LV.onmore(division)}></span>{/if}
 {#if LV.canprev(division)}<span class='clickable' on:click={()=>LV.onprev(division)}>{division?.from+1}/</span>{/if}
 {#if LV.cannext(division)}<span class='clickable' on:click={()=>LV.onnext(division)}>{division.last-division.first}</span>{/if}
 

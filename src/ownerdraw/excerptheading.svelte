@@ -12,4 +12,4 @@ const openchunk=()=>{
 }
 
 </script>
-<span class='clickable' on:click={openchunk}>⮨</span>
+<span class='clickable openexcerpt' on:click={openchunk}></span>

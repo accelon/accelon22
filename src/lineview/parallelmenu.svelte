@@ -22,5 +22,5 @@ const  toggleParallel=async (e,ptkname,onoff)=>{
 </script>
 {#each parallels as [pptk] }
 <span class='clickable' class:closelink={ptk.parallels[pptk.name]} 
-on:click={e=>toggleParallel(e,pptk.name)}>{pptk.humanName()+' '}</span>
+on:click={e=>toggleParallel(e,pptk.name)}>{pptk?.name+' '}</span>
 {/each}

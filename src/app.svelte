@@ -67,5 +67,5 @@ onMount( async ()=>{
 Loading...
 {/if}
 <style>
-    .container {height:100vh; overflow-y: auto; }
+    .container { }
 </style>
