@@ -3,7 +3,6 @@
 import {renderOfftext} from 'ptk';
 import RenderUnit from './renderunit.svelte';
 import {palitrans,tosim} from "../ts/store.ts"
-import { get } from 'svelte/store';
 export let ptk;
 export let hits=[];
 export let phraselength=[];

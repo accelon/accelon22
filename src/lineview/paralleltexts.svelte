@@ -27,7 +27,7 @@ const addDivision=(pptkname,line,linediff)=>{
 {#await pptk.loadLines([[line+linediff,line+linediff+1]])}
 Loading...
 {:then}
-<InlineText active=true ptk={pptk} {seq} text={pptk.getLine(line+linediff)}/>
+<InlineText extraclass='parallel' active=true ptk={pptk} {seq} text={pptk.getLine(line+linediff)}/>
 {/await}
 {/if}
 {/each}
