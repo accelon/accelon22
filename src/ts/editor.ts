@@ -33,25 +33,25 @@ export const tocInViewport=()=>{
 export const NamedBuffer = (handle=null,name:string, text='',mode='') =>{
 	return {handle,name,text,mode,toc:[], errors:[],state:{} , compiled:{} };
 }
-setTimeout(async()=>{
-	try{
-		const lexicon=await loadTextInJS('lexicon.js');
-		const ztoc= await loadTextInJS('ztoc.js');
-		const sample=await loadTextInJS('sample.js');
-		const sunzi= await loadTextInJS('sunzi.js');
-		sources.set([
-			NamedBuffer(null,"*sample.txt",sample),
-			NamedBuffer(null,"*lexicon.txt",lexicon,'tabular'),
-			NamedBuffer(null,"*ztoc.txt",ztoc),
-			NamedBuffer(null,"*sunzi.txt",sunzi),
-		]);
-		editing.set(0);
-	} catch(e) {
-		console.error(e);
-	}
-})
+// setTimeout(async()=>{
+// 	try{
+// 		// const lexicon=await loadTextInJS('lexicon.js');
+// 		const ztoc= await loadTextInJS('ztoc.js');
+// 		const sample=await loadTextInJS('sample.js');
+// 		const sunzi= await loadTextInJS('sunzi.js');
+// 		sources.set([
+// 			NamedBuffer(null,"*sample.txt",sample),
+// 			NamedBuffer(null,"*lexicon.txt",lexicon,'tabular'),
+// 			NamedBuffer(null,"*ztoc.txt",ztoc),
+// 			NamedBuffer(null,"*sunzi.txt",sunzi),
+// 		]);
+// 		editing.set(0);
+// 	} catch(e) {
+// 		console.error(e);
+// 	}
+// })
 
-let inputtimer
+let inputtimer=0
 export const inputScrollToLine=(ele)=>{
 	clearTimeout(inputtimer)
 	inputtimer=setTimeout(()=>{

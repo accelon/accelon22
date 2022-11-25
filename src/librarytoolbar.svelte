@@ -62,8 +62,8 @@ const opensetting=()=>{
 on:click={()=>listchunk(item.scope)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
 on:click={()=>fulltext(item.scope)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
 {/each}
-<span class="setting clickble" on:click={()=>opensetting()}>⛏</span>
+<span class="setting clickble" on:click={()=>opensetting()}>🛠️</span>
 </div>
 <style>
-.setting {float:right}
+.setting {float:right;padding-right:1em}
 </style>

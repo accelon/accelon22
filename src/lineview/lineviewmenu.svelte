@@ -10,7 +10,7 @@ if (item.idx!==-1) caption=ptk?.getHeading(item.line+1).caption; //readable
 $: division=lva.getNode(item.idx);
 
 </script>
-<span class='rightmenu'>
+<span class='lineviewmenu'>
 {#if caption && !division?.singleton}<!-- navigating a reading segment and not singleton division-->
 {#if LV.canless(division)}<span class='clickable lesstext' on:click={()=>LV.onless(division)}></span>{/if}
 {#if LV.canmore(division)}<span class='clickable moretext' on:click={()=>LV.onmore(division)}></span>{/if}
@@ -23,6 +23,3 @@ $: division=lva.getNode(item.idx);
 <span class='clickable'on:click={()=>LV.onremove(division)}>⨯</span>
 </span>
 
-<style>
-	.rightmenu {float: right; padding-right: 0.5em ;user-select: none;}
-</style>

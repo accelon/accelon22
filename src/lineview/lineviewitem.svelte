@@ -10,7 +10,9 @@ export let edge;
 export let depth;
 export let text;
 export let key;
+export let sponser='';
 export let line;
+export let idx; //-1 top line
 export let lva; 
 export let seq; //seq in lineview
 export let dividx;    
@@ -28,7 +30,7 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 {#if ownerdraw}
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
-<InlineText {ptk} {line} {seq} {units} {active} {activeword} before={Offtags} after={Offtags}/>
+{#if sponser}<span class="sponser" {sponser}></span>{/if}{#if idx>-1}<br/>{/if}<InlineText {ptk} {line} {seq} {units} {active} {activeword} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} {seq} {line} {dividx} division={lva.getNode(dividx)}/>{/if}
 {/if}
 </div>

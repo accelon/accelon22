@@ -25,8 +25,9 @@ const setActive=item=>{
 {#each items as item}
 <div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}>
 {#if item.closable}
-	<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
+<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}
 <LineViewItem {...item} {lva} {activeword} dividx={findDivisionIndex(item.seq)} ptk={usePtk(item.key.replace(/:.+/,''))}/>
+
 </div>
 {/each}
