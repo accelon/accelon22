@@ -7,14 +7,12 @@ export let division;
 const parallels=division?.getParallelWithDiff();
 const LV=getContext('LV');
 
-const  toggleParallel=async (e,ptkname,onoff)=>{
+const  toggleParallel=async (e,ptkname)=>{
     setTimeout(async function(){
-        const datevalue=(new Date()).valueOf();
-        if (onoff) await division.loadParallel(ptkname);
-        if (ptk.parallels[ptkname]) ptk.parallels[ptkname]=0;
-        else ptk.parallels[ptkname]=datevalue;
-
-        LV.setParallel(ptk.name,ptkname, datevalue);
+        // await division.loadParallel(ptkname);
+        const v= (ptk.parallels[ptkname])?0:(new Date()).valueOf();
+        ptk.parallels[ptkname]=v;           // parallel setting in individual ptk
+        LV.setParallel(ptk.name,ptkname,v); // update the localstorage 
         update();
     });
     e.stopPropagation();

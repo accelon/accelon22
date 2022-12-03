@@ -1,6 +1,6 @@
 <script>
 import {setContext} from 'svelte'
-import {LVA} from 'ptk'
+import {LVA,TokenType,tokenize} from 'ptk'
 import LineView from './lineview/lineview.svelte';
 import LibraryToolbar from './librarytoolbar.svelte';
 import {tofind,palitrans, tosim,lvaddr,parallels,activeword} from './ts/store.ts';
@@ -128,12 +128,15 @@ const setParallel=( ptkname, foreign, onoff)=>{
 	p[ptkname][foreign]=onoff;
 	parallels.set(JSON.stringify(p));
 }
-const setActiveword=w=>{
-	activeword.set(w);
+const toggleActiveword=w=>{
+	const tokens=tokenize(w);
+	if (tokens.length && tokens[0].type<=TokenType.SEARCHABLE) return;
+	if (get(activeword)==w) activeword.set('');
+	else activeword.set(w);
 }
 
 setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
-	setActive,setActiveword, setTofind,setParallel, clearActive,
+	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
 	onremove,onnext,onprev, ontop,onmore,onless,onpromote,
 	 });
