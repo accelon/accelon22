@@ -26,9 +26,9 @@ import titlecount from './ownerdraw/titlecount.svelte';
 import systeminfo from './ownerdraw/systeminfo.svelte'; 
 import setting from './ownerdraw/setting.svelte'; 
 import unknown from './ownerdraw/unknown.svelte'; 
-import info from './ownerdraw/info.svelte'; 
+import guide from './ownerdraw/guide.svelte'; 
 initPainters({note,keys,key,confer,f,fn});
-initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,info});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide});
 $: ready=false;
 
 onMount( async ()=>{

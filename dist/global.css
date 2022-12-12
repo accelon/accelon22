@@ -19,7 +19,7 @@ body {
 	margin: 0px;
 }
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
-.toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;}
+.toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;padding-left:0.5em;padding-right:0.5em}
 .clickable:hover{text-decoration: underline;cursor:pointer}
 .closelink {text-decoration: line-through;}
 .unclickable{color: gray}
@@ -67,6 +67,8 @@ body {
     line-height: 1.8;
     padding-right: 5px;
 }
+.lineviewmenu {z-index: 999; 
+	position:absolute;right:0px; padding-right: 0.5em ;user-select: none;}
 .activeline { 
 	padding-left: 1px;
     border-left: 4px solid gray;
@@ -97,3 +99,7 @@ body {
 .lang-pl-iast {font-family: "Segoe UI",Tahoma}
 .lang-pl-tb {font-size:120%}
 .lang-en {font-family: "Times New Roman", Georgia;}
+
+.sponser:before {color:gray;content:"本經護持者🙏" attr(sponser) }
+.pickernode {cursor: pointer;user-select: none;}
+.selectedpickernode {color:yellow}
