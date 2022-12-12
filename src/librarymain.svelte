@@ -52,7 +52,6 @@ const onremove=(idx)=>{
 	}
 	lvaddr.set( lva.stringify() );
 }
-
 const onnext=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.next(idx).stringify() );
@@ -134,8 +133,12 @@ const toggleActiveword=w=>{
 	if (get(activeword)==w) activeword.set('');
 	else activeword.set(w);
 }
+const changeAction=(idx,newaction)=>{
+	if (idx?.detail) idx=idx.detail; 
+	lvaddr.set(lva.changeAction(newaction,idx).stringify() );
+}
 
-setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
+setContext('LV',{ insertAddress, setFrom, parallels,getLVA,changeAction,
 	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
 	onremove,onnext,onprev, ontop,onmore,onless,onpromote,

@@ -1,7 +1,7 @@
 <script>
 import {hasLang} from 'ptk';
 import StateBtn from '../comps/statebutton.svelte';
-import {palitrans,tosim,factorization} from '../ts/store.ts';
+import {palitrans,tosim} from '../ts/store.ts';
 import {_} from '../ts/textout.ts';
 </script>
 <StateBtn states={{0:"原文",1:"简體",2:"简体"}} storeid={tosim}/>

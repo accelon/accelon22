@@ -1,6 +1,6 @@
 <script>
 export let items;
-console.log(items)
+export let update;
 const hideAll=()=>{
     for (let i=0;i<items.length;i++) {
         if (items[i].depth>1) items[i].show=false;
@@ -44,13 +44,14 @@ const toggle=idx=>{
             }
         }
     }
+    update();
     refreshcount++;
 }
 </script>
 {#key refreshcount}
 {#each items as item,idx}
 {#if item.depth==1||item.show || item.selected}<span on:click={()=>toggle(idx)}
- style={'border-bottom:'+(item.depth)+'px solid white'}
+ style={'border-bottom:'+(item.depth-1)+'px solid white'}
  class={"pickernode "+(item.selected?'selectedpickernode':'')}>{item.caption}</span>{' '}{/if}
 {/each}
 {/key}
