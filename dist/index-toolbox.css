@@ -1,0 +1,188 @@
+/* fakecss:C:/2022/accelon22/src/3rdparty/splitpane.esbuild-svelte-fake-css */
+.container.svelte-714jtl {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.pane.svelte-714jtl {
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.mousecatcher.svelte-714jtl {
+  background: rgba(255, 255, 255, .01);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.divider.svelte-714jtl {
+  background: rgba(10, 10, 10, .15);
+  position: absolute;
+  z-index: 10;
+  display: none;
+  filter: blur(1px);
+}
+.divider.svelte-714jtl::after {
+  content: "";
+  position: absolute;
+  background-color: var(--splitter);
+}
+.dragging.svelte-714jtl {
+  background: highlight;
+}
+.horizontal.svelte-714jtl {
+  padding: 0 6px;
+  width: 0;
+  height: 100%;
+  cursor: ew-resize;
+}
+.horizontal.svelte-714jtl::after {
+  left: 5px;
+  top: 0;
+  width: 0px;
+  height: 100%;
+}
+.vertical.svelte-714jtl {
+  padding: 6px 0;
+  width: 100%;
+  height: 0;
+  cursor: ns-resize;
+}
+.vertical.svelte-714jtl::after {
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 0px;
+}
+.left.svelte-714jtl,
+.right.svelte-714jtl,
+.divider.svelte-714jtl {
+  display: block;
+}
+.left.svelte-714jtl,
+.right.svelte-714jtl {
+  height: 100%;
+  float: left;
+}
+.top.svelte-714jtl,
+.bottom.svelte-714jtl {
+  position: absolute;
+  width: 100%;
+}
+.top.svelte-714jtl {
+  top: 0;
+}
+.bottom.svelte-714jtl {
+  bottom: 0;
+}
+
+/* fakecss:C:/2022/accelon22/src/errorlinewidget.esbuild-svelte-fake-css */
+.errormessage.svelte-c7m92n {
+  background: red;
+  color: yellow;
+}
+
+/* fakecss:C:/2022/accelon22/src/sourcelist.esbuild-svelte-fake-css */
+.sourcelist.svelte-2mni3v {
+  height: 50vh;
+  overflow-y: auto;
+}
+
+/* fakecss:C:/2022/accelon22/src/toolbox/searchstatpanel.esbuild-svelte-fake-css */
+.input.svelte-1bbqe5m {
+  width: 100%;
+  font-size: 120%;
+}
+.big.svelte-1bbqe5m {
+  font-size: 120%;
+}
+
+/* fakecss:C:/2022/accelon22/src/leftpanel.esbuild-svelte-fake-css */
+.tabs.svelte-1hsttnl {
+  --webkit-user-select:none;
+  overflow: hidden;
+  user-select: none;
+  border-radius: 0.5em;
+  padding-left: 0.3em;
+}
+.selected.svelte-1hsttnl {
+  background: gray;
+  border-radius: 0.25em;
+}
+.tab-content.svelte-1hsttnl {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tab-content.visible.svelte-1hsttnl {
+  opacity: 1;
+  pointer-events: all;
+  position: relative;
+}
+.errormsg.svelte-1hsttnl {
+  color: red;
+  transition: color 0.5s;
+}
+
+/* fakecss:C:/2022/accelon22/src/cmtoolbar.esbuild-svelte-fake-css */
+.cursorline.svelte-w3a2dm {
+  border: none;
+  background: gray;
+  width: 3em;
+}
+
+/* fakecss:C:/2022/accelon22/src/tabulartoolbar.esbuild-svelte-fake-css */
+.row.svelte-vaudig {
+  border: none;
+  background: gray;
+  width: 3em;
+}
+
+/* fakecss:C:/2022/accelon22/src/3rdparty/virtualtable.esbuild-svelte-fake-css */
+table.svelte-17p5je3.svelte-17p5je3 {
+  position: relative;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 95vh;
+  box-sizing: border-box;
+  display: block;
+}
+table.svelte-17p5je3 .svelte-17p5je3:is(thead, tfoot, tbody) {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  box-sizing: border-box;
+}
+table.require-border-collapse.svelte-17p5je3 thead.svelte-17p5je3 {
+  min-height: calc(var(--bw-svt-p-top));
+}
+table.require-border-collapse.svelte-17p5je3 tfoot.svelte-17p5je3 {
+  min-height: calc(var(--bw-svt-p-bottom));
+}
+table.require-border-collapse.svelte-17p5je3.svelte-17p5je3 {
+  border-collapse: collapse;
+}
+table.svelte-17p5je3:not(.require-border-collapse) tbody.svelte-17p5je3 {
+  padding-top: var(--bw-svt-p-top);
+  padding-bottom: var(--bw-svt-p-bottom);
+}
+thead.svelte-17p5je3.svelte-17p5je3 {
+  user-select: none;
+  pointer-events: none;
+}
+tbody.svelte-17p5je3.svelte-17p5je3 {
+  position: relative;
+  box-sizing: border-box;
+  border: 0px solid currentColor;
+}
+
+/* fakecss:C:/2022/accelon22/src/tabular.esbuild-svelte-fake-css */
+.oddeven0.svelte-aduk17 {
+  background-color: #555555;
+}

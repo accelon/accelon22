@@ -2,11 +2,12 @@
 import {bigfortune} from './comps/pxchars.ts'
 import Library from './library.svelte'
 import SourceList from './sourcelist.svelte'
+import SearchStatPanel from './toolbox/searchstatpanel.svelte'
 import {errormsg,maintab} from './ts/store.ts'
 </script>
 <div>
   <div class="tabs">    
-    <span class='clickable' class:selected={$maintab=="library"} on:click={()=>maintab.set("library")}>📚</span>
+    <!-- <span class='clickable' class:selected={$maintab=="library"} on:click={()=>maintab.set("library")}>📚</span> -->
     <span class='clickable' class:selected={$maintab=="builder"} on:click={()=>maintab.set("builder")}>🛠️</span>
     <span class='clickable' class:selected={$maintab=="search"} on:click={()=>maintab.set("search")}>🔍</span>
     <span class='clickable' class:selected={$maintab=="hzpx"} on:click={()=>maintab.set("hzpx")}>{@html bigfortune}</span>
@@ -16,7 +17,7 @@ import {errormsg,maintab} from './ts/store.ts'
 
   <div class="tab-content" class:visible={$maintab=='library'}><Library/></div>
   <div class="tab-content" class:visible={$maintab=='builder'}><SourceList/></div>
-  <div class="tab-content" class:visible={$maintab=='search'}>field and full search result</div>
+  <div class="tab-content" class:visible={$maintab=='search'}><SearchStatPanel/></div>
   <div class="tab-content" class:visible={$maintab=='hzpx'}>hzpx</div>
   <div class="tab-content" class:visible={$maintab=='help'}>tutorial</div>
 </div>
@@ -37,6 +38,7 @@ import {errormsg,maintab} from './ts/store.ts'
 .tab-content.visible {/* can't use visibility due to a weird painting bug in Chrome */
   opacity: 1;
   pointer-events: all;
+  position:relative
 }
 .errormsg {color: red;transition: color 0.5s;}
 </style>

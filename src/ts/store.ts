@@ -2,7 +2,7 @@ import {updateSettings,settings} from './savestore.ts'
 import {writable ,get} from 'svelte/store';
 import {openPtk,usePtk,loadScript} from 'ptk'
 import {addressFromUrl, updateUrl} from './urlhash.ts';
-export const maintab=writable('library');
+export const maintab=writable('builder');
 
 export const activeword=writable('');
 export const panepos=writable(settings.panepos);
