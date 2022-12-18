@@ -49,7 +49,7 @@ export async function openPitakas() { //a failure will stop loading process
 	for (let i=0;i<locals.length;i++) {
 		const ptk=await openPtk(locals[i]);
 		out.push({name:ptk.name,ptk,location:'local'});
-		jobs.push(loadScript(ptk.name+'/accelon22.css'));	
+		jobs.push(loadScript(ptk.name+'/accelon22.css'));
 		console.log(ptk)
 	}
 	await Promise.all(jobs);

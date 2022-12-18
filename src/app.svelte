@@ -38,31 +38,7 @@ onMount( async ()=>{
 
 </script>
 {#if ready}
-{#if isMobileDevice()}
 <LibraryMain/>
-{:else}
-    <div class="container">
-    <FloatPanel><div slot="a">
-    {#if $editingErrors.length}
-        <MarkupErrors/>x
-    {:else}
-        <!-- <TocMenu/> -->
-    {/if}
-    </div></FloatPanel>
-
-<!--     <SplitPane type="horizontal" bind:pos={$panepos} min={15} max={85}>
-        <div slot="a">
-            <LeftPanel/>
-        </div>
-        <div slot="b">
-            <RightPanel/>
-        </div>
-    </SplitPane>
- -->
-        <RightPanel/>
-
-     </div>
-{/if}
 {:else}
 Loading...
 {/if}

@@ -1,12 +1,16 @@
 <script>
 import {getContext} from 'svelte';
 import Node from "../comps/node.svelte";
+import InlineText from '../painters/inlinetext.svelte';
 export let ptk,action;
 const LV=getContext('LV');
 const Selected=action.split(',');
 export let dividx;
 export let actionprefix='';
+export let items=[];
+export let seq;
 const buildItems=(keys,values)=>{
+    if (!keys || !values) return [];
     const out=[];
     for (let i=0;i<keys.len();i++) {
         let key=keys.get(i);
@@ -23,16 +27,31 @@ const buildItems=(keys,values)=>{
 }
 
 const update=()=>{
-    const newselected=items.filter(it=>it.selected).map(it=>it.key).join(',')
-    LV.changeAction(dividx,actionprefix+newselected);
+    const newselected=pickeritems.filter(it=>it.selected).map(it=>it.key);
+    LV.changeAction(dividx,actionprefix+newselected.join(','));
 }
 const getPicker=()=>{
-    const pickercol=ptk.attributes.picker;
-    if (!pickercol) return '';
-    const col=ptk.columns[pickercol];
-    return col;    
+    const pickercolname=ptk.attributes.picker;
+    if (!pickercolname) return '';
+    const pickercol=ptk.columns[pickercolname];
+    return pickercol;    
 }
+const onclick=idx=>{
+    const ck=ptk.defines.ck;
+    const chunk=displayitems[idx].chunk;
+    const id=ck.fields.id.values[chunk];
+    const lineoffset=displayitems[idx].line - ptk.defines.ck.linepos[chunk] ;
+	LV.insertAddress('ck#'+id+':'+lineoffset,seq);
+}
+
 $: column=getPicker();
-$: items=buildItems(column.keys,column.fieldvalues[0]);
+$: pickeritems=buildItems(column?.keys,column?.fieldvalues[0]);
+$: displayitems=items.slice(0,5);
 </script>
-<Node {items} {update}/>
+<Node items={pickeritems} {update}/>
+{items.length}
+{#each displayitems as item,idx}
+<div><span class="clickable" on:click={()=>onclick(idx)}>{item.chunkname}</span>
+<InlineText {ptk} line={items.line} {seq} text={item.text}/>
+</div>
+{/each}
