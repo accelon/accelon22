@@ -5,8 +5,8 @@ import {textClasses,_} from '../ts/textout.ts';
 export let item; // seq 第幾行 , idx 第幾個 division
 export let ptk ,lva;
 const LV=getContext('LV');
-let caption='';
-if (item.idx!==-1) caption=ptk?.getHeading(item.line+1).caption; //readable
+$: caption='';
+$: if (item.idx!==-1) caption=ptk?.getHeading(item.line+1).caption; //readable
 $: division=lva.getNode(item.idx);
 
 </script>

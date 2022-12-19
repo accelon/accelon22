@@ -37,11 +37,14 @@ const getPicker=()=>{
     return pickercol;    
 }
 const onclick=idx=>{
-    const ck=ptk.defines.ck;
+    const cktag=ptk.defines.ck;
     const chunk=displayitems[idx].chunk;
-    const id=ck.fields.id.values[chunk];
-    const lineoffset=displayitems[idx].line - ptk.defines.ck.linepos[chunk] ;
-	LV.insertAddress('ck#'+id+':'+lineoffset,seq);
+    const id=cktag.fields.id.values[chunk];
+    const chunkline=cktag.linepos[chunk];
+    const lineoffset=displayitems[idx].line - chunkline ;
+    const ck=ptk.getNearestChunk( chunkline );
+
+	LV.insertAddress('bk#'+ck.bkid+'.ck#'+id+':'+lineoffset,seq);
 }
 
 $: column=getPicker();
@@ -51,7 +54,7 @@ $: displayitems=items.slice(0,5);
 <Node items={pickeritems} {update}/>
 {items.length}
 {#each displayitems as item,idx}
-<div><span class="clickable" on:click={()=>onclick(idx)}>{item.chunkname}</span>
+<div><span class="clickable excerptheading" on:click={()=>onclick(idx)}>{item.chunkname}</span>
 <InlineText {ptk} line={items.line} {seq} text={item.text}/>
 </div>
 {/each}
