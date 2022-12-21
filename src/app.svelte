@@ -42,6 +42,3 @@ onMount( async ()=>{
 {:else}
 Loading...
 {/if}
-<style>
-    .container { }
-</style>

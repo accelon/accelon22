@@ -9,7 +9,7 @@ export let seq;
 export let items=[]; //index in lexicon
 export let lexicon;
 export let tofind;
-export let name;
+export let name;  //the name of this column
 export let tagname;
 
 let displayitems=[];

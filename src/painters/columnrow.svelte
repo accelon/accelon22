@@ -16,7 +16,7 @@ onMount(()=>{
 })
 
 const displayItem=items=>{
-	return items.filter(it=>it!=masterid);
+	return (items&&items.filter&&items.filter(it=>it!=masterid) )|| [];
 }
 
 </script>
