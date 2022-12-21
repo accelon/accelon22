@@ -44,7 +44,7 @@ const onclick=idx=>{
     const lineoffset=displayitems[idx].line - chunkline ;
     const ck=ptk.getNearestChunk( chunkline );
 
-	LV.insertAddress('bk#'+ck.bkid+'.ck#'+id+':'+lineoffset,seq);
+	LV.insertAddress(makeChunkAddress(ck,lineoffset),seq);
 }
 
 $: column=getPicker();

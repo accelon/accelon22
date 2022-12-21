@@ -23,7 +23,7 @@ const dosearch=async ()=>{
 
 const insert=(keyname,mode=0)=>{
 	let tofind=value;
-	if (mode==0) tofind='^'+value;
+	if (mode==0) tofind='$'+value;
 	else if (mode==2) tofind=value+'$';
 	oninsert({detail:{seq:-1,address:ptkname+':'+ keyname +'='+tofind}});
 }

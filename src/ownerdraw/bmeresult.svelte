@@ -11,7 +11,6 @@ export let lexicon;
 export let tofind;
 export let name;
 export let tagname;
-赤外線
 
 let displayitems=[];
 let showcount=items.length;
@@ -31,11 +30,16 @@ const showmore=()=>{
 $: displayitems=getItems(showcount);
 const onclick=idx=>{
 	const id=items[idx];
-	LV.insertAddress(tagname+id,seq);
+	if (tagname=='*') {
+		LV.insertAddress('*='+lexicon.get(id),(seq||0));
+	} else {
+		LV.insertAddress(tagname+id,seq||0);
+	}
 }
 const isclickable=idx=>{
 	if (!ptk) return;
 	const id=items[idx];
+	if (tagname=='*') return true; //fulltext search
 	return ptk.validId(tagname,id);
 }
 </script>

@@ -1,4 +1,5 @@
 <script>
+import {makeElementId} from 'ptk'
 import {getContext} from 'svelte';
 export let ptk;
 export let name;
@@ -29,8 +30,8 @@ const listChunk=()=>{
 	const address=name+'=';
 	LV.insertAddress(address,seq);
 }
-const openChunk=(tagname,id)=>{
-	const address=tagname+(parseInt(id)?id:'#'+id);
+const openChunk=(bkid,tagname,id)=>{
+	const address=makeElementId('bk',bkid)+'.'+tagname+(parseInt(id)?id:'#'+id);
 	LV.insertAddress(address,seq);
 }
 </script>
@@ -41,7 +42,7 @@ const openChunk=(tagname,id)=>{
 {#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
 {#if chunk}
 {chunk.id}.<span class='excerptheading clickable'
- on:click={()=>openChunk(chunk.tagname,chunk.id)}>{chunk.caption}</span>
+ on:click={()=>openChunk(chunk.bkid,chunk.tagname,chunk.id)}>{chunk.caption}</span>
 {/if}
 <span class=clickable on:click={prev}>{from+1}/</span><span class='clickable' on:click={next}>{last}</span>
 </div>

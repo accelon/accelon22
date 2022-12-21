@@ -27,7 +27,7 @@
         LV.insertAddress(ptk.name+':'+address,seq);
     }
     const newexcerpt=(chunk)=>{
-        const address=makeExcerptAddress(ptk.name+':'+name,tofind,'ck'+chunk);
+        const address=makeExcerptAddress(ptk.name,name,tofind,'ck'+chunk);
         LV.insertAddress(address,seq);
     }
     </script>
