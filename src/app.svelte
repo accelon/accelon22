@@ -19,6 +19,7 @@ import fn from './painters/fn.svelte'
 import keys from './painters/keys.svelte'
 import key from './painters/key.svelte'; //generic column field
 import confer from './painters/confer.svelte'; 
+import backreflist from './painters/backreflist.svelte';
 
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'
@@ -27,7 +28,8 @@ import systeminfo from './ownerdraw/systeminfo.svelte';
 import setting from './ownerdraw/setting.svelte'; 
 import unknown from './ownerdraw/unknown.svelte'; 
 import guide from './ownerdraw/guide.svelte'; 
-initPainters({note,keys,key,confer,f,fn});
+
+initPainters({note,keys,key,confer,f,fn,backreflist});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide});
 $: ready=false;
 

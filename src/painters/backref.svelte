@@ -1,24 +1,28 @@
 <script>
 import ColumnRow from './columnrow.svelte';
+import BackRefList from './backreflist.svelte'
 export let keys;
 export let ptk;
 export let name;
 export let classes;
 export let tagname;
+export let backref; //the backward ref column
 export let masterid;
 export let key;
 export let seq;
-let showing;
+export let togglebutton=false;
+let showing ;
+let tofind=keys.get(key);
+$: painter=tagname==='*'?BackRefList:ColumnRow;
+
 const forward=(keyidx)=>{
 	if (showing==keyidx) showing=-1
 	else {
 		showing=keyidx;
-		if (tagname=='*') { 
-			const tofind=keys.get(key);
-			const column=ptk.columns[name];
-			debugger
-		}
 	}
 }
 </script>
-<span on:click={()=>forward(key)} class="clickable" class:active={showing==key}>⮒</span>{#if showing==key}(<ColumnRow caption={keys.get(key)} {seq} {key} {name} {ptk} {tagname} {masterid} {keys} {classes} />){/if}
+{#if togglebutton}<span on:click={()=>forward(key)} class="clickable"
+  class:active={showing==key}>⮒</span>{/if}{#if showing==key}(<svelte:component 
+this={painter} {tagname} {seq} {key} showitemlength={true}
+ {name} {ptk} {masterid} {keys} {classes} {backref} {tofind}/>){/if}

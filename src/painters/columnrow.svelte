@@ -12,7 +12,7 @@ export let masterid
 
 let row=[];
 onMount(()=>{
-	row=ptk.rowOf(name, key);
+	row=(name&&key&&ptk.rowOf(name, key)) ||[];
 })
 
 const displayItem=items=>{

@@ -5,10 +5,11 @@
 	--heading :hsl(30,70%,70%);
 }
 html {
-	/* position: relative; */
-	/* overflow-y:auto; */
-	/* width: 100%;
-	height: 100%; */
+	 position: relative; 
+	 overflow-x:hidden;
+	 overflow-y:auto; 
+	 width: 100%;
+	height: 100%; 
 	background:#333333;
 	color:silver;
 	stroke: silver;
@@ -100,6 +101,7 @@ body {
 .lang-pl-tb {font-size:120%}
 .lang-en {font-family: "Times New Roman", Georgia;}
 
-.sponser:before {color:gray;content:"本經護持者🙏" attr(sponser) }
+.sponser:before {color:gray;content:"護持者🙏" attr(sponser) }
 .pickernode {cursor: pointer;user-select: none;}
 .selectedpickernode {color:yellow}
+.refhitcount {font-size:80%;color:goldenrod}

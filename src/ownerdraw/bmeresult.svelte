@@ -11,6 +11,7 @@ export let lexicon;
 export let tofind;
 export let name;  //the name of this column
 export let tagname;
+export let backref;//the backref column for reverse lookup
 
 let displayitems=[];
 let showcount=items.length;
@@ -44,7 +45,7 @@ const isclickable=idx=>{
 }
 </script>
 {#each displayitems as item,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef {name} {tagname} {ptk} keys={lexicon} key={items[idx]}/>
+{idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef togglebutton={true} {name} {backref} {tagname} {ptk} keys={lexicon} key={items[idx]}/>
 {/each}
 {#if showcount<items.length}
 <span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>

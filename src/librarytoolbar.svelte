@@ -46,7 +46,7 @@ const opensetting=()=>{
 <div class="toolbar">
 <span class="clickable" on:click={()=>systeminfo()}></span>
 <SelectPitakas bind:ptkname {oninsert}/>
-<input bind:value size=3 on:input={debounce(dosearch,500)}/>
+<input bind:value size=8 on:input={debounce(dosearch,500)}/>
 {#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}
 <span class="clickable" title="beginsWith 开头符合"
