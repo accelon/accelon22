@@ -13,10 +13,9 @@ export let name;  //the name of this column
 export let tagname;
 export let backref;//the backref column for reverse lookup
 
-let displayitems=[];
-let showcount=items.length;
+$: showcount=items.length;
 const ITEMPERPAGE=10;
-if (showcount>ITEMPERPAGE) showcount=ITEMPERPAGE;
+$: (showcount>ITEMPERPAGE) showcount=ITEMPERPAGE;
 const getItems=()=>{
 	const out=[];
 	for (let i=0;i<showcount  && i<items.length;i++) {

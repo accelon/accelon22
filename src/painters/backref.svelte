@@ -12,7 +12,7 @@ export let key;
 export let seq;
 export let togglebutton=false;
 let showing ;
-let tofind=keys.get(key);
+$: tofind=keys.get(key);
 
 $: painter=tagname==='*'?BackRefList:ColumnRow;
 

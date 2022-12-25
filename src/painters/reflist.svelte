@@ -11,7 +11,7 @@ export let seq;
 
 const statMembers=(items,foreigncol)=>{
     const col=ptk.columns[name];
-    const arr=countMembers(items,foreigncol,tofind).map(it=>{
+    const arr=countMembers(items,foreigncol,tofind,col).map(it=>{
         const n=it[0];
         const caption=col.keys.get(n);
         return {name, seq, n, foreign , caption ,count: it[1] , tofind, tagname,backref}

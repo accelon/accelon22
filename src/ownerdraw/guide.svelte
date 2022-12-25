@@ -48,7 +48,7 @@ const onclick=idx=>{
 }
 
 $: column=getPicker();
-$: pickeritems=buildItems(column?.keys,column?.fieldvalues[0]);
+$: pickeritems=buildItems(column?.keys,column?.fieldvalues[1]);
 $: displayitems=items.slice(0,5);
 </script>
 <Node items={pickeritems} {update}/>

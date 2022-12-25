@@ -9,7 +9,7 @@ export let before,after;
 export let extraclass='';
 
 $: [runits]=renderOfftext(text,{hits,phraselength});
-$: abridges=abridgeRenderUnits(runits,30,refreshcount);
+$: abridges=hits.length?abridgeRenderUnits(runits,30,refreshcount):runits;
 let refreshcount=1;
 const onUpdate=()=> refreshcount++;
 const expand=(idx,direction=0)=>{

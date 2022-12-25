@@ -28,7 +28,7 @@ let refreshcount=0;
 const toggle=idx=>{
     const item=items[idx];
     if (selectable(idx)) {
-        unselectSibling(idx)
+        // unselectSibling(idx)
         item.selected=!item.selected;
         
     } else {

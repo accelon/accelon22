@@ -11,7 +11,7 @@ export let tofind='';  // comma separated
 export let seq,ptk,name, backref,tagname,showitemlength;
 
 const backrefcol=ptk.columns[backref];
-const foreign=backrefcol.fields[0].foreign;
+const foreign=backrefcol.fieldsdef[1].foreign;
 
 const getItems=(tofind)=>{
     const tofinds=tofind.split(',');
