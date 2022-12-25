@@ -13,9 +13,7 @@ export let seq;
 export let togglebutton=false;
 let showing ;
 $: tofind=keys.get(key);
-
 $: painter=tagname==='*'?BackRefList:ColumnRow;
-
 const forward=(keyidx)=>{
 	if (showing==keyidx) showing=-1
 	else {

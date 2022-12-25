@@ -3,6 +3,7 @@ import {getContext} from 'svelte';
 import Node from "../comps/node.svelte";
 import InlineText from '../painters/inlinetext.svelte';
 export let ptk,action;
+import {makeChunkAddress} from 'ptk';
 const LV=getContext('LV');
 const Selected=action.split(',');
 export let dividx;
@@ -43,8 +44,7 @@ const onclick=idx=>{
     const chunkline=cktag.linepos[chunk];
     const lineoffset=displayitems[idx].line - chunkline ;
     const ck=ptk.getNearestChunk( chunkline );
-
-	LV.insertAddress(makeChunkAddress(ck,lineoffset),seq);
+	LV.insertAddress(makeChunkAddress(ck,id,lineoffset),seq);
 }
 
 $: column=getPicker();

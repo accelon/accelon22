@@ -20,6 +20,8 @@ import keys from './painters/keys.svelte'
 import key from './painters/key.svelte'; //generic column field
 import confer from './painters/confer.svelte'; 
 import backreflist from './painters/backreflist.svelte';
+import backref from './painters/backref.svelte';
+import approxbackref from './painters/backreflist.svelte';
 
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'
@@ -29,7 +31,7 @@ import setting from './ownerdraw/setting.svelte';
 import unknown from './ownerdraw/unknown.svelte'; 
 import guide from './ownerdraw/guide.svelte'; 
 
-initPainters({note,keys,key,confer,f,fn,backreflist});
+initPainters({note,keys,key,confer,f,fn,backref,backreflist,approxbackref});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide});
 $: ready=false;
 

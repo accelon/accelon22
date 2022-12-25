@@ -10,6 +10,7 @@ export let division;
 export let ptk;
 export let key;
 export let explainword;
+export let activelinemenu; //defined by activelinemenu in tag def
 const LV=getContext('LV');
 
 $: show=false;
@@ -31,9 +32,12 @@ const update=()=>{
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
-{#if explainword}<span class={textClasses(ptk)}>exp {_(explainword,ptk?.lang)} </span>{/if}
+{#if explainword}<span class={textClasses(ptk)}>{_(explainword,ptk?.lang)} </span>{/if}
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
+{#each activelinemenu as menuitem}
+{menuitem.classname}
+{/each}
 <style>
 	.menu {padding-right: 0.4em;}
 </style>

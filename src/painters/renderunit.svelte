@@ -12,6 +12,7 @@ export let onUpdate;
 export let extraclass;
 export let tosim;
 export let palitrans;
+
 const LV=getContext('LV');
 
 const click=()=>{
@@ -21,8 +22,8 @@ const click=()=>{
 	tag.active=!tag.active;
 	onUpdate&&onUpdate();
 }
-</script>
 
+</script>
 <svelte:component this={before} {ru} {seq} {ptk}/><t 
 class:activeword={active}
 class={getRenderUnitClasses(ru,textClasses(ptk),extraclass)} 

@@ -4,7 +4,7 @@ import Offtags from './offtags.svelte'
 import {Ownerdraws} from '../ownerdraw/ownerdraw.ts';
 import InlineText from '../painters/inlinetext.svelte';
 import ActiveLineMenu from './activelinemenu.svelte';
-import {renderOfftext} from 'ptk';
+import {renderOfftext,getOfftextLineClass} from 'ptk';
 
 export let edge;
 export let depth;
@@ -21,8 +21,37 @@ export let ptk;
 export let activeword;
 export let highlight;
 export let active;
-let units;
-$: [units]=renderOfftext(text,{line});
+let units, activelinemenu,extra;
+const getBacklink=(ot)=>{
+    const backlinkclass=getOfftextLineClass(ptk,ot,'backlink')
+    const out=[]
+    for (let i=0;i<backlinkclass.length;i++) {
+        const cls=backlinkclass[i];
+        const col=ptk.columns[cls.value];
+        const foreign=ptk.columns[cls.value].fieldsdef[0].foreign ;
+        const keys=foreign? ptk.columns[foreign].keys: col.keys;
+
+        out.push(...keys.findMatches(ot.plain).map(it=>{
+            key=keys.find(it[1]);
+            return {painter:'backref',choff:it[0],text:it[1],
+            //export to painter backref.svelte
+            data:{ptk,key , keys, backref:cls.value, name:foreign, tagname:'*',togglebutton:true}
+            }
+        }));
+    }
+    out.sort((a,b)=>a.choff-b.choff)
+    
+    return out;
+}
+const render=(text,line)=>{
+    const [units,ot]=renderOfftext(text,{line});
+    extra=getBacklink(ot);
+    activelinemenu=getOfftextLineClass(ptk,ot,'activelinemenu');
+    return units;
+}
+$: units=render(text,line);
+//do not pass units to InlineText, so that it will call renderOfftext again
+
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
@@ -30,7 +59,8 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 {#if ownerdraw}
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
-{#if sponser}<span class="sponser" {sponser}></span>{/if}{#if idx>-1}<br/>{/if}<InlineText {ptk} {line} {seq} {units} {active} {activeword} before={Offtags} after={Offtags}/>
-{#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} {seq} {line} {dividx} division={lva.getNode(dividx)}/>{/if}
+{#if sponser}<span class="sponser" {sponser}></span>{/if}{#if idx>-1}
+<br/>{/if}<InlineText {ptk} {line} {seq} {extra} {text} {active} {activeword} before={Offtags} after={Offtags}/>
+{#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} {seq} {line} {dividx} {activelinemenu}  division={lva.getNode(dividx)}/>{/if}
 {/if}
 </div>
