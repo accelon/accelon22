@@ -10,6 +10,7 @@ export let tagname;
 export let name;
 export let backref;
 export let seq;
+
 const LV=getContext('LV');
 $: opened=false;
 $: tofind2=tofind+','+caption;
@@ -21,4 +22,9 @@ const addCriteria=()=>{
     opened=!opened;
 }
 </script>
-<span class="clickable refhitcount" on:click={()=>listref()}>{count}</span><span class="clickable" on:click={()=>addCriteria()}>{caption+" "}</span>{#if opened}(<svelte:component {ptk} {name} {tagname} {backref} tofind={tofind2} this={Painters.backreflist}/>){/if}
+<span class="clickable refhitcount"
+ on:click={()=>listref()}>{count}</span><span
+  class="clickable" 
+  on:click={()=>addCriteria()}>{caption+" "}</span>{#if opened}(<svelte:component
+   {ptk} {name} {tagname} {backref} {seq}
+   tofind={tofind2} this={Painters.backreflist}/>){/if}

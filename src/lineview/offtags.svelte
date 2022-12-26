@@ -11,4 +11,4 @@ $: ntags= (ru && ru.tagsOf(after));
 </script>
 {#each ntags as ntag}
 <Offtag {ptk} offtext={ru.offtext} {ntag} {after} {seq}/>
-{/each}{#if ru?.extra && after}<svelte:component this={Painters[ru.extra.painter]} {...ru.extra.data} />{/if}
+{/each}{#if ru?.extra && after}<svelte:component {seq} this={Painters[ru.extra.painter]} {...ru.extra.data} />{/if}
