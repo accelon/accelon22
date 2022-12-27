@@ -18,8 +18,6 @@ export let line;
 $: [runits]=units?[units]:renderOfftext(text,{line,hits,extra,phraselength});
 $: _tosim=$tosim;
 $: _palitrans=$palitrans;
-
-// $: console.log(runits.filter(ru=>!!ru.extra))
 let refreshcount=1;
 const onUpdate=()=> refreshcount++;
 </script>

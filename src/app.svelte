@@ -21,7 +21,7 @@ import key from './painters/key.svelte'; //generic column field
 import confer from './painters/confer.svelte'; 
 import backreflist from './painters/backreflist.svelte';
 import backref from './painters/backref.svelte';
-import approxbackref from './painters/backreflist.svelte';
+import approxbackref from './painters/approxbackref.svelte';
 
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'

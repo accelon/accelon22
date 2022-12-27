@@ -4,6 +4,7 @@ import ParallelTexts from './paralleltexts.svelte';
 import {_,textClasses} from '../ts/textout.ts'
 import {getContext} from 'svelte';
 import {get} from 'svelte/store';
+import {Painters} from '../painters/painters.ts'
 export let seq;
 export let line;
 export let division;
@@ -36,7 +37,7 @@ const update=()=>{
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
 {#each activelinemenu as menuitem}
-{menuitem.classname}
+<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem}/>
 {/each}
 <style>
 	.menu {padding-right: 0.4em;}
