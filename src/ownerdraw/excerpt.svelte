@@ -42,11 +42,11 @@ $: load(lines);
 $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 
 </script>
-<ExcerptBar {caption} {ptk} {tofind} {last} {seq} {dividx} bind:from {chunk} {action}/>
+<ExcerptBar {caption} {ptk} {tofind} {last} {seq} bind:from {chunk} {action}/>
 
 {#each displayitems as item,idx}
 <div>
-<ExcerptHeading {ptk} {seq} {dividx} {...item.ck}/>
+<ExcerptHeading {ptk} {seq} {...item.ck}/>
 <Abridge {...item} {ptk}/>{#if !chunk}
 {'　'+item.ck.id}.<span class='excerptheading clickable'
  on:click={()=>openChunk(item.ck.bkid,item.ck.tagname,item.ck.id)}>{item.ck.caption}</span>

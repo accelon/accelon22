@@ -23,6 +23,7 @@ import backreflist from './painters/backreflist.svelte';
 import backref from './painters/backref.svelte';
 import approxbackref from './painters/approxbackref.svelte';
 
+
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'
 import titlecount from './ownerdraw/titlecount.svelte'; 
@@ -30,9 +31,10 @@ import systeminfo from './ownerdraw/systeminfo.svelte';
 import setting from './ownerdraw/setting.svelte'; 
 import unknown from './ownerdraw/unknown.svelte'; 
 import guide from './ownerdraw/guide.svelte'; 
+import approx from './ownerdraw/approx.svelte'; 
 
 initPainters({note,keys,key,confer,f,fn,backref,backreflist,approxbackref});
-initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide,approx});
 $: ready=false;
 
 onMount( async ()=>{

@@ -30,15 +30,16 @@ const update=()=>{
 }
 
 </script>
+{#each activelinemenu as menuitem}
+<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem}/>
+{/each}
+
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
 {#if explainword}<span class={textClasses(ptk)}>{_(explainword,ptk?.lang)} </span>{/if}
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
-{#each activelinemenu as menuitem}
-<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem}/>
-{/each}
 <style>
 	.menu {padding-right: 0.4em;}
 </style>
