@@ -23,11 +23,11 @@
         pfrom=from;
     }
     $: setFrom(from);
-    const newdivision=address=>{
+    const newdivision=(address)=>{
         LV.insertAddress(ptk.name+':'+address,seq);
     }
     const newexcerpt=(chunk)=>{
-        const address=makeExcerptAddress(ptk.name,name,tofind,'ck'+chunk);
+        const address=makeExcerptAddress(ptk.name,name.slice(1),tofind,'ck'+chunk);
         LV.insertAddress(address,seq);
     }
     </script>

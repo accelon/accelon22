@@ -35,8 +35,8 @@ const openChunk=(bkid,tagname,id)=>{
 }
 $: setFrom(from);
 $: load(lines);
-$: console.log(lines)
 </script>
+{#if !displayitems.length}😢 找不到 Not Found{/if}
 {#each displayitems as item}
 <div><ExcerptHeading {ptk} {seq} {...item.ck}/>
 {Math.floor(item.similarity*100)+'%'} <Inlinetext text={item.text} {ptk} {seq}/></div>

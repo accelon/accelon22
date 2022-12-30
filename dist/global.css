@@ -5,10 +5,10 @@
 	--heading :hsl(30,70%,70%);
 }
 html {
-	 position: relative; 
+	 /* position: relative;  */
 	 overflow-x:hidden;
 	 overflow-y:auto; 
-	 width: 100%;
+	 /* width: 100%; */
 	height: 100%; 
 	background:#333333;
 	color:silver;
@@ -103,5 +103,10 @@ body {
 
 .sponser:before {color:gray;content:"護持者🙏" attr(sponser) }
 .pickernode {cursor: pointer;user-select: none;}
+.pickerbutton {padding-right:2px;padding-left: 2px; border-left:1px dotted silver; cursor: pointer;user-select: none;white-space: nowrap;}
+.pickernote {font-size:80%;color:goldenrod}
 .selectedpickernode {color:yellow}
 .refhitcount {font-size:80%;color:goldenrod}
+.divider{width:100%;border-bottom: 1px silver dotted; height:1px}
+.pickercriteria {padding-right:2px;padding-left: 2px; }
+.pickercriteria:after{content:','}
