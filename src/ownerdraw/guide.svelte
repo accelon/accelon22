@@ -14,7 +14,8 @@ $: activemember='';
 $: selectedmembers=action.split(',').filter(it=>!!it);
 
 $: note=''
-let from=0,last=items.length;
+let from=0;
+$: last=items.length;
 $: groupmembers=[]
 const getGroups=(values)=>{
     if (!values) return [];
