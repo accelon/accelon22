@@ -8,12 +8,13 @@ export let dividx;
 export let actionprefix='';
 export let items=[];
 export let seq;
+const pagesize=5;
 $: activegroup='' ;
 $: activemember='';
 $: selectedmembers=action.split(',').filter(it=>!!it);
 
 $: note=''
-
+let from=0,last=items.length;
 $: groupmembers=[]
 const getGroups=(values)=>{
     if (!values) return [];
@@ -99,11 +100,20 @@ const clearmember=()=>{
     selectedmembers=[];
     update();
 }
+const next=()=>{
+	if (from+pagesize>=last) return; //is last page
+	from+=pagesize;
+	if (from>last) from=last-1;
+}
+const prev=()=>{
+	from-=pagesize;
+	if (from<0) from=0;
+}
 $: column=getPicker();
 $: groupfield=column?.fieldvalues[1];
 $: captionfield=column?.fieldvalues[2];
 
-$: displayitems=items.slice(0,5);
+$: displayitems=items.slice(from,from+5);
 $: groups=getGroups(column?.fieldvalues[1]);
 
 const memberCaption=key=>{
@@ -129,6 +139,9 @@ const memberCaption=key=>{
 {#each selectedmembers as member}
 <span class="clickable pickercriteria" on:click={()=>removemember(member)}>{memberCaption(member)}</span>
 {/each}
+{/if}
+{#if items.length}
+<span class=clickable on:click={prev}>{from+1}/</span><span class='clickable' on:click={next}>{last}</span>
 {/if}
 {#each displayitems as item,idx}
 <div><span class="clickable excerptheading" on:click={()=>onclick(idx)}>{item.chunkname}</span>

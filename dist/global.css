@@ -16,11 +16,12 @@ html {
 
 }
 body {
-	font-family:"Tahoma","San-Serif" , "Microsoft Yahei UI Light";font-size: 100%;
+	font-family:"Tahoma","San-Serif" , "Microsoft Yahei UI Light";
+	font-size: 100%;
 	margin: 0px;
 }
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
-.toolbar {background:  var(--panel-background) ; width: 100% ;user-select: none;padding-left:0.5em;padding-right:0.5em}
+.toolbar {background:  var(--panel-background) ;  ;user-select: none;padding-left:0.5em;padding-right:0.5em}
 .clickable:hover{text-decoration: underline;cursor:pointer}
 .closelink {text-decoration: line-through;}
 .unclickable{color: gray}

@@ -8,7 +8,6 @@ const LV=getContext('LV');
 export let lva;
 export let items=[] ;
 export let activeword;
-$: console.log(items)
 const findDivisionIndex=seq=>{ //find closest division
 	let idx=items[seq].idx;
 	while (idx==-1 && seq) {
