@@ -45,7 +45,7 @@ const opensetting=()=>{
 </script>
 <div class="toolbar">
 <span class="clickable" on:click={()=>systeminfo()}></span>
-12月29日<SelectPitakas bind:ptkname {oninsert}/>
+<SelectPitakas bind:ptkname {oninsert}/>
 <input bind:value size=8 on:input={debounce(dosearch,500)}/>
 {#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}
@@ -66,4 +66,5 @@ on:click={()=>fulltext(item.scope)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' 
 </div>
 <style>
 .setting {float:right;padding-right:1em}
+input {font-size:1em}
 </style>

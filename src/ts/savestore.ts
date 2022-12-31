@@ -1,6 +1,7 @@
 export const AppPrefix='ACC22.'
 export const loadSettings=()=>{
     const panepos=localStorage.getItem(AppPrefix+'panepos')||70;    
+    const fontsize=localStorage.getItem(AppPrefix+'fontsize')||100;  
     const palitrans=localStorage.getItem(AppPrefix+'palitrans')||'';
     const tosim=localStorage.getItem(AppPrefix+'tosim')||'0';
     const factorization=parseInt(localStorage.getItem(AppPrefix+'factorization')||'1');
@@ -12,7 +13,7 @@ export const loadSettings=()=>{
         console.log(e);
         parallels='{}';
     }
-    return {panepos,palitrans,tosim,factorization,tofind,parallels};
+    return {panepos,palitrans,tosim,factorization,tofind,parallels,fontsize};
 }
 
 export const saveSettings=()=>{ //immediate save

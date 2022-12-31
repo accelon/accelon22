@@ -8,7 +8,7 @@ const LV=getContext('LV');
 export let lva;
 export let items=[] ;
 export let activeword;
-
+$: console.log(items)
 const findDivisionIndex=seq=>{ //find closest division
 	let idx=items[seq].idx;
 	while (idx==-1 && seq) {
@@ -28,6 +28,5 @@ const setActive=item=>{
 <LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}
 <LineViewItem {...item} {lva} {activeword} dividx={findDivisionIndex(item.seq)} ptk={usePtk(item.key.replace(/:.+/,''))}/>
-
 </div>
 {/each}

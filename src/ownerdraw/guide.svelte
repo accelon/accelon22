@@ -1,19 +1,20 @@
 <script>
 import {getContext} from 'svelte';
-import Node from "../comps/node.svelte";
 import InlineText from '../painters/inlinetext.svelte';
 export let ptk,action;
 import {fromObj,makeChunkAddress} from 'ptk';
 const LV=getContext('LV');
-const Selected=action.split(',');
 export let dividx;
 export let actionprefix='';
 export let items=[];
 export let seq;
 $: activegroup='' ;
 $: activemember='';
-$: selectedmembers=[];
+$: selectedmembers=action.split(',').filter(it=>!!it);
+
 $: note=''
+
+$: groupmembers=[]
 const getGroups=(values)=>{
     if (!values) return [];
     const groups={};
@@ -24,8 +25,7 @@ const getGroups=(values)=>{
     return fromObj(groups,([a,b])=>a);
 }
 const update=()=>{
-    const newselected=pickeritems.filter(it=>it.selected).map(it=>it.key);
-    LV.changeAction(dividx,actionprefix+newselected.join(','));
+    LV.changeAction(dividx,actionprefix+selectedmembers.join(','));
 }
 const getPicker=()=>{
     const pickercolname=ptk.attributes.picker;
@@ -42,12 +42,7 @@ const onclick=idx=>{
     const ck=ptk.getNearestChunk( chunkline );
 	LV.insertAddress(makeChunkAddress(ck,id,lineoffset),seq);
 }
-$: column=getPicker();
-$: groupfield=column?.fieldvalues[1];
-$: captionfield=column?.fieldvalues[2];
-$: aliasfield=column?.fieldvalues[3];
 
-$: groupmembers=[]
 const listgroup=group=>{
     groupmembers=[];
     note='';
@@ -58,7 +53,6 @@ const listgroup=group=>{
         return;
     }
     activegroup=group;
-
     
     for (let i=0;i<groupfield.length;i++) {
         if (groupfield[i]==group) {
@@ -66,44 +60,60 @@ const listgroup=group=>{
                 idx:i,
                 key:column.getKey(i),
                 caption:captionfield[i],
-                aliasfield:captionfield[i],
                 notefield:captionfield[i],
             })
         }
     }
 }
-const removemember=(idx)=>{
-    const at=selectedmembers.indexOf(idx);
+const removemember=(id)=>{
+    const at=selectedmembers.indexOf(id);
     if (~at) {
         selectedmembers.splice(at,1);
         selectedmembers=selectedmembers;
+        update();
     }
 }
-const addmember=(idx)=>{
-    
-    if (selectedmembers.indexOf(idx)==-1) {
-        selectedmembers.push(idx);
+const addmember=(id)=>{
+    if (selectedmembers.indexOf(id)==-1) {
+        selectedmembers.push(id);
         selectedmembers=selectedmembers;
+        update();
     }
 }
 
 const toggleselect=(idx)=>{
+    const id=column.getKey(idx);
+
     const notefield=column?.fieldvalues[4];
-    if (activemember==idx) {
+    if (activemember==id) {
         activemember=-1;
         note=''
-        removemember(idx);
+        removemember(id);
         return;
     }
     note=notefield[idx];
-    activemember=idx;
-    addmember(idx);
+    activemember=id;
+    addmember(id);
 }
 const clearmember=()=>{
     selectedmembers=[];
+    update();
 }
+$: column=getPicker();
+$: groupfield=column?.fieldvalues[1];
+$: captionfield=column?.fieldvalues[2];
+
 $: displayitems=items.slice(0,5);
 $: groups=getGroups(column?.fieldvalues[1]);
+
+const memberCaption=key=>{
+    const at=column.findKey(key);
+    const group=groupfield[at];
+    let caption=captionfield[at];
+    if (!~caption.indexOf(group)) caption=group+'.'+caption;
+    return caption;
+}
+
 </script>
 
 {#each groups as group}
@@ -111,13 +121,13 @@ $: groups=getGroups(column?.fieldvalues[1]);
 {/each}
 {#if groupmembers.length}<div class="divider"></div>{/if}
 {#each groupmembers as member}
-<span class:highlight={member.idx==activemember}  class="pickerbutton clickable" on:click={()=>toggleselect(member.idx)}>{member.caption}</span>
-{#if member.idx==activemember}<span class="pickernote">{note}</span>{/if}
+<span class:highlight={member.key==activemember}  class="pickerbutton clickable" on:click={()=>toggleselect(member.idx)}>{member.caption}</span>
+{#if member.key==activemember}<span class="pickernote">{note}</span>{/if}
 {/each}
 {#if selectedmembers.length}<div class="divider"></div>
 <span class="clickable" on:click={()=>clearmember()}>╳</span>
 {#each selectedmembers as member}
-<span class="clickable pickercriteria" on:click={()=>removemember(member)}>{captionfield[member]}</span>
+<span class="clickable pickercriteria" on:click={()=>removemember(member)}>{memberCaption(member)}</span>
 {/each}
 {/if}
 {#each displayitems as item,idx}
