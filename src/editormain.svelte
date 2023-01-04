@@ -4,8 +4,8 @@ import {get} from 'svelte/store';
 import CMMain from './cmmain.svelte';
 import EditorToolbar from './editortoolbar.svelte';
 import {getEditing,editing} from './ts/editor.ts';
-import Tabular from './tabular.svelte';
-import {setEditor} from './ts/editorupdate.ts';
+// import Tabular from './tabular.svelte';
+// import {setEditor} from './ts/editorupdate.ts';
 let data;
 let tabular;
 const editorByMode=async (idx)=>{
@@ -19,7 +19,7 @@ $: if ($editing>-1) editorByMode($editing);
 <div>
 <EditorToolbar/>
 {#if tabular}
-<Tabular {data} idx={get(editing)}/>
+<!-- <Tabular {data} idx={get(editing)}/> -->
 {:else}
 <CMMain/>
 {/if}
