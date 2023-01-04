@@ -1,35 +1,35 @@
-# accelon22
-es6, codemirror, in-memory ptk, export as self-contain zip
+# Accelon22
 
 ## 安裝開發環境步驟
-   windows 執行 install-dev.cmd
-   linux 下 mklink 改為 ln
+    Windows: install-dev.cmd
+    mac os/linux, 參考install-dev.cmd,  mklink 改為 ln
      
-## 目錄說明
-     
-     src 源代碼
-     dist 要給用戶之檔案
-     node_modules       svelte 及 esbuild ，不要放任何git repo
+## 目錄說明   
+    src 源代碼
+    dist 要給用戶之檔案
+    node_modules       svelte 及 esbuild ，不要放任何git repo
      
 
 ## 加上資料庫 (詳細步驟見 github.com/accelon/ptk )
 
-      開一個資料庫repo ，名為 xxx
-      製作並用ptk js 產生 js 版資料庫
+### 自製資料庫
+    開一個資料庫repo ，名為 xxx
+    製作並用ptk js 產生 js 版資料庫
 
-     在 accelon22\dist 目錄中
-     mklink/j  dist\xxx ..\xxx\xxx
-     
-     修改 dist\config.js 
+    在 accelon22\dist 目錄中
+    mklink/j  dist\xxx ..\xxx\xxx
+
+### 第三方資料
+    直接將 xxx 目錄(含有000.js 001.js ...)
+    複製到 accelon22/dist/xxx/ 即可 
+
+### 設定預載資料庫
+    修改 dist\config.js 
     window.accelon22= {preload:"xxx,yyy"}
 
-     
-## 開發 Accelon22
-     cd 2022\accelon22
-     dev
- 
- 
- 
+## 開發 Accelon22 (修改 svelte )
+    cd 2022\accelon22
+    dev
  
  
 ## 以下不必看
