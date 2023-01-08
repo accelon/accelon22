@@ -22,7 +22,6 @@ const click=()=>{
 	tag.active=!tag.active;
 	onUpdate&&onUpdate();
 }
-
 </script>
 <svelte:component this={before} {ru} {seq} {ptk}/><t 
 class:activeword={active}

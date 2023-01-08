@@ -36,7 +36,6 @@ const getPainters=()=>{
 				P=Painters[tag.name];
 			}
 			if (!P) continue;
-
 			const props={name,  tagname:tag.name, masterid:tag.attrs.id,line:tag.line,
 					keys, type,	ptk,foreign, firstchild, value:tag.attrs[name]}
 

@@ -3,12 +3,11 @@
 ## 安裝開發環境步驟
     Windows: install-dev.cmd
     mac os/linux, 參考install-dev.cmd,  mklink 改為 ln
-     
+
 ## 目錄說明   
     src 源代碼
     dist 要給用戶之檔案
-    node_modules       svelte 及 esbuild ，不要放任何git repo
-     
+    node_modules       svelte 及 esbuild ，不要放任何git repo    
 
 ## 加上資料庫 (詳細步驟見 github.com/accelon/ptk )
 
@@ -30,8 +29,15 @@
 ## 開發 Accelon22 (修改 svelte )
     cd 2022\accelon22
     dev
- 
- 
+
+將 accelon22\dist\ 下所有文件打包即可。Android 版則要安裝 [Androidjs](https://android-js.github.io/) 以產生 apk
+
+[資料庫範例](https://github.com/accelon/eg)
+  
+
+
+
+
 ## 以下不必看
  
  
