@@ -10,14 +10,19 @@ export let states={};
 export let storeid=null;
 export let styles=null;
 export let caption='';
+let unselectedcaption=caption;
+export let unselectable=false;
 const statekeys=Object.keys(states);
-export let selectedIndex=(storeid && statekeys.indexOf( get(storeid).toString() ))||-1;
-if (selectedIndex==-1) {//invalid value
+export let selectedIndex=
+(storeid && statekeys.indexOf( get(storeid).toString() ))||-1;
+
+if (selectedIndex==-1 && !unselectable) {//invalid value
     selectedIndex=0;    //force to first value
     if (storeid && get(storeid).toString()!==statekeys[selectedIndex]) storeid.set(statekeys[selectedIndex]);
 }
 const setcaption=()=>{
     if (storeid) caption=states[ get(storeid)]
+    else caption=selectedIndex==-1? unselectedcaption:statekeys[selectedIndex];
 }
 const highlight=(str,selectedIndex)=>{
     if (!styles) return str;
@@ -35,21 +40,21 @@ const highlight=(str,selectedIndex)=>{
 const click=evt=>{
     if(disabled)return;
     selectedIndex ++;
-    if (selectedIndex>= statekeys.length) selectedIndex=0;
+    if (selectedIndex>= statekeys.length) {
+        if (unselectable) {
+            if (selectedIndex==-1) selectedIndex=0;
+            else selectedIndex=-1;
+        }
+        else selectedIndex=0;
+    }
     if (storeid) storeid.set(statekeys[selectedIndex]);
 
-    onclick&&onclick(evt);
+    onclick&&onclick(selectedIndex);
 }
 $: setcaption(selectedIndex);
 onMount(()=>setcaption());
 </script>
-<span class="button" class:disabled {title} on:click={click} >
+<span class="statebutton" class:disabled  class:unselected={selectedIndex==-1} {title} on:click={click} >
     <span>{@html highlight(caption,selectedIndex)}</span>
 </span>
 
-<style>
-    .button{ user-select: none; vertical-align: top;cursor:pointer;fill:var(--button-selected);padding-right:0.2em}
-    .button.disabled {cursor:auto;fill:none;stroke:var(--button-unselected) }
-    .button.disabled:hover {fill:none; stroke: var(--button-unselected)}
-    .button:hover {color:var(--hover); fill:var(--hover);stroke:var(--hover);}
-</style>

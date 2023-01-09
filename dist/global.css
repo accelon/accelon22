@@ -23,13 +23,13 @@ body {
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
 .toolbar {background:  var(--panel-background) ;  ;user-select: none;padding-left:0.5em;padding-right:0.5em}
 .clickable:hover{text-decoration: underline;cursor:pointer}
-.closelink {text-decoration: line-through;}
+
 .unclickable{color: gray}
-.closelink{background: hsl(40,20%,30%); }
+/* .closelink{background: hsl(40,20%,30%); } */
 .closelink:hover {text-decoration: line-through;}
-.closelink:after {
+/* .closelink:after {
 	content: '⨯';
-}
+} */
 .active_clickable {background: #555555}
 .activeword {background: hsl(40,70%,70%);color:black}
 .tocitem {font-weight: bold; text-align: right}
@@ -111,3 +111,10 @@ body {
 .divider{width:100%;border-bottom: 1px silver dotted; height:1px}
 .pickercriteria {padding-right:2px;padding-left: 2px; }
 .pickercriteria:after{content:','}
+
+.statebutton{ user-select: none; vertical-align: top;cursor:pointer;fill:var(--button-selected);padding-right:0.2em}
+.statebutton.disabled {cursor:auto;fill:none;stroke:var(--button-unselected) }
+.statebutton.unselected {color:gray}
+.statebutton.disabled:hover {fill:none; stroke: var(--button-unselected)}
+/* .statebutton:hover {color:var(--hover); fill:var(--hover);stroke:var(--hover);} */
+.guidegroup {border: silver 1px dotted;border-radius: 0.25em;}
