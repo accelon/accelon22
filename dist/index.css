@@ -48,26 +48,3 @@ input.svelte-10loswm {
 .markuperrors.svelte-15wtuer {
   color: red;
 }
-
-/* fakecss:C:/2022/accelon22/src/comps/statebutton.esbuild-svelte-fake-css */
-.button.svelte-1aakhil {
-  user-select: none;
-  vertical-align: top;
-  cursor: pointer;
-  fill: var(--button-selected);
-  padding-right: 0.2em;
-}
-.button.disabled.svelte-1aakhil {
-  cursor: auto;
-  fill: none;
-  stroke: var(--button-unselected);
-}
-.button.disabled.svelte-1aakhil:hover {
-  fill: none;
-  stroke: var(--button-unselected);
-}
-.button.svelte-1aakhil:hover {
-  color: var(--hover);
-  fill: var(--hover);
-  stroke: var(--hover);
-}

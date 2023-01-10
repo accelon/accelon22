@@ -3,16 +3,19 @@ import StateButtons from '../comps/statebuttons.svelte';
 export let ptk,seq;
 import {GUIDEACTIONPREFIX} from 'ptk'
 import {getContext} from 'svelte';
+import MoreLink from '../comps/morelink.svelte'
 
 const LV=getContext('LV');
 const filters=ptk.template.getMultiStateFilters();
 
 let choices={};
 let items=[];
-
+let groups={};
 const update=()=>{
     const col=ptk.columns[ptk.template.filterColumn];
-    items=ptk.template.runFilter(col,choices);
+    const obj=ptk.template.runFilter(ptk,col,choices);
+    items=obj.items;
+    groups=obj.groups;
 }
 for (let i=0;i<filters.length;i++) {
     choices[filters[i].name]=[];
@@ -45,7 +48,8 @@ on:click={()=>reset(filter.name)}>{filter.caption}</span>
 {#key items}
 <br/>
 {#if items.length}
-<span on:click={()=>listChunk()} class="clickable">{items.length} 符合</span>
+<span on:click={()=>listChunk()} class="clickable hitcount">{items.length} </span>
+<MoreLink {ptk} items={groups}/>
 {:else if choicecount()}
 找不到
 {/if}
