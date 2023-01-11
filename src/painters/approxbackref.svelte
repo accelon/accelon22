@@ -2,12 +2,12 @@
 import {getContext} from 'svelte'
 const LV=getContext('LV');
 
-export let ptk;
+// export let ptk;
 export let seq;
 export let id;
-export let foreign;//medicine
+// export let foreign;//medicine
 export let tagname;//
-export let backref
+// export let backref
 const onclick=()=>{
 	LV.insertAddress('*'+tagname+'=~'+id,seq);
 }

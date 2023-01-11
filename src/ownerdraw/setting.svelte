@@ -5,7 +5,7 @@ import {palitrans,tosim,fontsize} from '../ts/store.ts';
 import VersionInfo from './versioninfo.svelte';
 import {_} from '../ts/textout.ts';
 </script>
-Accelon版本：2023.1.10 
+Accelon版本：2023.1.11
 <StateBtn states={{80:"小字",100:"正常大小",125:"大字",150:"更大字",180:"特大字"}} storeid={fontsize}/>
 <StateBtn states={{0:"原文",1:"简體",2:"简体"}} storeid={tosim}/>
 {#if hasLang('pp')}

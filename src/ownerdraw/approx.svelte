@@ -3,14 +3,14 @@ import {getContext} from 'svelte';
 import {makeElementId} from 'ptk'
 import Inlinetext from '../painters/inlinetext.svelte';
 import ExcerptHeading from './excerptheading.svelte';
-export let caption;
-export let action;
+// export let caption;
+// export let action;
 export let name;
 export let lines;
 export let seq;
 export let dividx;
 export let ptk;
-export let last;
+// export let last;
 export let from;
 export let similarity;
 $: displayitems=[] ;

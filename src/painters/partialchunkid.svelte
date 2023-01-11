@@ -1,19 +1,19 @@
 <script>
 import { onMount,getContext } from "svelte";
-export let keys;
+// export let keys;
 export let ptk;
 export let defattrs; // from ^:typedef<aname=avalue>
-export let name;
-export let classes;
-export let tagname;
-export let backref; //the backward ref column
-export let masterid;
-export let key;
+// export let name;
+// export let classes;
+// export let tagname;
+// export let backref; //the backward ref column
+// export let masterid;
+// export let key;
 export let id;
-export let extra;
-export let value;
+// export let extra;
+// export let value;
 export let seq;
-export let togglebutton=false;
+// export let togglebutton=false;
 let showing ;
 const LV=getContext('LV');
 $: items=[];

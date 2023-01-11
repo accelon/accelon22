@@ -67,8 +67,7 @@ export async function openPitakas() { //a failure will stop loading process
 		const verTexts=await getVerTexts(ptk);
 		const buildtime=new Date(ptk.header.buildtime);
 		const eot=ptk.header.eot;
-		const name=ptk.header.name;
-		out.push({name:ptk.name,ptk,location:'local',verTexts,buildtime,name,eot});
+		out.push({name:ptk.name,ptk,location:'local',verTexts,buildtime,eot});
 		jobs.push(loadScript(ptk.name+'/accelon22.css'));
 		console.log(ptk)
 	}
