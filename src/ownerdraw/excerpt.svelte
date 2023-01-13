@@ -12,6 +12,7 @@ export let hits;
 export let phraselength;
 export let seq;
 export let dividx;
+export let hitcount;
 export let ptk;
 export let last;
 export let tofind;
@@ -42,8 +43,7 @@ $: load(lines);
 $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 
 </script>
-<ExcerptBar {caption} {ptk} {tofind} {last} {seq} bind:from {chunk} {action}/>
-
+<ExcerptBar {caption} {ptk} {tofind} {last} {seq} bind:from {chunk} {action} {hitcount}/>
 {#each displayitems as item,idx}
 <div>
 <ExcerptHeading {ptk} {seq} {...item.ck}/>

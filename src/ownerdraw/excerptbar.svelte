@@ -27,7 +27,7 @@ const openChunk=(bkid,tagname,id)=>{
 </script>
 
 <div class="toolbar excerptheader">
-{#if pitakas.length>1}<span title={ptk.humanName()}>{ptk.humanName(true)}</span>{/if}  {#if tofind}<span class="tofind clickable" on:click={()=>setTofind()}>{tofind}</span>{/if} 
+{#if $pitakas.length>1}<span title={ptk.humanName()}>{ptk.humanName(true)}</span>{/if}  {#if tofind}<span class="tofind clickable" on:click={()=>setTofind()}>{tofind}</span>{/if}
 {#if caption}<span class="clickable" on:click={()=>listChunk()}>{caption}</span>{/if}
 {#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
 {#if chunk}
