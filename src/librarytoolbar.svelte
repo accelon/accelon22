@@ -52,9 +52,9 @@ const opensetting=()=>{
 <span class="clickable" title="beginsWith 开头符合"
  on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span>
 <span title="inMiddle 中间符合" class="clickable"
- on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}·
+ on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}
 </span><span title="endsWith 结尾符合" class="clickable"
- on:click={()=>item.end.length&&insert(item.name,2)}>{item.end.length}{' '}</span>
+ on:click={()=>item.end.length&&insert(item.name,2)}>{'·'}{item.end.length}{' '}</span>
 {/if}
 {/each}
 {#each ftsitems as item,idx}

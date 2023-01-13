@@ -33,8 +33,8 @@
     </script>
     <ExcerptBar {caption} {ptk} {tofind} {last} {hitcount} bind:from {name}/>
     {#each items as item,idx}
-    <div>{item.id}.<span class={"clickable "+textClasses(ptk)} 
-        on:click={()=>newdivision(item.address)}>{_(item.title,ptk?.lang)}</span>
+    <div><span class={"clickable "+textClasses(ptk)} 
+        on:click={()=>newdivision(item.address)}>{_(item.caption,ptk?.lang)}</span>
         {#if item.count>=0}<span class="clickable hitcount" on:click={()=>newexcerpt(item.id)}>{'　'+item.count}</span>{/if}</div>
     {/each}
     

@@ -36,7 +36,7 @@ $: setFrom(from);
 $: load(lines);
 </script>
 {#if !displayitems.length}😢 找不到 Not Found{/if}
-<div>≈<Paging bind:from {items}/></div>
+<div>≈<Paging bind:from last={items.length}/></div>
 {#each displayitems as item}
 <div><ExcerptHeading {ptk} {seq} {...item.ck}/>
 {Math.floor(item.similarity*100)+'%'} <Inlinetext text={item.text} {ptk} {seq}/></div>
