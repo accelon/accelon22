@@ -26,7 +26,7 @@ const showmore=()=>{
 	showcount+=ITEMPERPAGE;
 }
 
-$: displayitems=getItems(showcount);
+$: displayitems=getItems(showcount,items); //need to add items to successfully refresh
 const onclick=idx=>{
 	const id=items[idx];
 	if (tagname=='*') {
