@@ -58,6 +58,7 @@ export function addPitaka(ptk,location='local'){
 
 const getVerTexts=async ptk=>{
     const linepos=ptk.defines.ver?.linepos;
+	await ptk.loadLines(linepos);
     const verTexts=linepos?linepos.map(it=>ptk.getLine(it)):[];
 	return verTexts;
 }

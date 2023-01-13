@@ -11,7 +11,7 @@ import { _} from '../ts/textout.ts';
 <span>{_("建置:")}{pitaka.buildtime.toLocaleDateString()}</span>
 <span>{_("行數:")}{pitaka.eot}</span>
 <span>{#each pitaka.verTexts as text}
-<div><Inlinetext {text} ptk={pitaka.ptk}/></div>
+<div class="ver"><Inlinetext {text} ptk={pitaka.ptk}/></div>
 {/each}</span>
 <div class="divider"></div>
 </div>

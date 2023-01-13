@@ -118,3 +118,6 @@ body {
 .statebutton.disabled:hover {fill:none; stroke: var(--button-unselected)}
 /* .statebutton:hover {color:var(--hover); fill:var(--hover);stroke:var(--hover);} */
 .guidegroup {border: silver 1px dotted;border-radius: 0.25em;}
+.ver {font-size:85%;color:burlywood}
+.warning {color:red}
+.pagingbutton {user-select:none}
