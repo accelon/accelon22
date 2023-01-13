@@ -27,8 +27,7 @@ const render=(text,line)=>{
     const [units,ot]=renderOfftext(text,{line});
     extra=getExtraPainter(ptk,ot,'backref',true)
     .concat(getExtraPainter(ptk,ot,'backlink'))
-    activelinemenu=getExtraPainter(ot,'activelinemenu');
-  
+    activelinemenu=getExtraPainter(ptk,ot,'activelinemenu');
     return units;
 }
 $: units=render(text,line);

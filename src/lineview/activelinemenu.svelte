@@ -31,7 +31,7 @@ const update=()=>{
 
 </script>
 {#each activelinemenu as menuitem}
-<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem}/>
+<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem.data} {line}/>
 {/each}
 
 <span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
