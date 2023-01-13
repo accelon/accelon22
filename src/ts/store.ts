@@ -37,7 +37,8 @@ errormsg.subscribe(msg=>{
  	}
 });
 const locals=(window.accelon22?.preload||'').split(',').filter(it=>!!it);
-export const activePtkName=()=>get(pitakas)[get(activepitaka)].name;
+console.log(locals)
+export const activePtkName=()=>get(pitakas)[get(activepitaka)]?.name;
 export const activePtk=()=>usePtk(activePtkName());
 lvaddr.subscribe(lva=>{
 	updateUrl(lva);

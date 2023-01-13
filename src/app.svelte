@@ -39,6 +39,9 @@ initPainters({note,keys,key,confer,f,fn,backref,backreflist,approxbackref,partia
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide,approx});
 $: ready=false;
 
+import {registerServiceWorker} from 'ptk/platform/pwa.js'
+registerServiceWorker();
+
 onMount( async ()=>{
     await openPitakas();
     ready=true;
