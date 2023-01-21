@@ -60,6 +60,18 @@ const onprev=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.prev(idx).stringify() );
 }
+const onnextchunk=(idx)=>{
+	console.log('next chunk')
+}
+const onprevchunk=(idx)=>{
+	console.log('next chunk')
+}
+const cannextchunk=(idx)=>{
+	return true;
+}
+const canprevchunk=(idx)=>{
+	return true;
+}
 const onmore=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.more(idx).stringify() );
@@ -133,7 +145,7 @@ const toggleActiveword=w=>{
 	if (get(activeword)==w) activeword.set('');
 	else activeword.set(w);
 }
-const changeAction=(idx,newaction)=>{
+const changeAction=(newaction,idx)=>{
 	if (idx?.detail) idx=idx.detail; 
 	lvaddr.set(lva.changeAction(newaction,idx).stringify() );
 }
@@ -142,6 +154,7 @@ setContext('LV',{ insertAddress, setFrom, parallels,getLVA,changeAction,
 	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
 	onremove,onnext,onprev, ontop,onmore,onless,onpromote,
+	onnextchunk,onprevchunk,cannextchunk,canprevchunk,
 	 });
 
 </script>

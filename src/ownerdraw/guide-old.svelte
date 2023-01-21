@@ -27,7 +27,7 @@ const getGroups=(values)=>{
     return fromObj(groups,([a,b])=>a);
 }
 const update=()=>{
-    LV.changeAction(dividx,actionprefix+selectedmembers.join(','));
+    LV.changeAction(actionprefix+selectedmembers.join(','),dividx);
 }
 const getPicker=()=>{
     const pickercolname=ptk.attributes.picker;

@@ -1,14 +1,20 @@
 <script>
 import {getContext} from 'svelte';
 import {textClasses,_} from '../ts/textout.ts';
-
+import ChunkMenu from './chunkmenu.svelte';
 export let item; // seq 第幾行 , idx 第幾個 division
 export let ptk ,lva;
 const LV=getContext('LV');
 $: caption='';
 $: if (item.idx!==-1) caption=ptk?.getHeading(item.line+1).caption; //readable
 $: division=lva.getNode(item.idx);
-
+let showchunkmenu=false;
+const chunkmenu=()=>{
+    showchunkmenu=!showchunkmenu;
+}
+const onHide=()=>{
+    showchunkmenu=false;
+}
 </script>
 <span class='lineviewmenu'>
 {#if caption && !division?.singleton}<!-- navigating a reading segment and not singleton division-->
@@ -18,8 +24,11 @@ $: division=lva.getNode(item.idx);
 {#if LV.cannext(division)}<span class='clickable' on:click={()=>LV.onnext(division)}>{division.last-division.first}</span>{/if}
 
 <span class={'clickable lineviewheading'+textClasses(ptk)}
- on:click={()=>LV.onpromote(item.idx)}>{_(caption,ptk?.lang)}</span>
+ on:click={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</span>
 {/if}
 <span class='clickable'on:click={()=>LV.onremove(division)}>⨯</span>
 </span>
+{#if showchunkmenu}
+<ChunkMenu {...item} {ptk} {onHide}/>
+{/if}
 

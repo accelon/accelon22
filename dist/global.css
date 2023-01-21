@@ -69,8 +69,14 @@ body {
     line-height: 1.8;
     padding-right: 5px;
 }
-.lineviewmenu {z-index: 999; 
+.lineviewmenu {z-index: 99; 
 	position:absolute;right:0px; padding-right: 0.5em ;user-select: none;}
+
+.chunkmenu {z-index:999;
+position:absolute;right:0px;margin-top:1.5em;
+padding-right: 1.5em ;user-select: none;
+background-color: #444444;
+}
 .activeline { 
 	padding-left: 1px;
     border-left: 4px solid gray;
