@@ -108,7 +108,7 @@ background-color: #444444;
 .lang-pl-tb {font-size:120%}
 .lang-en {font-family: "Times New Roman", Georgia;}
 
-.sponser:before {color:gray;content:"護持者🙏" attr(sponser) }
+.sponsor:before {color:gray;content:"護持者🙏" attr(sponsor) }
 .pickernode {cursor: pointer;user-select: none;}
 .pickerbutton {padding-right:2px;padding-left: 2px; border-left:1px dotted silver; cursor: pointer;user-select: none;white-space: nowrap;}
 .pickernote {font-size:80%;color:goldenrod}
@@ -127,3 +127,4 @@ background-color: #444444;
 .ver {font-size:85%;color:burlywood}
 .warning {color:red}
 .pagingbutton {user-select:none}
+.https{text-decoration:underline; cursor:pointer}

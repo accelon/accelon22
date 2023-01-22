@@ -1,6 +1,7 @@
 <script>
 import {getRenderUnitClasses} from 'ptk';	
 import {textClasses,_} from '../ts/textout.ts'
+import {TagHandlers} from '../ts/taghandlers.ts'
 import {getContext} from 'svelte'
 export let ru;
 export let active;
@@ -20,6 +21,9 @@ const click=()=>{
 	const tag=ru.closestTag();
 	if (!tag) return;
 	tag.active=!tag.active;
+	const onclickhandler=ptk.defines[tag.name]?.attrs.onclick;
+	const func=TagHandlers[onclickhandler];
+	func&&func(tag);
 	onUpdate&&onUpdate();
 }
 </script>

@@ -4,10 +4,17 @@
     Windows: install-dev.cmd
     mac os/linux, 參考install-dev.cmd,  mklink 改為 ln
 
+    
 ## 目錄說明   
     src 源代碼
+    
     dist 要給用戶之檔案
-    node_modules       svelte 及 esbuild ，不要放任何git repo    
+    dist 底下為 js 資料庫，由ptk js 產生
+
+    accelon22/node_modules     需 svelte 及 esbuild ，不要放任何git repo
+
+    ../node_modules  instal-dev 安裝 了ptk, provident-pali,  lossless-simplified-chinese 的junction
+    以及第三方的 diff
 
 ## 加上資料庫 (詳細步驟見 github.com/accelon/ptk )
 

@@ -25,7 +25,6 @@ import approxbackref from './painters/approxbackref.svelte';
 import partialchunkid from './painters/partialchunkid.svelte';
 import chunk from './painters/chunk.svelte';
 
-
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'
 import titlecount from './ownerdraw/titlecount.svelte'; 
@@ -37,6 +36,7 @@ import approx from './ownerdraw/approx.svelte';
 
 initPainters({note,keys,key,confer,f,fn,backref,backreflist,approxbackref,partialchunkid,chunk});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide,approx});
+
 $: ready=false;
 
 import {registerServiceWorker} from 'ptk/platform/pwa.js'

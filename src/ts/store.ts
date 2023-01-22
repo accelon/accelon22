@@ -50,25 +50,26 @@ fontsize.subscribe(size=>{
 export function addPitaka(ptk,location='local'){
 	let arr=get(pitakas);
 	arr=arr.filter(it=>it.name!==ptk.name);
-	const verTexts=[]
-	arr.unshift({name:ptk.name,ptk,location, verTexts});
+	arr.unshift({name:ptk.name,ptk,location});
 	pitakas.set(arr);
 }
 
-const getVerTexts=async ptk=>{
-    const linepos=ptk.defines.ver?.linepos;
+const getTaggedLines=async(ptk,tag)=>{
+	if (!ptk.defines[tag]) return  null;
+    const linepos=ptk.defines[tag].linepos;
 	await ptk.loadLines(linepos);
-    const verTexts=linepos?linepos.map(it=>ptk.getLine(it)):[];
-	return verTexts;
+    return linepos?linepos.map(it=>ptk.getLine(it)):[];
 }
 export async function openPitakas() { //a failure will stop loading process
 	const out=[],jobs=[];
 	for (let i=0;i<locals.length;i++) {
 		const ptk=await openPtk(locals[i]);
-		const verTexts=await getVerTexts(ptk);
+		ptk.taggedLines.ver=await getTaggedLines(ptk,'ver');
+		ptk.taggedLines.sponsor=await getTaggedLines(ptk,'sponsor');
 		const buildtime=new Date(ptk.header.buildtime);
+		const chunkcount=ptk.defines.ck?.linepos.length;
 		const eot=ptk.header.eot;
-		out.push({name:ptk.name,ptk,location:'local',verTexts,buildtime,eot});
+		out.push({name:ptk.name,ptk,location:'local',buildtime,eot,chunkcount});
 		jobs.push(loadScript(ptk.name+'/accelon22.css'));
 		console.log(ptk)
 	}
