@@ -23,7 +23,7 @@ const onUpdate=()=> refreshcount++;
 </script>
 {#key refreshcount}
 <span>{#each runits as ru}<RenderUnit {ptk} 
-{before} palitrans={_palitrans} tosim={_tosim}} {after} {ru} 
+{before} palitrans={_palitrans} tosim={_tosim} {after} {ru} 
 active={ru.text==activeword} {seq} {onUpdate} {extraclass} />{/each}</span>
 {/key}
 
