@@ -13,7 +13,7 @@
     "url": "git+https://github.com/accelon/accelon22.git"
   }, 
  "dependencies": {
-    "esbuild-svelte": "^0.7.1",
-    "svelte": "^3.48.0"
+    "esbuild-svelte": "^0.7.3",
+    "svelte": "^3.55.1"
   }
 }
