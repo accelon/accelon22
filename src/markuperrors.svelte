@@ -1,13 +1,15 @@
 <script>
 import {editingErrors,scrollToLine} from "./ts/editor.ts";
+import Button from './comps/button.svelte';
+
 </script>
 
 <div class="markuperrors">
 {#each $editingErrors as item}
-<div><span class="clickable fileerror" 
-	on:click={()=>scrollToLine.set(-item.line)}>{item.msg}</span>
+<div><Button className="fileerror" 
+	onclick={()=>scrollToLine.set(-item.line)}>{item.msg}</Button>
 {#if item.prev}
-<span class="clickable" on:click={()=>scrollToLine.set(-item.prev)}>⤴</span>
+<Button onclick={()=>scrollToLine.set(-item.prev)}>⤴</Button>
 {/if}
 </div>
 {/each}

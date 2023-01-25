@@ -1,5 +1,6 @@
 <script>
 // Begin-Middle-End search result
+import Button from '../comps/button.svelte';
 import {getContext} from 'svelte';
 import ToggleLink from '../painters/togglelink.svelte';
 import BackRef from '../painters/backref.svelte';
@@ -46,5 +47,5 @@ const isclickable=idx=>{
 {idx?' ':''}<ToggleLink onclick={()=>onclick(idx)} clickable={isclickable(idx)} text={item}/><BackRef togglebutton={true} {name} {backref} {tagname} {seq} {ptk} keys={lexicon} key={items[idx]}/>
 {/each}
 {#if showcount<items.length}
-<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>
+<Button onclick={showmore}>+{items.length-showcount}</Button>
 {/if}

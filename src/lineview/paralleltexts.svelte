@@ -1,6 +1,7 @@
 <script>
 import {getContext,onMount} from 'svelte';
 import InlineText from '../painters/inlinetext.svelte';
+import Button from '../comps/button.svelte';
 export let ptk
 export let seq
 export let line;
@@ -23,7 +24,7 @@ const addDivision=(pptkname,line,linediff)=>{
 
 {#each items as [pptk,linediff,datevalue] }
 {#if datevalue}
-<br/><span on:click={()=>addDivision(pptk.name,line,linediff)} class={'parallelptk clickable'}>{pptk.humanName(true)}</span>
+<br/><Button onclick={()=>addDivision(pptk.name,line,linediff)} className='parallelptk clickable'>{pptk.humanName(true)}</Button>
 {#await pptk.loadLines([[line+linediff,line+linediff+1]])}
 Loading...
 {:then}

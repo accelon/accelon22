@@ -57,8 +57,6 @@ body {
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
 
-.lesstext:before{content:'▲'}
-.moretext:before{content:'▼'}
 .highlightline:before {content: '→';color:yellow}
 .openexcerpt:before {content:'←';color:yellow}
 /* .lineview {
@@ -128,3 +126,4 @@ background-color: #444444;
 .warning {color:red}
 .pagingbutton {user-select:none}
 .https{text-decoration:underline; cursor:pointer}
+.setting {float:right;}

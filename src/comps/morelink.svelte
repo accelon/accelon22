@@ -1,4 +1,5 @@
 <script>
+import Button from './button.svelte';
 export let ptk;
 export let items=[];
 export let onclick;
@@ -19,5 +20,5 @@ $: displayitems=items.slice(0,showcount);
 {' '+item[0]}({item[1]})
 {/if}
 {/each}
-{#if showcount<items.length}<span class="clickable" 
-on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}
+{#if showcount<items.length}<Button
+onclick={showmore}>+{items.length-showcount}</Button>{/if}

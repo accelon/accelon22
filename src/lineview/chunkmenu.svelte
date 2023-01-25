@@ -23,12 +23,8 @@ const goChunk=(n)=>{
 </script>
 <div class="chunkmenu">
 {#each items as item,n}
-<div class:clickable={ ((n+1)*2!=items.length+1) || LV.canpromote(idx)}
+<div aria-hidden="true" class:clickable={ ((n+1)*2!=items.length+1) || LV.canpromote(idx)}
   class:lineviewheading={(n+1)*2==items.length+1}
    on:click={()=>goChunk(n)}>{item.caption}</div>
 {/each}
 </div>
-
-<style>
-.promote {float:right}
-</style>

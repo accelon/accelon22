@@ -1,4 +1,5 @@
 <script>
+import Button from '../comps/button.svelte';
 import {getContext} from 'svelte'
 export let ptk;
 export let masterid;
@@ -12,4 +13,4 @@ const showmaintext=()=>{
 
 </script>
 
-<span class="clickable footnote" on:click={showmaintext}>{masterid}</span>
+<Button onclick={showmaintext}>{masterid}</Button>

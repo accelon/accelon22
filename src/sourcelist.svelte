@@ -1,6 +1,7 @@
 <script>
 import {onMount} from 'svelte'
 import {get} from "svelte/store"
+import Button from './comps/button.svelte';
 import {errormsg,deployable,comimage} from "./ts/store.ts";
 import {editing,editingFilename,sources,editorClean,editingErrors,scrollToLine} from "./ts/editor.ts";
 import {setEditingBuffer,discardchanges,compiler,setCompileErrors} from "./ts/editorupdate.ts";
@@ -84,20 +85,21 @@ const dodeploy=async ()=>{
 
 </script>
 <div>
-<span class="clickable" title="import Sources, 载入源文件" on:click={openfiles}>📂</span>
+<Button
+title="import Sources, 载入源文件" onclick={openfiles} >📂</Button>
 {#if !$editorClean}
 {#if !inMemoryFile() }
-<span class="clickable" title="Save As, 另存文件"         on:click={savefile}>💾</span>
+<Button title="Save As, 另存文件"         onclick={savefile}>💾</Button>
 {/if}
-<span class="clickable discard" title="Discard Changes, 放弃修改" on:click={()=>discard()}>🗑</span>
+<Button title="Discard Changes, 放弃修改" onclick={()=>discard()}>🗑</Button>
 {/if}
 
 
 {#if readytodeploy}
-	<span on:click={dodeploy} title="Deploy 打包存档"  class="clickable">📦</span>
+	<Button onclick={dodeploy} title="Deploy 打包存档" >📦</Button>
 {:else}
 	{#if !$editingErrors.length}
-	<span on:click={startbuild} title="Produce 生成" class="clickable">🏭</span>
+	<Button onclick={startbuild} title="Produce 生成" >🏭</Button>
 	{/if}
 {/if}
 

@@ -3,7 +3,7 @@ import {getContext} from 'svelte';
 export let ptk,action,items=[],seq;
 import GuideFilter from './guidefilter.svelte'
 import {Painters} from '../painters/painters.ts'
-
+import Button from '../comps/button.svelte';
 import Inlinetext from '../painters/inlinetext.svelte';
 import {makeChunkAddress} from 'ptk';
 const LV=getContext('LV');
@@ -41,6 +41,7 @@ const fetchLine=async ()=>{
     }
     ready=true;
 }
+const oncaption=()=>{}
 $: fetchLine(from);
 </script>
 {#if !action}
@@ -48,14 +49,13 @@ $: fetchLine(from);
 {:else if ready}
 {ptk.template.humanChoice(action)}
 <span class="toolbar">
-<span on:click={()=>prev()} class="clickable">{from+1}/</span>
-<span on:click={()=>next()} class="clickable">{items.length}</span>
-<span class="clickable">{ptk.template.onChunkCaption(now?.ck?.id)}</span>
+<Button onclick={prev}>{from+1}/</Button>
+<Button onclick={next}>{items.length}</Button>
+<Button onclick={oncaption}>{ptk.template.onChunkCaption(now?.ck?.id)}</Button>
 </span>
 
 <div>
-<span class="clickable openexcerpt" on:click={()=>open()}/>
-    <Inlinetext text={ptk.getLine(now?.line)} {ptk} {seq}/>
+<Inlinetext text={ptk.getLine(now?.line)} {ptk} {seq}/>
 {#each now?.record as rec}
 <div><Inlinetext text={ptk.getLine(rec)} {ptk} {seq}/>
 {#if activelinemenus[rec]}

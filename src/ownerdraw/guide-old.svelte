@@ -3,6 +3,7 @@ import {getContext} from 'svelte';
 import InlineText from '../painters/inlinetext.svelte';
 export let ptk,action;
 import {fromObj,makeChunkAddress} from 'ptk';
+import Button from '../comps/button.svelte';
 const LV=getContext('LV');
 export let dividx;
 export let actionprefix='';
@@ -128,24 +129,25 @@ const memberCaption=key=>{
 </script>
 
 {#each groups as group}
-<span class:highlight={group==activegroup} class="pickerbutton clickable" on:click={()=>listgroup(group)}>{group}</span>
+<span class:highlight={group==activegroup} aria-hidden="true" class="pickerbutton clickable" on:click={()=>listgroup(group)}>{group}</span>
 {/each}
 {#if groupmembers.length}<div class="divider"></div>{/if}
 {#each groupmembers as member}
-<span class:highlight={member.key==activemember}  class="pickerbutton clickable" on:click={()=>toggleselect(member.idx)}>{member.caption}</span>
+<span class:highlight={member.key==activemember} aria-hidden="true" class="pickerbutton clickable" on:click={()=>toggleselect(member.idx)}>{member.caption}</span>
 {#if member.key==activemember}<span class="pickernote">{note}</span>{/if}
 {/each}
 {#if selectedmembers.length}<div class="divider"></div>
-<span class="clickable" on:click={()=>clearmember()}>╳</span>
+<Button onclick={clearmember}>╳</Button>
 {#each selectedmembers as member}
-<span class="clickable pickercriteria" on:click={()=>removemember(member)}>{memberCaption(member)}</span>
+<span class="clickable pickercriteria" aria-hidden="true"  on:click={()=>removemember(member)}>{memberCaption(member)}</span>
 {/each}
 {/if}
 {#if items.length}
-<span class=clickable on:click={prev}>{from+1}/</span><span class='clickable' on:click={next}>{last}</span>
+<Button onclick={prev}>{from+1}/</Button><Button onclick={next}>{last}</Button>
 {/if}
 {#each displayitems as item,idx}
-<div><span class="clickable excerptheading" on:click={()=>onclick(idx)}>{item.chunkname}</span>
+<div><Button className="excerptheading"
+    onclick={()=>onclick(idx)}>{item.chunkname}</Button>
 <InlineText {ptk} line={items.line} {seq} text={item.text}/>
 </div>
 {/each}

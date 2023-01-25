@@ -1,5 +1,6 @@
 <script>
 import {getContext,onMount} from 'svelte';
+import Button from '../comps/button.svelte';
 import {Painters} from '../painters/painters.ts'
 export let ptk;
 export let caption;
@@ -22,9 +23,7 @@ const addCriteria=()=>{
     opened=!opened;
 }
 </script>
-<span class="clickable refhitcount"
- on:click={()=>listref()}>{count}</span><span
-  class="clickable" 
-  on:click={()=>addCriteria()}>{caption+" "}</span>{#if opened}(<svelte:component
+<Button className="refhitcount" onclick={()=>listref()}>{count}</Button><Button
+  onclick={addCriteria}>{caption+" "}</Button>{#if opened}(<svelte:component
    {ptk} {name} {tagname} {backref} {seq}
    tofind={tofind2} this={Painters.backreflist}/>){/if}

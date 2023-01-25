@@ -1,6 +1,8 @@
 <script>
 import {getContext} from 'svelte'
 import InlineText from './inlinetext.svelte';
+import Button from '../comps/button.svelte';
+
 export let ptk;
 export let masterid;
 export let line;
@@ -14,7 +16,7 @@ const shownote= ()=>{
 
 </script>
 {#key notetext}
-<span class="footnotebutton clickable" on:click={shownote}>{masterid}</span>
+<Button className="footnotebutton" on:click={shownote}>{masterid}</Button>
 {#if show}
 <div class="footnotepopup"><span class="footnote"><InlineText {ptk} text={notetext}/></span></div>
 {/if}

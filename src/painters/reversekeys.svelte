@@ -1,6 +1,6 @@
 <script>
 import {getContext} from 'svelte';
-
+import Button from '../comps/button.svelte'
 import ToggleLink from './togglelink.svelte';
 export let name;
 export let seq;
@@ -23,4 +23,4 @@ $: displayitems=items.slice(0,showcount);
 </script>
 {#if displayitems.length}
 <span class={ptk.name+" "+tagname+" "+(name?name:'')+" keys_start"}>{#each displayitems as key,idx}
-{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}</span>{/if}{#if showcount<items.length}<span class="clickable" on:click={()=>showmore()}>+{items.length-showcount}</span>{/if}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>
+{idx?' ':''}<ToggleLink onclick={()=>onclick(key)} clickable={true} text={keys.get(key)}/>{/each}</span>{/if}{#if showcount<items.length}<Button onclick={showmore}>+{items.length-showcount}</Button>{/if}<span class={ptk.name+" "+tagname+" "+name+" keys_end"}></span>

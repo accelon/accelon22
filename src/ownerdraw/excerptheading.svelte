@@ -1,6 +1,8 @@
 <script>
 import {makeElementId} from 'ptk'
 import {getContext} from 'svelte';
+import Button from '../comps/button.svelte';
+
 export let id;
 export let bkid;
 export let tagname;
@@ -15,4 +17,4 @@ const openchunk=()=>{
 }
 
 </script>
-<span class='clickable openexcerpt' on:click={openchunk}></span>
+<Button className='clickable openexcerpt' onclick={openchunk}></Button>

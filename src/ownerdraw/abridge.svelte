@@ -1,6 +1,7 @@
 <script>/* 隱藏不含關鍵字的句子 */
 import {renderOfftext,abridgeRenderUnits,TokenType,MIN_ABRIDGE} from 'ptk';
 import RenderUnit from '../painters/renderunit.svelte';
+import Button from '../comps/button.svelte';
 export let ptk;
 export let hits=[];
 export let phraselength;
@@ -33,7 +34,10 @@ const expand=(idx,direction=0)=>{
 {#key refreshcount}
 {#each abridges as ab,idx}
 {#if Array.isArray(ab)}
-{#if ab[1] && ab[0]>10}<span class="clickable" on:click={()=>expand(idx,1)}>…</span>{/if}<span class="clickable abridged" on:click={()=>expand(idx)}>{ab[0]}</span>{#if !ab[2]}<span class="clickable" on:click={()=>expand(idx,-1)}>…</span>{/if}
+{#if ab[1] && ab[0]>10}<Button 
+onclick={()=>expand(idx,1)}>…</Button>{/if}<Button className="abridged"  
+onclick={()=>expand(idx)}>{ab[0]}</Button>{#if !ab[2]}<Button 
+onclick={()=>expand(idx,-1)}>…</Button>{/if}
 {:else}
 <RenderUnit {ptk} {before} {after} ru={ab} {onUpdate} {extraclass}/>
 {/if}

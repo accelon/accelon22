@@ -1,6 +1,7 @@
 <script>
 import {LineBase,openPtkOption, ZipStore} from 'ptk'
 import {pitakas} from './ts/store.ts';
+import Button from '../comps/button.svelte';
 
 const openlocalzip=async ()=>{
 	const [fileHandle]=await showOpenFilePicker(openPtkOption);
@@ -17,8 +18,7 @@ const openlocalzip=async ()=>{
 }
 
 </script>
-
-<span class="clickable" on:click={openlocalzip} title='open 开启'>📖</span>
+<Button onclick={openlocalzip} title='open 开启'>📖</Button>
 config.js preload
 {#each $pitakas as loaded }
 	<div>{loaded.ptk.name} {loaded.ptk.humanName()} {loaded.location}</div>

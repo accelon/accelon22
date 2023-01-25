@@ -1,5 +1,6 @@
 <script>
 import {getContext} from 'svelte'
+import Button from '../comps/button.svelte';
 const LV=getContext('LV');
 export let seq;
 export let id;
@@ -10,4 +11,4 @@ const onclick=()=>{
 }
 
 </script>
-<span class="clickable" on:click={()=>onclick()}>≈</span>
+<Button onclick={()=>onclick()}>≈</Button>

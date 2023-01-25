@@ -1,6 +1,8 @@
 <script>
 import Inlinetext from '../painters/inlinetext.svelte';
 import {pitakas} from '../ts/store.js'
+import Button from '../comps/button.svelte';
+
 import { _} from '../ts/textout.ts';
 import {github} from '../comps/icons';
 const getVerText=ptk=>{
@@ -14,7 +16,7 @@ const homepage=ptk=>{
 
 {#each $pitakas as pitaka,idx}
 <div><span class="excerptheading">{pitaka.ptk.humanName(true)}</span>
-<span  title={_("源碼")} class="clickable" on:click={()=>homepage(pitaka.ptk)} >{pitaka.name}<span class="home">{@html github}</span></span>
+<Button  title={_("源碼")}  onclick={()=>homepage(pitaka.ptk)} >{pitaka.name}<span class="home">{@html github}</span></Button>
 <span title={_("建置於")}>{pitaka.buildtime.toLocaleDateString()}🏭</span>
 <span title={_("換行")}>{pitaka.eot}⏎</span>
 <span title={_("文塊")}>{pitaka.chunkcount}❖</span>

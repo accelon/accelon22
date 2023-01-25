@@ -2,6 +2,7 @@
 import {getRenderUnitClasses} from 'ptk';	
 import {textClasses,_} from '../ts/textout.ts'
 import {TagHandlers} from '../ts/taghandlers.ts'
+
 import {getContext} from 'svelte'
 export let ru;
 export let active;
@@ -27,7 +28,7 @@ const click=()=>{
 	onUpdate&&onUpdate();
 }
 </script>
-<svelte:component this={before} {ru} {seq} {ptk}/><t 
+<svelte:component this={before} {ru} {seq} {ptk}/><t aria-hidden={true}
 class:activeword={active}
 class={getRenderUnitClasses(ru,textClasses(ptk),extraclass)} 
 on:click={()=>click()} idx={seq}>{_(ru.text,ptk?.lang,tosim,palitrans)}</t><svelte:component this={after} {seq} {ru} {ptk} after={true}/>

@@ -1,6 +1,8 @@
 <script>
 import StateButtons from '../comps/statebuttons.svelte';
 import StateButton from '../comps/statebutton.svelte';
+import Button from '../comps/button.svelte';
+
 export let ptk,seq;
 import {GUIDEACTIONPREFIX} from 'ptk'
 import {getContext} from 'svelte';
@@ -52,15 +54,15 @@ const list=(idx=-1)=>{
 }
 </script>
 {#each filters as filter}
-<span class="guidegroup closelink clickable" 
-on:click={()=>reset(filter.name)}>{filter.caption}</span>
+<Button className="guidegroup closelink clickable"
+on:click={()=>reset(filter.name)}>{filter.caption}</Button>
 <StateButtons unselectable={true} {refresh} items={filter.states} bind:choices={choices[filter.name]}/>
 {#if filter.newline}<br/>{/if}
 {/each}
 {#key items}
 <br/>
 {#if items.length}
-<span on:click={()=>list(-1)} class="clickable hitcount">{items.length}{mastertag.attrs.caption}</span>
+<Button onclick={()=>list(-1)} className="hitcount clickable">{items.length}{mastertag.attrs.caption}</Button>
 <StateButton bind:selectedIndex={groupby} states={groupstates}></StateButton>
 <MoreLink {ptk} items={groupitems} onclick={list} itemRenderer={GroupStatLink}/>
 {:else if choicecount()}

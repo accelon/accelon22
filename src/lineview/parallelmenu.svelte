@@ -19,6 +19,6 @@ const  toggleParallel=async (e,ptkname)=>{
 }
 </script>
 {#each parallels as [pptk] }
-<span class='clickable' class:closelink={ptk.parallels[pptk.name]} 
+<span class='clickable' class:closelink={ptk.parallels[pptk.name]} aria-hidden={true}
 on:click={e=>toggleParallel(e,pptk.name)}>{pptk?.name+' '}</span>
 {/each}

@@ -2,6 +2,7 @@
 import {getContext} from 'svelte';
 import {textClasses,_} from '../ts/textout.ts';
 import ChunkMenu from './chunkmenu.svelte';
+import Button from '../comps/button.svelte'
 export let item; // seq 第幾行 , idx 第幾個 division
 export let ptk ,lva;
 const LV=getContext('LV');
@@ -18,15 +19,15 @@ const onHide=()=>{
 </script>
 <span class='lineviewmenu'>
 {#if caption && !division?.singleton}<!-- navigating a reading segment and not singleton division-->
-{#if LV.canless(division)}<span class='clickable lesstext' on:click={()=>LV.onless(division)}></span>{/if}
-{#if LV.canmore(division)}<span class='clickable moretext' on:click={()=>LV.onmore(division)}></span>{/if}
-{#if LV.canprev(division)}<span class='clickable' on:click={()=>LV.onprev(division)}>{division?.from+1}/</span>{/if}
-{#if LV.cannext(division)}<span class='clickable' on:click={()=>LV.onnext(division)}>{division.last-division.first}</span>{/if}
+{#if LV.canless(division)}<Button onclick={()=>LV.onless(division)}>▲</Button>{/if}
+{#if LV.canmore(division)}<Button onclick={()=>LV.onmore(division)}>▼</Button>{/if}
+{#if LV.canprev(division)}<Button onclick={()=>LV.onprev(division)}>{division?.from+1}/</Button>{/if}
+{#if LV.cannext(division)}<Button onclick={()=>LV.onnext(division)}>{division.last-division.first}</Button>{/if}
 
-<span class={'clickable lineviewheading'+textClasses(ptk)}
- on:click={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</span>
+<Button className={'clickable lineviewheading'+textClasses(ptk)} 
+ onclick={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</Button>
 {/if}
-<span class='clickable'on:click={()=>LV.onremove(division)}>⨯</span>
+<Button onclick={()=>LV.onremove(division)}>⨯</Button>
 </span>
 {#if showchunkmenu}
 <ChunkMenu {...item} {ptk} {onHide}/>

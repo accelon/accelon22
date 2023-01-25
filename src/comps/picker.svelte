@@ -1,4 +1,5 @@
 <script>
+import Button from '../comps/button.svelte';
 export let column;
 const p='';
 const getPicker=(keys,values,parent='')=>{
@@ -12,8 +13,9 @@ const getPicker=(keys,values,parent='')=>{
     }
     return out;
 }
+const setpicker=()=>{}
 $: items=getPicker(column.keys, column.fieldvalues[0],p)
 </script>
 {#each items as item}
- <span class="clickable">{item[1]}</span>{' '}
+ <Button onclick={setpicker}>{item[1]}</Button>{' '}
 {/each}

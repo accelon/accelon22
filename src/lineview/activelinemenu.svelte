@@ -5,6 +5,8 @@ import {_,textClasses} from '../ts/textout.ts'
 import {getContext} from 'svelte';
 import {get} from 'svelte/store';
 import {Painters} from '../painters/painters.ts'
+import Button from '../comps/button.svelte';
+
 export let seq;
 export let line;
 export let division;
@@ -34,7 +36,7 @@ const update=()=>{
 <svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem.data} {line}/>
 {/each}
 
-<span class='menu clickable' on:click={toggleshow}>{show?'▸':'▾'}</span>
+<Button className='menu clickable' onclick={toggleshow}>{show?'▸':'▾'}</Button>
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
 {#if explainword}<span class={textClasses(ptk)}>{_(explainword,ptk?.lang)} </span>{/if}

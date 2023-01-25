@@ -2,6 +2,7 @@
 import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
+import Button from './comps/button.svelte'
 export let oninsert;
 export let setTofind;
 let ptkname=activePtkName();
@@ -44,27 +45,26 @@ const opensetting=()=>{
 }
 </script>
 <div class="toolbar">
-<span class="clickable" on:click={()=>systeminfo()}></span>
+
 <SelectPitakas bind:ptkname {oninsert}/>
 <input bind:value size=5 on:input={debounce(dosearch,500)}/>
 {#each items as item,idx}
 {#if item.start.length+item.middle.length+item.end.length}
-<span class="clickable" title="beginsWith 开头符合"
- on:click={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</span>
-<span title="inMiddle 中间符合" class="clickable"
- on:click={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}
-</span><span title="endsWith 结尾符合" class="clickable"
- on:click={()=>item.end.length&&insert(item.name,2)}>{'·'}{item.end.length}{' '}</span>
+<Button title="beginsWith 开头符合"
+ onclick={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</Button>
+<Button title="inMiddle 中间符合" 
+ onclick={()=>item.middle.length&&insert(item.name,1)}>·{item.middle.length}
+</Button><Button title="endsWith 结尾符合" 
+ onclick={()=>item.end.length&&insert(item.name,2)}>{'·'}{item.end.length}{' '}</Button>
 {/if}
 {/each}
 {#each ftsitems as item,idx}
-<span class='clickable' title='fulltext 全文' 
-on:click={()=>listchunk(item.scope)}>{item.caption}</span>{#if item.count}<span class='clickable hitcount' 
-on:click={()=>fulltext(item.scope)}>{' '+item.count+'|'}</span>{:else}0|{/if}{' '}
+<Button title='fulltext 全文' 
+onclick={()=>listchunk(item.scope)}>{item.caption}</Button>{#if item.count}<Button className='clickable hitcount' 
+onclick={()=>fulltext(item.scope)}>{' '+item.count+'|'}</Button>{:else}0|{/if}{' '}
 {/each}
-<span class="setting clickble" on:click={()=>opensetting()}>🛠️</span>
+<Button className='setting' onclick={opensetting}>🛠️</Button>
 </div>
 <style>
-.setting {float:right;}
 input {font-size:1em}
 </style>

@@ -22,7 +22,7 @@ const setActive=item=>{
 
 </script>
 {#each items as item}
-<div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}>
+<div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth} aria-hidden={true}>
 {#if item.closable}
 <LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}

@@ -3,6 +3,8 @@ import {getContext} from 'svelte';
 import Abridge from './abridge.svelte';
 import ExcerptBar from './excerptbar.svelte';
 import ExcerptHeading from './excerptheading.svelte';
+import Button from '../comps/button.svelte';
+
 import {makeElementId} from 'ptk'
 export let caption;
 export let action;
@@ -48,8 +50,8 @@ $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 <div>
 <ExcerptHeading {ptk} {seq} {...item.ck}/>
 <Abridge {...item} {ptk}/>{#if !chunk}
-<span class='excerptheading clickable'
- on:click={()=>openChunk(item.ck.bkid,item.ck.tagname,item.ck.id)}>{' '+item.ck.caption}</span>
+<Button className='excerptheading'
+ onclick={()=>openChunk(item.ck.bkid,item.ck.tagname,item.ck.id)}>{' '+item.ck.caption}</Button>
 {/if}</div>
 
 {/each}

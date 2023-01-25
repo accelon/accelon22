@@ -54,7 +54,7 @@ const click=evt=>{
 $: setcaption(selectedIndex);
 onMount(()=>setcaption());
 </script>
-<span class="statebutton" class:disabled  class:unselected={selectedIndex==-1} {title} on:click={click} >
+<span class="statebutton" class:disabled  class:unselected={selectedIndex==-1} {title} on:click={click} aria-hidden={true}>
     <span>{@html highlight(caption,selectedIndex)}</span>
 </span>
 

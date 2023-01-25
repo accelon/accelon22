@@ -1,5 +1,6 @@
 <script>
 import { onMount,getContext } from "svelte";
+import Button from '../comps/button.svelte';
 // export let keys;
 export let ptk;
 export let defattrs; // from ^:typedef<aname=avalue>
@@ -42,10 +43,10 @@ const openChunk=n=>{
 }
 </script>
 {#if items.length}
-<span class="clickable" on:click={()=>showing=!showing} >{defattrs.caption}{items.length}</span>
+<Button onclick={()=>showing=!showing} >{defattrs.caption}{items.length}</Button>
 {#if showing}
 （{#each items as item}
-<span class="clickable backref" on:click={()=>openChunk(item)}>{sickname(item)+' '}</span>
+<Button className="backref" onclick={()=>openChunk(item)}>{sickname(item)+' '}</Button>
 {/each}）
 {/if}
 {/if}

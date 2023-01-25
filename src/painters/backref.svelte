@@ -21,7 +21,7 @@ const forward=(keyidx)=>{
 	}
 }
 </script>
-{#if togglebutton && backref}<span on:click={()=>forward(key)} class="clickable"
+{#if togglebutton && backref}<span aria-hidden={true} on:click={()=>forward(key)} class="clickable"
   class:active={showing==key}>⛓️</span>{/if}{#if showing==key}(<svelte:component 
 this={painter} {tagname} {seq} {key} showitemlength={true}
  {name} {ptk} {masterid} {keys} {classes} {backref} {tofind}/>){/if}
