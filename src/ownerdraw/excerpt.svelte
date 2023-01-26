@@ -50,7 +50,7 @@ $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 <div>
 <ExcerptHeading {ptk} {seq} {...item.ck}/>
 <Abridge {...item} {ptk}/>{#if !chunk}
-<Button className='excerptheading'
+<Button className='excerptheading clickable'
  onclick={()=>openChunk(item.ck.bkid,item.ck.tagname,item.ck.id)}>{' '+item.ck.caption}</Button>
 {/if}</div>
 

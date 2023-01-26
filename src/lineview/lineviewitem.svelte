@@ -3,15 +3,18 @@ import {getLVStyle} from '../ts/styling.ts'
 import Offtags from './offtags.svelte'
 import {Ownerdraws} from '../ownerdraw/ownerdraw.ts';
 import InlineText from '../painters/inlinetext.svelte';
+import ParaChunk from '../painters/parachunk.svelte';
+
 import ActiveLineMenu from './activelinemenu.svelte';
 import {renderOfftext} from 'ptk';
 import {getExtraPainter} from '../ts/painters.ts'
-    import Inlinetext from '../painters/inlinetext.svelte';
+
 export let edge;
 export let depth;
 export let text;
 export let key;
 export let sponsor='';
+export let parallels;
 export let line;
 export let idx; //-1 top line
 export let lva; 
@@ -33,7 +36,6 @@ const render=(text,line)=>{
 }
 $: units=render(text,line);
 //do not pass units to InlineText, so that it will call renderOfftext again
-
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
@@ -41,7 +43,9 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 {#if ownerdraw}
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
-{#if sponsor}<InlineText {ptk} text={sponsor}/>{/if}{#if idx>-1}
+{#if sponsor}<InlineText {ptk} text={sponsor}/>{/if}
+{#if idx==0}<ParaChunk {seq} items={parallels}/>{/if}
+{#if idx>-1}
 <br/>{/if}<InlineText {ptk} {line} {seq} {extra} {text} {active} {activeword} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} 
 {seq} {line} {dividx} {activelinemenu} 
