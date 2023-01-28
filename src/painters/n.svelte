@@ -1,17 +1,29 @@
 <script>
-    import {getContext} from 'svelte'
-    export let ptk;
-    export let line;
-    export let seq;
-    export let after;
-    export let innertext;
-    export let value;
-    let show=false;
-    const LV=getContext('LV');
-    const jump= ()=>{
-        LV.insertAddress(value,seq);
-    }
-    </script>   
-    {#if after || (!innertext&&!after)}
-    <span class="n">{value}</span>
-    {/if}
+import {getContext} from 'svelte'
+import {makeChunkAddress} from 'ptk';
+import Button from '../comps/button.svelte';
+export let ptk;
+export let line;
+export let seq;
+export let after;
+export let innertext;
+export let value;
+let showlink=false;
+const LV=getContext('LV');
+const jump=(ck,line)=>{
+    const address=makeChunkAddress(ck,line-ck.line);
+    LV.insertAddress(address,seq);
+}
+$: links=ptk.foreignLinksAtTag('n',line);
+
+</script>   
+{#if after || (!innertext&&!after)}
+<Button className={links.length?'clickable n':'n'} 
+onclick={()=>showlink=!showlink}>{value}</Button>
+{#if links.length}<span class='foreignlink'>{links.length}</span>{/if}
+{#if showlink &&links.length}
+{#each links as link}
+<Button onclick={()=>jump(link.ck,link.line)}>{link.ck.caption}</Button>
+{/each}
+{/if}
+{/if}

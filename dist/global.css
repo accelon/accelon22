@@ -56,7 +56,7 @@ body {
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
-
+.foreignlink {font-size:0.5em;font-weight: bold; position:absolute;color:gold}
 .highlightline:before {content: '→';color:yellow}
 .openexcerpt:before {content:'←';color:yellow}
 /* .lineview {

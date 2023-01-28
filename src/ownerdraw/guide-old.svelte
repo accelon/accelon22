@@ -39,11 +39,11 @@ const getPicker=()=>{
 const onclick=idx=>{
     const cktag=ptk.defines.ck;
     const chunk=displayitems[idx].chunk;
-    const id=cktag.fields.id.values[chunk];
+    // const id=cktag.fields.id.values[chunk];
     const chunkline=cktag.linepos[chunk];
     const lineoffset=displayitems[idx].line - chunkline ;
     const ck=ptk.getNearestChunk( chunkline );
-	LV.insertAddress(makeChunkAddress(ck,id,lineoffset),seq);
+	LV.insertAddress(makeChunkAddress(ck,lineoffset),seq);
 }
 
 const listgroup=group=>{

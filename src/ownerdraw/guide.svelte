@@ -19,7 +19,7 @@ const prev=()=>{
 }
 const open=()=>{
     const lineoffset=now.line-now.ck.line;
-    const address=makeChunkAddress(now.ck,now.ck.id,lineoffset);
+    const address=makeChunkAddress(now.ck,lineoffset);
 
     LV.insertAddress(address,seq);
 }
