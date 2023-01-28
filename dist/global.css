@@ -50,8 +50,8 @@ body {
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 .ck {color: goldenrod;}
+.n  {color:goldenrod}
 .ptkHuman {background:goldenrod;color:black}
-
 .abridged{ font-size:75% }
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}

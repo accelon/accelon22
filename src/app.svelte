@@ -13,9 +13,11 @@ import {isMobileDevice} from './ts/utils.ts'
 
 import {initPainters} from './painters/painters.ts'
 import {initOwnerdraws} from './ownerdraw/ownerdraw.ts'
-import note from './painters/note.svelte'
-import f from './painters/f.svelte'
-import fn from './painters/fn.svelte'
+import note from './painters/note.svelte';
+import n from './painters/n.svelte';//paragraph number
+import j from './painters/j.svelte';//internal jump
+import f from './painters/f.svelte';
+import fn from './painters/fn.svelte';
 import keys from './painters/keys.svelte'
 import key from './painters/key.svelte'; //generic column field
 import confer from './painters/confer.svelte'; 
@@ -34,7 +36,7 @@ import unknown from './ownerdraw/unknown.svelte';
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
 
-initPainters({note,keys,key,confer,f,fn,backref,backreflist,approxbackref,partialchunkid,chunk});
+initPainters({note,keys,key,confer,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid,chunk});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide,approx});
 
 $: ready=false;

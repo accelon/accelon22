@@ -10,5 +10,5 @@ export const openchunk=(bkid,ckid)=>{
 }
 </script>
 {#each items as item}
-<Button onclick={()=>openchunk(item.bkid,item.ckid)}>{item.caption}</Button>
+<Button onclick={()=>openchunk(item.bkid,item.ckid)}>{item.caption}</Button>{' '}
 {/each}
