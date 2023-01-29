@@ -26,20 +26,26 @@ export let activeword;
 export let highlight;
 export let active;
 let units, activelinemenu,extra;
-
+let linestyle='';//first tag at bol
 const render=(text,line)=>{
     const [units,ot]=renderOfftext(text,{line});
     extra=getExtraPainter(ptk,ot,'backref',true)
     .concat(getExtraPainter(ptk,ot,'backlink'))
     activelinemenu=getExtraPainter(ptk,ot,'activelinemenu');
+
+    if (units.length && units[0].tags.length) {
+        linestyle=(ot.tags[ units[0].tags[0]].name)||'';
+        if (linestyle)linestyle=' '+linestyle+'_div';
+    } else linestyle='';
     return units;
 }
 $: units=render(text,line);
+
 //do not pass units to InlineText, so that it will call renderOfftext again
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
- class="lineviewitem" class:highlightline={highlight}  class:activeline={active} >
+ class={"lineviewitem "+ptk.name+linestyle} class:highlightline={highlight}  class:activeline={active} >
 {#if ownerdraw}
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}

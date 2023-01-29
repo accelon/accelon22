@@ -55,7 +55,7 @@ const list=(idx=-1)=>{
 </script>
 {#each filters as filter}
 <Button className="guidegroup closelink clickable"
-on:click={()=>reset(filter.name)}>{filter.caption}</Button>
+onclick={()=>reset(filter.name)}>{filter.caption}</Button>
 <StateButtons unselectable={true} {refresh} items={filter.states} bind:choices={choices[filter.name]}/>
 {#if filter.newline}<br/>{/if}
 {/each}
@@ -63,8 +63,10 @@ on:click={()=>reset(filter.name)}>{filter.caption}</Button>
 <br/>
 {#if items.length}
 <Button onclick={()=>list(-1)} className="hitcount clickable">{items.length}{mastertag.attrs.caption}</Button>
+{#if Object.keys(groupstates).length}
 <StateButton bind:selectedIndex={groupby} states={groupstates}></StateButton>
 <MoreLink {ptk} items={groupitems} onclick={list} itemRenderer={GroupStatLink}/>
+{/if}
 {:else if choicecount()}
 找不到
 {/if}

@@ -1,9 +1,6 @@
 <script>
 import {getContext} from 'svelte'
-import InlineText from './inlinetext.svelte';
 import Button from '../comps/button.svelte';
-export let ptk;
-export let line;
 export let seq;
 export let after;
 export let innertext;
