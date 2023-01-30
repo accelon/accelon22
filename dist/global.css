@@ -43,6 +43,17 @@ body {
 .tocdepth6  {content:attr(id) ;color:  hsl(280,70%,70%)}
 .tocdepth7  {content:attr(id) ;color: hsl(320,70%,70%)}
 .tocdepth8  {content:attr(id) ;color:  hsl(360,80%,70%)}
+
+.bgdepth0 {background:  hsl(40,70%,70%)}
+.bgdepth1 {background:  hsl(80,70%,70%)}
+.bgdepth2 {background:  hsl(120,70%,70%)}
+.bgdepth3  {background:  hsl(160,70%,70%)}
+.bgdepth4  {background:  hsl(200,70%,70%)}
+.bgdepth5  {background: hsl(240,70%,70%)}
+.bgdepth6  {background:  hsl(280,70%,70%)}
+.bgdepth7  {background: hsl(320,70%,70%)}
+.bgdepth8  {background:  hsl(360,80%,70%)}
+
 .field {color: lightsalmon;}
 /* default reader stying */
 .e {color: goldenrod; font-size: 110%}
@@ -74,6 +85,7 @@ body {
 position:absolute;right:0px;margin-top:1.5em;
 padding-right: 1.5em ;user-select: none;
 background-color: #444444;
+color:black;
 }
 .activeline { 
 	padding-left: 1px;

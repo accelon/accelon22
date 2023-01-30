@@ -42,7 +42,7 @@ const onclick=idx=>{
     // const id=cktag.fields.id.values[chunk];
     const chunkline=cktag.linepos[chunk];
     const lineoffset=displayitems[idx].line - chunkline ;
-    const ck=ptk.getNearestChunk( chunkline );
+    const ck=ptk.nearestChunk( chunkline );
 	LV.insertAddress(makeChunkAddress(ck,lineoffset),seq);
 }
 

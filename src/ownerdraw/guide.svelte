@@ -2,13 +2,13 @@
 import {getContext} from 'svelte';
 export let ptk,action,items=[],seq;
 import GuideFilter from './guidefilter.svelte'
-import {Painters} from '../painters/painters.ts'
 import Button from '../comps/button.svelte';
 import Inlinetext from '../painters/inlinetext.svelte';
 import {makeChunkAddress} from 'ptk';
 const LV=getContext('LV');
 import {renderOfftext} from 'ptk';
 import {getExtraPainter} from '../ts/painters.ts'
+import GuideLineMenu from './guidelinemenu.svelte';
 
 let from=0, ready=false , now={};
 const next=()=>{
@@ -56,14 +56,14 @@ $: fetchLine(from);
 
 <div>
 <Inlinetext text={ptk.getLine(now?.line)} {ptk} {seq}/>
-{#each now?.record as rec}
+{#if now?.record.length==0}
+<GuideLineMenu {activelinemenus} line={now?.rec}/><Button onclick={open} className="ck clickable">{now?.ck?.caption}</Button>
+{:else}
+{#each now?.record as rec}<!-- multiple line  //-->
 <div><Inlinetext text={ptk.getLine(rec)} {ptk} {seq}/>
-{#if activelinemenus[rec]}
-{#each activelinemenus[rec] as menuitem}
-<svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem.data} line={rec}/>
-{/each}
-{/if}
+<GuideLineMenu {activelinemenus} line={rec}/>
 </div>
 {/each}
+{/if}
 </div>
 {/if}
