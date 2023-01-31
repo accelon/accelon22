@@ -149,8 +149,15 @@ const changeAction=(newaction,idx)=>{
 	if (idx?.detail) idx=idx.detail; 
 	lvaddr.set(lva.changeAction(newaction,idx).stringify() );
 }
+const changeAddress=(newaction,idx)=>{
+	if (idx?.detail) idx=idx.detail; 
+	lvaddr.set(lva.changeAction(newaction,idx,true).stringify() );
+}
 
-setContext('LV',{ insertAddress, setFrom, parallels,getLVA,changeAction,
+
+setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
+	changeAction,
+	changeAddress,//reset from and till
 	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
 	onremove,onnext,onprev, ontop,onmore,onless,onpromote,

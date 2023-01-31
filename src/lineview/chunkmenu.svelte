@@ -16,7 +16,7 @@ const goChunk=(n)=>{
         // LV.promote(idx);
     } else {
         const addr=makeChunkAddress(ck);
-        LV.changeAction(addr,idx);
+        LV.changeAddress(addr,idx);
         onHide&&onHide();
     }
 
