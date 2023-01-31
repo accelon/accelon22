@@ -23,7 +23,8 @@ onclick={()=>showlink=!showlink}>{value}</Button>
 {#if links.length}<span class='foreignlink'>{links.length}</span>{/if}
 {#if showlink &&links.length}
 {#each links as link}
-<Button onclick={()=>jump(link.ck,link.line)}>{link.ck.caption}</Button>
+<Button className="clickable backlink" onclick={()=>jump(link.ck,link.line)}>
+{link.ck.caption}({link.ck.bk.caption})</Button>{' '}
 {/each}
 {/if}
 {/if}

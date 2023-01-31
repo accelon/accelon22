@@ -32,7 +32,6 @@ const render=(text,line)=>{
     extra=getExtraPainter(ptk,ot,'backref',true)
     .concat(getExtraPainter(ptk,ot,'backlink'))
     activelinemenu=getExtraPainter(ptk,ot,'activelinemenu');
-
     if (units.length && units[0].tags.length) {
         linestyle=(ot.tags[ units[0].tags[0]].name)||'';
         if (linestyle)linestyle=' '+linestyle+'_div';
