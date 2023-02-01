@@ -68,7 +68,8 @@ body {
 .inlinenote { position: absolute; background: silver; color: black;
 	border-radius: 0.25em;border: 1px solid black}
 /* editor styling, fix font size, no hiding */
-.foreignlink {font-size:0.5em;font-weight: bold; position:absolute;color:gold}
+.foreignlink {font-size:0.6em;margin-top:-0.4em; font-weight: bold; position:absolute;color:yellow}
+.foreignlink:after{content:'⤦'}
 .highlightline:before {content: '→';color:yellow}
 .openexcerpt:before {content:'←';color:yellow}
 .backlink:after{content: '⤦';color:yellow}
@@ -89,6 +90,8 @@ user-select: none;
 background-color: #444444;
 color:black;
 }
+.fullwidth {width:100%;display:block}
+
 .activeline { 
 	padding-left: 1px;
     border-left: 4px solid gray;
