@@ -2,6 +2,7 @@
 //on:click={()=>LV.onpromote(item.idx)}
 import {makeChunkAddress} from 'ptk'
 import {getContext} from 'svelte';
+import {_} from '../ts/textout.ts'
 export let idx;
 export let line;
 export let onHide;
@@ -23,8 +24,12 @@ const goChunk=(n)=>{
 }
 </script>
 <div class="chunkmenu">
+<span on:click={onHide} class="bk closebutton">{_(ck.bk.caption)}</span>
 {#each items as item,n}
 <div aria-hidden="true" class={'clickable bgdepth'+item.depth}
-   on:click={()=>goChunk(n)}>{item.caption}{#if item.line==line}✔{/if}</div>
+   on:click={()=>goChunk(n)}>{_(item.caption)}{#if item.line==line}✔{/if}</div>
 {/each}
 </div>
+<style>
+.closebutton {width:100%;display:block}
+</style>

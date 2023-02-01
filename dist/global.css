@@ -61,6 +61,7 @@ body {
 .cf {color: lightsalmon;}
 .hide {font-size: 0px} /*clipboard cannot copy display:none */
 .ck {color: goldenrod;}
+.bk {color: gold;}
 .n  {color:goldenrod}
 .ptkHuman {background:goldenrod;color:black}
 .abridged{ font-size:75% }
@@ -70,6 +71,7 @@ body {
 .foreignlink {font-size:0.5em;font-weight: bold; position:absolute;color:gold}
 .highlightline:before {content: '→';color:yellow}
 .openexcerpt:before {content:'←';color:yellow}
+.backlink:after{content: '⤦';color:yellow}
 /* .lineview {
 	border:1px dashed gray
 } */
@@ -82,8 +84,8 @@ body {
 	position:absolute;right:0px; padding-right: 0.5em ;user-select: none;}
 
 .chunkmenu {z-index:999;
-position:absolute;right:0px;margin-top:1.5em;
-padding-right: 1.5em ;user-select: none;
+position:absolute;right:0px;
+user-select: none;
 background-color: #444444;
 color:black;
 }
