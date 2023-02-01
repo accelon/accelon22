@@ -24,7 +24,7 @@ const getPainters=()=>{
 				const innertext=removeBracket(offtext.tagText(tag));
 				painters.push([painter,{name, field:typedef.attrs.field, 
 					tagname:tag.name, masterid:tag.attrs.id, line:tag.line,
-							keys, ptk ,foreign, teinnertextxt , firstchild}]);
+							keys, ptk ,foreign, innertext , firstchild}]);
 			}
 		}
 	}
@@ -44,7 +44,7 @@ const getPainters=()=>{
 	}
 	painters=painters;
 }
-$: getPainters(firstchild);
+$: getPainters(firstchild,offtext);
 </script>
 {#each painters as painter}
 <svelte:component this={painter[0]} {after} {seq} 

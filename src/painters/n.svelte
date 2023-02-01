@@ -9,12 +9,12 @@ export let after;
 export let innertext;
 export let value;
 export let tagname;
-let showlink=false;
 
+let showlink=false;
 
 $: links=ptk.foreignLinksAtTag(tagname,line);
 
-</script>   
+</script>
 {#if after || (!innertext&&!after)}
 <Button className={links.length?'clickable '+tagname:tagname} 
 onclick={()=>showlink=!showlink}>{value}</Button>

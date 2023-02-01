@@ -7,7 +7,8 @@ export let ru;
 export let ptk;
 export let seq;
 $: ntags= (ru && ru.tagsOf(after));
-//$: if (ru.extra) console.log(ru.extra, ru.extra.painter, ru.extra.data)
+// $: if (ntags.length) console.log(ru,ru.offtext);
+// $: if (ru.extra) console.log(ru.extra, ru.extra.painter, ru.extra.data)
 </script>
 {#each ntags as ntag}
 <Offtag {ptk} offtext={ru.offtext} {ntag} {after} {seq}/>

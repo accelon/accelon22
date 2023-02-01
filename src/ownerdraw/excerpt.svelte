@@ -1,6 +1,3 @@
-/*
- 
-*/
 <script>/* 顯示有關鍵字的行*/
 import {getContext} from 'svelte';
 import Abridge from './abridge.svelte';

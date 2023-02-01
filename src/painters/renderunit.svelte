@@ -28,7 +28,7 @@ const click=()=>{
 	onUpdate&&onUpdate();
 }
 </script>
-<svelte:component this={before} {ru} {seq} {ptk}/><t aria-hidden={true}
-class:activeword={active}
+<svelte:component this={before}  {ru} {seq} {ptk}/><t aria-hidden={true}
+class:activeword={active} 
 class={getRenderUnitClasses(ru,textClasses(ptk),extraclass)} 
-on:click={()=>click()} idx={seq}>{_(ru.text,ptk?.lang,tosim,palitrans)}</t><svelte:component this={after} {seq} {ru} {ptk} after={true}/>
+on:click={()=>click()} idx={seq}>{_(ru.text,ptk?.lang,tosim,palitrans)}</t><svelte:component this={after} {seq} {ru} {ptk} {onUpdate} after={true}/>
