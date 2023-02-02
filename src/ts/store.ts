@@ -64,6 +64,7 @@ export async function openPitakas() { //a failure will stop loading process
 	const out=[],jobs=[];
 	for (let i=0;i<locals.length;i++) {
 		const ptk=await openPtk(locals[i]);
+		if (!ptk) continue;
 		ptk.taggedLines.ver=await getTaggedLines(ptk,'ver');
 		ptk.taggedLines.sponsor=await getTaggedLines(ptk,'sponsor');
 		const buildtime=new Date(ptk.header.buildtime);

@@ -33,7 +33,7 @@ const render=(text,line)=>{
     .concat(getExtraPainter(ptk,ot,'backlink'))
     activelinemenu=getExtraPainter(ptk,ot,'activelinemenu');
     if (units.length && units[0].tags.length) {
-        linestyle=(ot.tags[ units[0].tags[0]].name)||'';
+        linestyle=(ot.tags[ units[0].tags[0]]?.name)||'';
         if (linestyle)linestyle=' '+linestyle+'_div';
     } else linestyle='';
     return units;
@@ -44,7 +44,7 @@ $: units=render(text,line);
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
- class={"lineviewitem "+ptk.name+linestyle} class:highlightline={highlight}  class:activeline={active} >
+ class={"lineviewitem "+ptk?.name+linestyle} class:highlightline={highlight}  class:activeline={active} >
 {#if ownerdraw}
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}

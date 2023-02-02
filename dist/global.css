@@ -117,7 +117,13 @@ color:black;
 @font-face {
 	font-family:"ProvidentPali";
 	src: local("ProvidentPali"), url("ProvidentPaliSegoe.otf") 
-	}
+}
+@font-face {
+	font-family:"DFKai-SB";
+	src: local("DFKai-SB"), url("kaiu.ttf") 
+}
+
+
 .lang-pl- {font-family: "ProvidentPali" ; font-size:120%}
 .lang-pl-iast {font-family: "Segoe UI",Tahoma}
 .lang-pl-tb {font-size:120%}

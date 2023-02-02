@@ -53,5 +53,6 @@ onMount( async ()=>{
 {#if ready}
 <LibraryMain/>
 {:else}
-Loading...
+Loading... 
+<a href="index.html">Reset Bookmark</a>
 {/if}
