@@ -53,6 +53,5 @@ onMount( async ()=>{
 {#if ready}
 <LibraryMain/>
 {:else}
-Loading... 
-<a href="index.html">Reset Bookmark</a>
+Loading... <a href="index.html" title="to clear hashtag">Reload</a>
 {/if}
