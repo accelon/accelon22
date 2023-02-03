@@ -6,7 +6,8 @@
   "type":"module",
   "scripts": {
     "test": "node test.js",
-    "dev":"node dev.js"
+    "dev":"node dev.js",
+     "install":"node build.js"
   },
   "repository": {
     "type": "git",

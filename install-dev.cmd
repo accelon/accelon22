@@ -1,6 +1,4 @@
 cmd/c npm i -g esbuild
-
-cmd/c npm i
 cd ..
 if not exist "node_module" ( 
     mkdir node_modules
@@ -12,7 +10,7 @@ cmd/c npm i diff
 if not exist "ptk" (
     git clone https://github.com/accelon/ptk
 )
-cmd/c npm i -g ./ptk
+cmd/c npm link .\ptk
 
 
 if not exist "lossless-simplified-chinese" (
@@ -40,3 +38,5 @@ cd ptk
 cmd/c build-cjs.cmd
 
 cd ..\..\accelon22
+
+cmd/c npm i
