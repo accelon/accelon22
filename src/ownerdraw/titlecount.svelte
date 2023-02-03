@@ -36,6 +36,6 @@ const newexcerpt=(chunk)=>{
 {#each items as item,idx}
 <div><Button className={"clickable "+textClasses(ptk)} 
     onclick={()=>newdivision(item.address)}>{_(item.caption,ptk?.lang)}</Button>
-    {#if item.count>=0}<Button className='hitcount'  on:click={()=>newexcerpt(item.id)}>{'　'+item.count}</Button>{/if}</div>
+    {#if item.count>=0}<Button className='hitcount clickable' onclick={()=>newexcerpt(item.id)}>{'　'+item.count}</Button>{/if}</div>
 {/each}
     

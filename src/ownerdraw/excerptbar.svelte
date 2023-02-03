@@ -6,6 +6,7 @@ import Button from '../comps/button.svelte';
 export let ptk;
 export let name;
 export let caption;
+export let section;
 export let tofind;
 export let from;
 export let last;
@@ -30,7 +31,8 @@ const openChunk=(bkid,tagname,id)=>{
 <div class="toolbar excerptheader">
 {#if $pitakas.length>1}<span title={ptk.humanName()}>{ptk.humanName(true)}</span>{/if}  {#if tofind}<Button onclick={setTofind}>{tofind}</Button>{/if}
 {#if caption}<Button onclick={listChunk}>{caption}</Button>{/if}
-{#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
+<span class="ak">{#if section}{ptk.innertext(section)}{/if}{#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
+</span>
 {#if chunk}
 <Button className='excerptheading' onclick={()=>openChunk(chunk.bkid,chunk.tagname,chunk.id)}>{chunk.caption}</Button>
 {/if}

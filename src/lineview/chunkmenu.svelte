@@ -14,14 +14,14 @@ const items=ptk.neighborChunks( ck.at);
 const goChunk=(n)=>{
     const ck=items[n];
     if (ck.line==line) {
-        console.log('promote')
-        // LV.promote(idx);
+        // console.log('promote')
+        LV.onpromote(idx);
     } else {
         const addr=makeChunkAddress(ck);
         LV.changeAddress(addr,idx);
-        onHide&&onHide();
+       
     }
-
+    onHide&&onHide();
 }
 </script>
 <div class="chunkmenu">

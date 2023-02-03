@@ -21,6 +21,8 @@ body {
 	margin: 0px;
 }
 .parallelptk {padding-right:2px ; padding-left:2px;border:dotted 1px white}
+
+.parallelchunkbutton:after{content:'⇋'}
 .toolbar {background:  var(--panel-background) ;  ;user-select: none;padding-left:0.5em;padding-right:0.5em}
 .clickable:hover{text-decoration: underline;cursor:pointer}
 
@@ -151,4 +153,5 @@ color:black;
 .https{text-decoration:underline; cursor:pointer}
 .setting {float:right;}
 
-
+/* 搜尋範圍 */
+.ak {border:1px dotted silver; }

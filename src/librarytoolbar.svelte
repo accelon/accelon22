@@ -3,6 +3,7 @@ import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
 import {activePtkName}  from './ts/store.ts';
 import Button from './comps/button.svelte'
+import {_} from './ts/textout.ts'
 export let oninsert;
 export let setTofind;
 let ptkname=activePtkName();
@@ -59,9 +60,10 @@ const opensetting=()=>{
 {/if}
 {/each}
 {#each ftsitems as item,idx}
+<span class="ak">
 <Button title='fulltext 全文' 
-onclick={()=>listchunk(item.scope)}>{item.caption}</Button>{#if item.count}<Button className='clickable hitcount' 
-onclick={()=>fulltext(item.scope)}>{' '+item.count+'|'}</Button>{:else}0|{/if}{' '}
+onclick={()=>listchunk(item.scope)}>{_(item.caption)}</Button>{#if item.count}<Button className='clickable hitcount' 
+onclick={()=>fulltext(item.scope)}>{item.count}</Button>{:else}0|{/if}</span>{' '}
 {/each}
 <Button className='setting' onclick={opensetting}>🛠️</Button>
 </div>

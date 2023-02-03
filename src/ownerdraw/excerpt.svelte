@@ -19,6 +19,7 @@ export let ptk;
 export let last;
 export let tofind;
 export let from;
+export let section;//搜尋範圍, ak
 export let samechunkline; //all hits in same chunk if not -1
 $: displayitems=[] ;
 $: name;
@@ -45,9 +46,10 @@ $: load(lines);
 $: chunk= samechunkline>-1? ptk.getHeading(samechunkline):null;
 
 </script>
-<ExcerptBar {caption} {ptk} {tofind} {last} {seq} bind:from {chunk} {action} {hitcount}/>
+<ExcerptBar {caption} {ptk} {tofind} {last} {seq} bind:from {chunk} {section} {action} {hitcount}/>
 {#each displayitems as item,idx}
 <div>
+
 <ExcerptHeading {ptk} {seq} {...item.ck}/>
 <Abridge {...item} {ptk}/>{#if !chunk}
 <Button className='excerptheading clickable'

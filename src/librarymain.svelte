@@ -88,6 +88,7 @@ const onpromote=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.promote(idx).stringify() );
 }
+
 const canless=(idx)=>{
 	if (idx?.detail) idx=idx.detail;
 	return lva.canless(idx);

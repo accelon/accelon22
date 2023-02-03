@@ -22,7 +22,7 @@ if (ptk) ptk.parallels=(JSON.parse(get(LV.parallels)))[ptk.name] ||{}; //see ts/
 
 const toggleshow=(e)=>{
 	parallels_linediff=division?.getParallelWithDiff();
-	e.stopPropagation();
+	e?.stopPropagation();
 	show=!show;
 }
 $: updatecount=0;

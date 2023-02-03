@@ -18,7 +18,7 @@ $: links=ptk.foreignLinksAtTag(tagname,line);
 {#if after || (!innertext&&!after)}
 {#if links.length}<span class='foreignlink'>{links.length}</span>{/if}
 <Button className={links.length?'clickable '+tagname:tagname} 
-onclick={()=>showlink=!showlink}>{value}</Button>
+onclick={()=>showlink=!showlink}>{' '+value}</Button>
 
 {#if showlink&&links.length}<span class="toolbar"><Jump_target {links} {seq}/></span>
 {/if}

@@ -39,7 +39,6 @@ const render=(text,line)=>{
     return units;
 }
 $: units=render(text,line);
-
 //do not pass units to InlineText, so that it will call renderOfftext again
 $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?activeword:'' ;
 </script>
@@ -49,7 +48,7 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
 {#if sponsor}<InlineText {ptk} text={sponsor}/>{/if}
-{#if idx==0}<ParaChunk {seq} items={parallels}/>{/if}
+{#if parallels?.length}<ParaChunk {seq} items={parallels}/>{/if}
 {#if idx>-1}
 <br/>{/if}<InlineText {ptk} {line} {seq} {extra} {text} {active} {activeword} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} 
