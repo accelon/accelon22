@@ -10,8 +10,6 @@ cmd/c npm i diff
 if not exist "ptk" (
     git clone https://github.com/accelon/ptk
 )
-cmd/c npm link .\ptk
-
 
 if not exist "lossless-simplified-chinese" (
     git clone https://github.com/accelon/lossless-simplified-chinese
@@ -36,6 +34,7 @@ if not exist "provident-pali" (
 
 cd ptk
 cmd/c build-cjs.cmd
+cmd/c npm link
 
 cd ..\..\accelon22
 
