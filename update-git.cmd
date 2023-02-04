@@ -1,10 +1,7 @@
 @echo Updating all dependencies
-
 cmd/c git pull
+
 cd ..
-cmd/c npm i -g .\ptk
-
-
 cd lossless-simplified-chinese
 cmd/c git pull
 cd ..
@@ -16,8 +13,7 @@ cd ..
 
 cd ptk
 cmd/c git pull
-npm run build-cjs
+cmd/c npm run build-cjs
 cd ..
-
 
 cd accelon22
