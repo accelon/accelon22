@@ -6,11 +6,12 @@ import Button from './comps/button.svelte'
 import {_} from './ts/textout.ts'
 export let oninsert;
 export let setTofind;
+import {qrcode} from './comps/icons'
 let ptkname=activePtkName();
 export let value='';//bUdVDsVs';//反常';
 $: items=[];
 $: ftsitems=[];
-
+$: console.log(typeof Html5QrcodeScanner)
 const dosearch=async ()=>{
 	const ptk=usePtk(ptkname);
 	if (!ptk)return;
@@ -44,6 +45,9 @@ const systeminfo=()=>{
 const opensetting=()=>{
 	oninsert({detail:{seq:-1,address:'@setting',singleton:true}});
 }
+const scanqrcode=()=>{
+	oninsert({detail:{seq:-1,address:'@qrcode',singleton:true}});
+}
 </script>
 <div class="toolbar">
 
@@ -66,6 +70,9 @@ onclick={()=>listchunk(item.scope)}>{_(item.caption)}</Button>{#if item.count}<B
 onclick={()=>fulltext(item.scope)}>{item.count}</Button>{:else}0|{/if}</span>{' '}
 {/each}
 <Button className='setting' onclick={opensetting}>🛠️</Button>
+{#if typeof Html5QrcodeScanner === 'function'}
+ss<Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button>
+{/if}
 </div>
 <style>
 input {font-size:1em}

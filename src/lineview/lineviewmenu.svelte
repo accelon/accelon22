@@ -27,7 +27,7 @@ const onHide=()=>{
 <Button className={'clickable lineviewheading'+textClasses(ptk)} 
  onclick={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</Button>
 {/if}
-<Button onclick={()=>LV.onremove(division)}>⨯</Button>
+<Button onclick={()=>LV.onremove(division)}>╳</Button>
 </span>
 {#if showchunkmenu}
 <ChunkMenu {...item} {ptk} {onHide}/>

@@ -14,7 +14,7 @@ import {_} from '../ts/textout.ts';
     'hi':_("天城 हिन्दी"),'si':_("僧伽羅 සිංහල"),'tb':"藏 བོད་སྐད།"}} storeid={palitrans}/>
 {/if}
 <div><VersionInfo/></div>
-<div class="logo">🧧Accelon2023.2.2🐇</div>
+<div class="logo">🧧Accelon2023.2.9🐇</div>
 <hr/>
 <style>
   .logo {text-align:center}

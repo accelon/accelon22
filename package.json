@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "description": "Accelon2022",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "node test.js",
-    "dev":"node dev.js",
-     "install":"node build.js"
+    "dev": "node dev.js",
+    "install": "node build.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/accelon/accelon22.git"
-  }, 
- "dependencies": {
+  },
+  "dependencies": {
     "esbuild-svelte": "^0.7.3",
+    "html5-qrcode": "^2.3.4",
     "svelte": "^3.55.1"
   }
 }

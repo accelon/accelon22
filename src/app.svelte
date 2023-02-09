@@ -32,12 +32,13 @@ import queryresult from './ownerdraw/queryresult.svelte'
 import titlecount from './ownerdraw/titlecount.svelte'; 
 import systeminfo from './ownerdraw/systeminfo.svelte'; 
 import setting from './ownerdraw/setting.svelte'; 
+import qrcode from './ownerdraw/qrcode.svelte'; 
 import unknown from './ownerdraw/unknown.svelte'; 
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
 
 initPainters({note,keys,key,confer,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid,chunk});
-initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,unknown,guide,approx});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx});
 
 $: ready=false;
 

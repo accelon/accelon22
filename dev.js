@@ -11,6 +11,7 @@ let ctx=await esbuild
     outfile: "dist/index.js",
     plugins: [sveltePlugin()],
     logLevel: "info",
+    //external:["pdfkit/js/pdfkit.standalone.js"]
   })
   .catch(() => process.exit(1));
     
