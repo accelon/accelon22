@@ -79,6 +79,11 @@ create a developer build (http serving local folder)
     cd dist
     start accelon22-dev.com
 
+## qrcode
+Android App 加入 掃瞄 QR Code 功能
+到 https://github.com/mebjas/html5-qrcode/ release 頁 下載 html5-qrcode.min.js
+放到 dist 目錄下
+
 
 ## todo
 pack into a redbean to freeze a working version

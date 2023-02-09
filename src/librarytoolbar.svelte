@@ -71,7 +71,7 @@ onclick={()=>fulltext(item.scope)}>{item.count}</Button>{:else}0|{/if}</span>{' 
 {/each}
 <Button className='setting' onclick={opensetting}>🛠️</Button>
 {#if typeof Html5QrcodeScanner === 'function'}
-ss<Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button>
+<Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button>
 {/if}
 </div>
 <style>
