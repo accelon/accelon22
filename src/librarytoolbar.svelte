@@ -11,7 +11,7 @@ let ptkname=activePtkName();
 export let value='';//bUdVDsVs';//反常';
 $: items=[];
 $: ftsitems=[];
-$: console.log(typeof Html5QrcodeScanner)
+
 const dosearch=async ()=>{
 	const ptk=usePtk(ptkname);
 	if (!ptk)return;
@@ -70,9 +70,9 @@ onclick={()=>listchunk(item.scope)}>{_(item.caption)}</Button>{#if item.count}<B
 onclick={()=>fulltext(item.scope)}>{item.count}</Button>{:else}0|{/if}</span>{' '}
 {/each}
 <Button className='setting' onclick={opensetting}>🛠️</Button>
-{#if typeof Html5QrcodeScanner === 'function'}
+<!-- {#if typeof Html5QrcodeScanner === 'function'} -->
 <Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button>
-{/if}
+<!-- {/if} -->
 </div>
 <style>
 input {font-size:1em}

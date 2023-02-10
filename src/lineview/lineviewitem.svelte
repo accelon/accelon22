@@ -14,7 +14,7 @@ export let depth;
 export let text;
 export let key;
 export let sponsor='';
-export let parallels;
+export let correspondeces;
 export let line;
 export let idx; //-1 top line
 export let lva; 
@@ -48,7 +48,7 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
 {#if sponsor}<InlineText {ptk} text={sponsor}/>{/if}
-{#if parallels?.length}<ParaChunk {seq} items={parallels}/>{/if}
+{#if correspondeces?.length}<ParaChunk {seq} items={correspondeces}/>{/if}
 {#if idx>-1}
 <br/>{/if}<InlineText {ptk} {line} {seq} {extra} {text} {active} {activeword} before={Offtags} after={Offtags}/>
 {#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} 
