@@ -22,7 +22,8 @@ const onHide=()=>{
 {#if LV.canless(division)}<Button onclick={()=>LV.onless(division)}>⧿</Button>{/if}
 {#if LV.canmore(division)}<Button onclick={()=>LV.onmore(division)}>⧾</Button>{/if}
 {#if LV.canprev(division)}<Button onclick={()=>LV.onprev(division)}>{division?.from+1}/</Button>{/if}
-{#if LV.cannext(division)}<Button onclick={()=>LV.onnext(division)}>{division.last-division.first}</Button>{/if}
+{#if LV.cannext(division)}<Button onclick={()=>LV.onnext(division)}>{division.last-division.first}</Button>
+{:else}{division?.last-division?.first}{/if}
 
 <Button className={'clickable lineviewheading'+textClasses(ptk)} 
  onclick={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</Button>

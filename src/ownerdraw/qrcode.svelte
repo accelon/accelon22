@@ -2,6 +2,7 @@
 // import {Html5QrcodeScanner,Html5Qrcode} from "html5-qrcode"
 import { onMount,onDestroy } from "svelte";
 import Button from "../comps/button.svelte";
+import {loadScript} from "ptk"
 $: url='';
 function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
@@ -14,18 +15,23 @@ function onScanFailure(error) {
   // for example:
   console.warn(`Code scan error = ${error}`);
 }
-let html5QrcodeScanner;
+$: html5QrcodeScanner=null;
 onDestroy(()=>{
     html5QrcodeScanner && html5QrcodeScanner.clear();
 })
-onMount(()=>{
-    window.Html5Qrcode.getCameras().then(devices => {
+onMount(async ()=>{
+  if (!window.hasOwnProperty('Html5Qrcode')) {
+    await loadScript('html5-qrcode.min.js')
+  }
+  if (!window.hasOwnProperty('Html5Qrcode')) return;
+  window.Html5Qrcode.getCameras().then(devices => {
         //ask permissions
         // console.log(devices)
-    }).catch(err => {
+  }).catch(err => {
         alert(err);
-    });
-    html5QrcodeScanner = new window.Html5QrcodeScanner(
+  });
+  
+  html5QrcodeScanner = new window.Html5QrcodeScanner(
   "reader",
   { fps: 10, qrbox: {width: 250, height: 250, facingMode: "environment" } },
   /* verbose= */ false);
@@ -34,13 +40,13 @@ onMount(()=>{
 
 });
 const gourl=url=>{
-    html5QrcodeScanner.clear();
+  html5QrcodeScanner.clear();
 }
 
 </script>
-{#if typeof window.Html5QrcodeScanner=='undefined'}
-cannot scan Qrcode, missing module html5-qrcode
-{:else}
 <div id="reader" width="600px"></div>
+{#if html5QrcodeScanner}
 <Button onclick={()=>gourl(url)}>GO {url}</Button>
+{:else}
+cannot scan Qrcode, missing module html5-qrcode
 {/if}
