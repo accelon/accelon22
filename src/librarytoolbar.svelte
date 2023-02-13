@@ -64,14 +64,16 @@ const scanqrcode=()=>{
 {/if}
 {/each}
 {#each ftsitems as item,idx}
+{#if item.count}
 <span class="ak">
 <Button title='fulltext 全文' 
 onclick={()=>listchunk(item.scope)}>{_(item.caption)}</Button>{#if item.count}<Button className='clickable hitcount' 
-onclick={()=>fulltext(item.scope)}>{item.count}</Button>{:else}0|{/if}</span>{' '}
+onclick={()=>fulltext(item.scope)}>{' '+item.count+' '}</Button>{:else}0{/if}</span>{' '}
+{/if}
 {/each}
 <Button className='setting' onclick={opensetting}>🛠️</Button>
 <!-- {#if typeof Html5QrcodeScanner === 'function'} -->
-<Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button>
+<!-- <Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button> -->
 <!-- {/if} -->
 </div>
 <style>

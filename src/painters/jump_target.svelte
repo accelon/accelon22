@@ -6,9 +6,9 @@ export let links;
 export let seq;
 
 const LV=getContext('LV');
-const jump=(ck,line)=>{
+const jump=(basket,ck,line)=>{
     const address=makeChunkAddress(ck,line-ck.line);
-    LV.insertAddress(address,seq);
+    LV.insertAddress(basket+':'+address,seq);
 }
 let prev='';
 for (let i=0;i<links.length;i++) {
@@ -18,6 +18,6 @@ for (let i=0;i<links.length;i++) {
 }
 </script>
 {#each links as link}
-<Button title={link.ck.caption} className="clickable backlink" onclick={()=>jump(link.ck,link.line)}>
+<Button title={link.ck.caption} className="clickable backlink" onclick={()=>jump(link.basket,link.ck,link.line)}>
 {link.ck.bk.caption}</Button>{' '}
 {/each}

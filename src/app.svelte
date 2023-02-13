@@ -15,6 +15,7 @@ import {initPainters} from './painters/painters.ts'
 import {initOwnerdraws} from './ownerdraw/ownerdraw.ts'
 import note from './painters/note.svelte';
 import n from './painters/n.svelte';//paragraph number
+import ck from './painters/ck.svelte';//original text
 import j from './painters/j.svelte';//internal jump
 import f from './painters/f.svelte';
 import fn from './painters/fn.svelte';
@@ -25,7 +26,6 @@ import backreflist from './painters/backreflist.svelte';
 import backref from './painters/backref.svelte';
 import approxbackref from './painters/approxbackref.svelte';
 import partialchunkid from './painters/partialchunkid.svelte';
-import chunk from './painters/chunk.svelte';
 
 import excerpt from './ownerdraw/excerpt.svelte'; 
 import queryresult from './ownerdraw/queryresult.svelte'
@@ -37,7 +37,7 @@ import unknown from './ownerdraw/unknown.svelte';
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
 
-initPainters({note,keys,key,confer,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid,chunk});
+initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx});
 
 $: ready=false;
