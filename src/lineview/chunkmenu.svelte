@@ -10,7 +10,7 @@ export let onHide;
 export let ptk;
 const LV=getContext('LV');
 const ck=ptk.nearestChunk(line);
-const items=ptk.neighborChunks( ck.at);
+const items=ptk.neighborChunks( ck?.at);
 const goChunk=(n)=>{
     const ck=items[n];
     if (ck.line==line) {
@@ -25,7 +25,7 @@ const goChunk=(n)=>{
 }
 </script>
 <div class="chunkmenu">
-<Button onclick={onHide} className="bk fullwidth">{_(ck.bk.caption)}</Button>
+<Button onclick={onHide} className="bk fullwidth">{_(ck?.bk?.caption)}</Button>
 {#each items as item,n}
 <div aria-hidden="true" class={'clickable bgdepth'+item.depth}
    on:click={()=>goChunk(n)}>{_(item.caption)}{#if item.line==line}✔{/if}</div>

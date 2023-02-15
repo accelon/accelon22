@@ -12,12 +12,12 @@ const jump=(basket,ck,line)=>{
 }
 let prev='';
 for (let i=0;i<links.length;i++) {
-    if (links[i].ck.bk.caption==prev)links[i].ck.bk.caption='';
+    if (links[i].ck.bk?.caption==prev)links[i].ck.bk.caption='';
     else prev=links[i].ck.bk.caption;
     console.log(links[i].ck.bk.caption)
 }
 </script>
 {#each links as link}
 <Button title={link.ck.caption} className="clickable backlink" onclick={()=>jump(link.basket,link.ck,link.line)}>
-{link.ck.bk.caption}</Button>{' '}
+{link.ck.bk?.caption}</Button>{' '}
 {/each}

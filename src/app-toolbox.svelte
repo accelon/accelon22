@@ -3,6 +3,7 @@ import SplitPane from './3rdparty/splitpane.svelte';
 import LeftPanel from './leftpanel.svelte'
 import EditorMain from './editormain.svelte';
 import {panepos} from './ts/store.ts'
+    import Abridge from './ownerdraw/abridge.svelte';
 </script>
 <div class="container">
     
