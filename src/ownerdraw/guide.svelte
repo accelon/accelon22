@@ -9,6 +9,7 @@ const LV=getContext('LV');
 import {renderOfftext} from 'ptk';
 import {getExtraPainter} from '../ts/painters.ts'
 import GuideLineMenu from './guidelinemenu.svelte';
+import {MetaGuides} from '../meta/guides.ts'
 
 let from=0, ready=false , now={};
 const next=()=>{
@@ -43,9 +44,14 @@ const fetchLine=async ()=>{
 }
 const oncaption=()=>{}
 $: fetchLine(from);
+const customcomponent=MetaGuides[ptk.name] || MetaGuides[ptk.attrs.define];
 </script>
+<svelte:component this={customcomponent} {ptk} {seq} {action}></svelte:component>
+
 {#if !action}
+{#if ptk.template.getMultiStateFilters}
 <GuideFilter {ptk} {seq}/>
+{/if}
 {:else if ready}
 {ptk.template.humanChoice(action)}
 <span class="toolbar">

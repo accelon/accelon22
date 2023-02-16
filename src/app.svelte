@@ -13,6 +13,7 @@ import {isMobileDevice} from './ts/utils.ts'
 
 import {initPainters} from './painters/painters.ts'
 import {initOwnerdraws} from './ownerdraw/ownerdraw.ts'
+import {initMetaGuide} from './meta/guides.ts'
 import note from './painters/note.svelte';
 import n from './painters/n.svelte';//paragraph number
 import ck from './painters/ck.svelte';//original text
@@ -37,8 +38,12 @@ import unknown from './ownerdraw/unknown.svelte';
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
 
+import cvny from './meta/cvny.svelte';
+import kxzd from './meta/kxzd.svelte';
+
 initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx});
+initMetaGuide({cvny,kxzd});
 
 $: ready=false;
 
