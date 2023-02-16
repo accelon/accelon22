@@ -36,5 +36,5 @@ const openChunk=(bkid,tagname,id)=>{
 {#if chunk}
 <Button className='excerptheading' onclick={()=>openChunk(chunk.bkid,chunk.tagname,chunk.id)}>{chunk.caption}</Button>
 {/if}
-<Paging bind:from {last}/>
+<Paging className="excerptpaging" bind:from {last}/>
 </div>
