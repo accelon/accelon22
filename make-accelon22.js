@@ -2,15 +2,17 @@ import {nodefs,storeZip,ZipStore,deepReadDir} from 'ptk/nodebundle.cjs'
 await nodefs
 const dev = process.argv[2]=='dev';
 const comname=(dev?'dist/':'')+'accelon22'+(dev?'-dev':'')+'.com';
-const excludes=['mzd']
+const distfolder='dist';
+const excludes=['dist/kaiu.ttf','dist/html5-qrcode.min.js','dist/sw.js'];
 //download from redbean.dev
 const redbeancom="redbean.com";
-const distfolder='dist';
+
 let locals=[]; //locals pitaka in dist
 const makeAccelon22=async ()=>{
 //.com must more than 512KB , otherwise windows cannot run
 	const distFiles=dev?('.args'.split(',').map(it=>distfolder+'/'+it))
 	:(await deepReadDir(distfolder)).flat();
+
 
 	const filecontent=fs.readFileSync(redbeancom); 
 	const configjs=fs.readFileSync(distfolder+'/config.js'	,'utf8'); 
@@ -27,15 +29,17 @@ const makeAccelon22=async ()=>{
 		if ( name.endsWith('.lua')|| name.startsWith('tool')||name.startsWith('usr')
 			||name.startsWith('redbean.justine.lol')||name.startsWith('.lua')
 			||name.endsWith('.png') || name.endsWith('.txt')||name.startsWith('usr/share/zoneinfo')
+			||name.startsWith('html5-qrcode.js')
 			||name.endsWith('.ico') ||name=='.symtab') continue;
-
 		sources.push(f);
 	}
-	distFiles.forEach(f=> {
-	
+
+	distFiles.forEach(f=> {	
 		const subfile=f.match(/[\\\/]([a-z_\-]+)[\\\/]/);
 		const dbid=subfile?subfile[1]:null;
+		if (~excludes.indexOf(f)) return;
 		if (dbid&&preload.indexOf(dbid)==-1) return; //filter out ptk not specified by config.js
+
 		if (f.endsWith('.com')||f.endsWith('.ptk')||f.endsWith('.zip')) return;
 		const content=fs.readFileSync(f);
 		if (f.endsWith('000.js')) {
