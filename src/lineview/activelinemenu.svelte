@@ -31,10 +31,9 @@ const update=()=>{
 	show=false;
 	updatecount++;
 }
-const getMediaFile=line=>{
+const getCaption=line=>{
 	const ck=ptk.nearestChunk(line);
-	if (ck.caption.endsWith('.mp3') || ck.caption.endsWith('.mp4')) return ck.caption;
-	return ck.caption+'.mp4';
+	return ck?.caption;
 }
 </script>
 {#each activelinemenu as menuitem}
@@ -43,7 +42,7 @@ const getMediaFile=line=>{
 
 <Button className='menu clickable' onclick={toggleshow}>{show?'▸':'▾'}</Button>
 {#if linetag?.name=="ts"}
-<MediaPlayer filename={getMediaFile(line)} ts={linetag.attrs.id} {ptk} {seq} />
+<MediaPlayer  {line} ts={linetag.attrs.id} {ptk} {seq} />
 {/if}
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}

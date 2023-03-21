@@ -28,6 +28,7 @@ export let active;
 let units, activelinemenu,extra;
 let linestyle='',linetag;//first tag at bol
 const render=(text,line)=>{
+    linetag=null;
     const [units,ot]=renderOfftext(text,{line});
     extra=getExtraPainter(ptk,ot,'backref',true)
     .concat(getExtraPainter(ptk,ot,'backlink'))
