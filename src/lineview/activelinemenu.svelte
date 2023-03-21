@@ -6,7 +6,7 @@ import {getContext} from 'svelte';
 import {get} from 'svelte/store';
 import {Painters} from '../painters/painters.ts'
 import Button from '../comps/button.svelte';
-
+import MediaPlayer from './mediaplayer.svelte'
 export let seq;
 export let line;
 export let division;
@@ -14,6 +14,7 @@ export let ptk;
 export let key;
 export let explainword;
 export let activelinemenu; //defined by activelinemenu in tag def
+export let linetag;     // tag at the begining of line
 const LV=getContext('LV');
 
 $: show=false;
@@ -30,13 +31,20 @@ const update=()=>{
 	show=false;
 	updatecount++;
 }
-
+const getMediaFile=line=>{
+	const ck=ptk.nearestChunk(line);
+	if (ck.caption.endsWith('.mp3') || ck.caption.endsWith('.mp4')) return ck.caption;
+	return ck.caption+'.mp4';
+}
 </script>
 {#each activelinemenu as menuitem}
 <svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem.data} {line}/>
 {/each}
 
 <Button className='menu clickable' onclick={toggleshow}>{show?'▸':'▾'}</Button>
+{#if linetag?.name=="ts"}
+<MediaPlayer filename={getMediaFile(line)} ts={linetag.attrs.id} {ptk} {seq} />
+{/if}
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}
 {#if explainword}<span class={textClasses(ptk)}>{_(explainword,ptk?.lang)} </span>{/if}

@@ -14,7 +14,6 @@ export let before,after;
 export let extraclass='';
 export let seq;
 export let line;
-
 $: [runits]=units?[units]:renderOfftext(text,{line,hits,extra,phraselength});
 $: _tosim=$tosim;
 $: _palitrans=$palitrans;

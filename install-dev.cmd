@@ -31,6 +31,9 @@ if not exist "lossless-simplified-chinese" (
 if not exist "provident-pali" (
     mklink/j provident-pali ..\provident-pali
 )
+if not exist "adbjs" (
+    mklink/j adbjs ..\adbjs
+)
 
 cd ptk
 cmd/c build-cjs.cmd

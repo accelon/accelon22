@@ -26,7 +26,7 @@ export let activeword;
 export let highlight;
 export let active;
 let units, activelinemenu,extra;
-let linestyle='';//first tag at bol
+let linestyle='',linetag;//first tag at bol
 const render=(text,line)=>{
     const [units,ot]=renderOfftext(text,{line});
     extra=getExtraPainter(ptk,ot,'backref',true)
@@ -34,7 +34,10 @@ const render=(text,line)=>{
     activelinemenu=getExtraPainter(ptk,ot,'activelinemenu');
     if (units.length && units[0].tags.length) {
         linestyle=(ot.tags[ units[0].tags[0]]?.name)||'';
-        if (linestyle)linestyle=' '+linestyle+'_div';
+        if (linestyle) {
+            linetag=ot.tags[ units[0].tags[0]];
+            linestyle=' '+linestyle+'_div';
+        }
     } else linestyle='';
     return units;
 }
@@ -51,7 +54,7 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 {#if correspondeces?.length}<ParaChunk {seq} items={correspondeces}/>{/if}
 {#if idx>-1}
 <br/>{/if}<InlineText {ptk} {line} {seq} {extra} {text} {active} {activeword} before={Offtags} after={Offtags}/>
-{#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} 
+{#if active}<ActiveLineMenu {explainword} {key} {lva} {ptk} {linetag}
 {seq} {line} {dividx} {activelinemenu} 
  division={lva.getNode(dividx)}/>{/if}
 {/if}
