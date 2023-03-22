@@ -42,7 +42,7 @@ const getCaption=line=>{
 
 <Button className='menu clickable' onclick={toggleshow}>{show?'▸':'▾'}</Button>
 {#if linetag?.name=="ts"}
-<MediaPlayer  {line} ts={linetag.attrs.id} {ptk} {seq} />
+<MediaPlayer {line} ts={linetag.attrs.id} {ptk} {seq} />
 {/if}
 {#if show}<ParallelMenu {division} {ptk} {seq} {key} {update}/>{/if}
 {#key updatecount}

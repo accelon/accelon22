@@ -44,7 +44,7 @@ const fetchLine=async ()=>{
 }
 const oncaption=()=>{}
 $: fetchLine(from);
-const customcomponent=MetaGuides[ptk.name] || MetaGuides[ptk.attrs.define];
+const customcomponent=MetaGuides[ptk.name] || MetaGuides[ptk.attributes.define];
 </script>
 <svelte:component this={customcomponent} {ptk} {seq} {action}></svelte:component>
 

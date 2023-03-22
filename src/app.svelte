@@ -37,12 +37,13 @@ import qrcode from './ownerdraw/qrcode.svelte';
 import unknown from './ownerdraw/unknown.svelte'; 
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
+import subtitle from './ownerdraw/subtitle.svelte';
 
 import cvny from './meta/cvny.svelte';
 import kxzd from './meta/kxzd.svelte';
 
 initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid});
-initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx,subtitle});
 initMetaGuide({cvny,kxzd});
 
 $: ready=false;

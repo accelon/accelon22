@@ -25,6 +25,7 @@ body {
 .parallelchunkbutton:after{content:'⇋'}
 .toolbar {background:  var(--panel-background) ;  ;user-select: none;padding-left:0.5em;padding-right:0.5em}
 .clickable:hover{text-decoration: underline;cursor:pointer}
+.clicked {background:gray}
 
 .unclickable{color: gray}
 /* .closelink{background: hsl(40,20%,30%); } */
