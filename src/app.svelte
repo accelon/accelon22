@@ -19,6 +19,7 @@ import n from './painters/n.svelte';//paragraph number
 import ck from './painters/ck.svelte';//original text
 import j from './painters/j.svelte';//internal jump
 import f from './painters/f.svelte';
+import o from './painters/o.svelte'; //original text
 import fn from './painters/fn.svelte';
 import keys from './painters/keys.svelte'
 import key from './painters/key.svelte'; //generic column field
@@ -42,7 +43,7 @@ import subtitle from './ownerdraw/subtitle.svelte';
 import cvny from './meta/cvny.svelte';
 import kxzd from './meta/kxzd.svelte';
 
-initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid});
+initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid,o});
 initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx,subtitle});
 initMetaGuide({cvny,kxzd});
 
