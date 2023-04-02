@@ -39,12 +39,13 @@ import unknown from './ownerdraw/unknown.svelte';
 import guide from './ownerdraw/guide.svelte'; 
 import approx from './ownerdraw/approx.svelte'; 
 import subtitle from './ownerdraw/subtitle.svelte';
+import cbeta from './ownerdraw/cbeta.svelte';
 
 import cvny from './meta/cvny.svelte';
 import kxzd from './meta/kxzd.svelte';
 
 initPainters({note,keys,key,confer,ck,j,n,f,fn,backref,backreflist,approxbackref,partialchunkid,o});
-initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx,subtitle});
+initOwnerdraws({queryresult,excerpt,titlecount,systeminfo,setting,qrcode,unknown,guide,approx,subtitle,cbeta});
 initMetaGuide({cvny,kxzd});
 
 $: ready=false;
