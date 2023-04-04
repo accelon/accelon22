@@ -20,6 +20,7 @@ const loadVideo=async (id)=>{
 {/each}
 {#if selected}
     <video controls width="480" autoplay=true>
+        <track kind="captions">
         <source src={ptk.name+'/'+mpegfileOfID(selected)} type="audio/mpeg"/>
         <track kind="subtitles" srclang="zh" src={subtitleurl} default/>
     </video>

@@ -22,7 +22,7 @@ if (selectedIndex==-1 && !unselectable) {//invalid value
 }
 const setcaption=()=>{
     if (storeid) caption=states[ get(storeid)]
-    else caption=selectedIndex==-1? unselectedcaption:statekeys[selectedIndex];
+    else caption=selectedIndex==-1? unselectedcaption:states[selectedIndex];
 }
 const highlight=(str,selectedIndex)=>{
     if (!styles) return str;

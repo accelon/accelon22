@@ -25,6 +25,7 @@ const playvideo=()=>{
 {#if video}
 <br/><video controls width="480" autoplay=true use:setTimestamp>
     <source src={ptk.name+'/'+filename} type="audio/mpeg"/>
+    <track kind="captions">
     <track kind="subtitles" srclang="zh" src={subtitleurl} default/>
 </video>
 {:else}
