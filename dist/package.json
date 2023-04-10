@@ -1,0 +1,10 @@
+{
+  "name": "accelon2022",
+  "version": "1.0.0",
+  "description": "Accelon2022",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accelon/accelon22.git"
+  }
+}
