@@ -40,7 +40,7 @@ const getCaption=line=>{
 <svelte:component this={Painters[menuitem.painter]} {seq} {...menuitem.data} {line}/>
 {/each}
 
-<Button className='menu clickable' onclick={toggleshow}>{show?'▸':'▾'}</Button>
+<Button className={'linemenu clickable'+(show?' linemenushown':'')} onclick={toggleshow}>{show?'📖 ':'📘'}</Button> <!-- ▸▾ -->
 {#if linetag?.name=="ts"}
 <MediaPlayer {line} ts={linetag.attrs.id} {ptk} {seq} />
 {/if}
@@ -49,6 +49,3 @@ const getCaption=line=>{
 {#if explainword}<span class={textClasses(ptk)}>{_(explainword,ptk?.lang)} </span>{/if}
 <ParallelTexts {division} {seq} {line} {ptk} {parallels_linediff} {updatecount}/>
 {/key}
-<style>
-	.menu {padding-right: 0.4em;}
-</style>

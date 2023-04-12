@@ -25,7 +25,7 @@ const addDivision=(pptkname,line,linediff)=>{
 {#each items as [pptk,linediff,datevalue] }
 {#if datevalue}
 <br/><Button onclick={()=>addDivision(pptk.name,line,linediff)} className='parallelptk clickable'>
-{_(pptk.getHeading(line+linediff).bkheading||pptk.humanName(true))}
+{_(pptk.getHeading(line+linediff).bk?.caption||pptk.humanName(true))}
 </Button>
 {#await pptk.loadLines([[line+linediff,line+linediff+1]])}
 Loading...

@@ -34,7 +34,7 @@ const openChunk=(bkid,tagname,id)=>{
 <span class="ak">{#if section}{ptk.innertext(section)}{/if}{#if hitcount}<span class="hitcount">{hitcount}</span>{/if}
 </span>
 {#if chunk}
-<Button className='excerptheading' onclick={()=>openChunk(chunk.bkid,chunk.tagname,chunk.id)}>{chunk.caption}</Button>
+<Button className='excerptheading' onclick={()=>openChunk(chunk.bkid,chunk.tagname,chunk.id)}>{chunk.caption}({chunk.bk.short})</Button>
 {/if}
 <Paging className="excerptpaging" bind:from {last}/>
 </div>

@@ -19,10 +19,18 @@ const findDivisionIndex=seq=>{ //find closest division
 const setActive=item=>{
 	LV.setActive(item);
 }
-
+const mousewheel=(e,idx)=>{
+	if (e.deltaY>0) {
+		LV.onnext(idx,2)
+	} else {
+		LV.onprev(idx,2);
+	}
+	e.stopPropagation()
+}
 </script>
 {#each items as item}
-<div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth} aria-hidden={true}>
+<div on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth} aria-hidden={true}
+	on:wheel={e=>mousewheel(e, findDivisionIndex(item.seq) )}>
 {#if item.closable}
 <LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 {/if}
