@@ -26,7 +26,7 @@ const onHide=()=>{
 {:else}{division?.last-division?.first}{/if}
 
 <Button className={'clickable lineviewheading'+textClasses(ptk)} 
- onclick={()=>chunkmenu(item.idx)}>{_(caption,ptk?.lang)}</Button>
+ onclick={()=>chunkmenu(item.idx)}>{_(caption.slice(0,6),ptk?.lang)}</Button>
 {/if}
 <Button onclick={()=>LV.onremove(division)}>╳</Button>
 </span>
