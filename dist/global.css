@@ -84,8 +84,7 @@ body {
     line-height: 1.8;
     padding-right: 5px;
 }
-.lineviewmenu {z-index: 99; 
-	position:absolute;right:0px; padding-right: 0.5em ;user-select: none;}
+.lineviewmenu { z-index: 99; position:absolute;right:0px; padding-right: 0.5em ;user-select: none;} 
 
 .chunkmenu {z-index:999;
 position:absolute;right:0px;

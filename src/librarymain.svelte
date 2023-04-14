@@ -56,9 +56,18 @@ const onnext=(idx,inc)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.next(idx,inc).stringify() );
 }
+const onend=(idx)=>{
+	if (idx?.detail) idx=idx.detail;
+	lvaddr.set( lva.end(idx).stringify() );
+}
+
 const onprev=(idx,inc)=>{
 	if (idx?.detail) idx=idx.detail;
 	lvaddr.set( lva.prev(idx,inc).stringify() );
+}
+const onstart=(idx)=>{
+	if (idx?.detail) idx=idx.detail;
+	lvaddr.set( lva.start(idx).stringify() );
 }
 
 const onnextchunk=(idx)=>{
@@ -162,7 +171,7 @@ setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
 	changeAddress,//reset from and till
 	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
-	onremove,onnext,onprev, ontop,onmore,onless,onpromote,
+	onremove,onnext,onprev, onstart,onend,ontop,onmore,onless,onpromote,
 	onnextchunk,onprevchunk,cannextchunk,canprevchunk,
 	onwheel
 	 });

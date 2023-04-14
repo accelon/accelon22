@@ -12,5 +12,5 @@ const next=()=>{
     if (from+count < last) from+=count;
 }
 </script>
-<Button className={className+' clickable'} onclick={prev}>{from+1}/</Button>
+<Button className={className+' clickable'} onclick={prev}>{from+1} /</Button>
 <Button className={className+' clickable'} onclick={next}>{last}</Button>

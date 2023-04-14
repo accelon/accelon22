@@ -3,7 +3,7 @@ import {getContext} from 'svelte';
 import {usePtk} from 'ptk';
 import LineViewItem from './lineviewitem.svelte';
 import LineViewMenu from './lineviewmenu.svelte';
-// import { slide ,fly} from 'svelte/transition';
+import {swipenext,swipeprev,swipestart,swipeend} from '../comps/icons.ts';
 const LV=getContext('LV');
 export let lva;
 export let items=[] ;
@@ -29,7 +29,7 @@ const mousewheel=(e,idx)=>{
 	e.preventDefault();
 }
 let touching=-1;
-let touchx=0,touchy=0,startx=0,starty=0;
+let touchx=0,touchy=0,startx=0,starty=0,direction=0;
 const ontouchstart=(e,idx)=>{
 	if (e.touches.length==1){
 		startx=e.touches[0].pageX;
@@ -37,40 +37,60 @@ const ontouchstart=(e,idx)=>{
 		touchx=startx;
 		touchy=starty;
 		touching=idx;
-		console.log('touching',touching)
-		//e.preventDefault();
 	}
+}
+const getDirection=(idx)=>{
+	if (Math.abs(touchy-starty)>30) return 0;
+	const delta=touchx-startx;
+	if (delta>60) {
+		if (!LV.cannext(idx)) return 0;
+		return (delta>200)?-2:-1;
+		
+	} else if (delta<-60) {
+		if (!LV.canprev(idx)) return 0;
+		return (delta<-200) ?2:1;
+	}
+	return 0;
 }
 const ontouchmove=(e,idx)=>{
 	if (touching==-1)return;
 	if (touching>-1) {
 		touchx=e.touches[0].pageX;
 		touchy=e.touches[0].pageY;
+		direction=getDirection(idx);
 	}
 }
 const ontouchend=(e,idx)=>{
-	if (touching==-1)return;
+	if (touching!==-1 && direction!==0) {
+		if (direction==1) LV.onprev(idx);
+		else if (direction==2) LV.onstart(idx);
+		else if (direction==-1) LV.onnext(idx);
+		else if (direction==-2) LV.onend(idx);
+		
+	}
 	touching=-1; 
-	if (Math.abs(touchy-starty)>50) return;
-	const delta=touchx-startx;
-	if (delta>80) {
-		LV.onprev(idx);
-	} else if (delta<-50) {
-		LV.onnext(idx);
-	}	
-	console.log(delta)
+	direction=0;
 }
+const swipeshapes=[ swipeend,swipenext, , swipeprev,swipestart];
 </script>
-{#each items as item}
-<div
-	on:touchstart|passive={e=>ontouchstart(e,findDivisionIndex(item.seq))}
-	on:touchmove|passive={e=>ontouchmove(e,findDivisionIndex(item.seq))}
-	on:touchend|passive={e=>ontouchend(e,findDivisionIndex(item.seq))}
+<div>
+{#each items as item,idx}
+{@const dividx=findDivisionIndex(item.seq)}
+<div aria-hidden={true}
+	on:touchstart|passive={e=>ontouchstart(e,dividx)}
+	on:touchmove|passive={e=>ontouchmove(e,dividx)}
+	on:touchend|passive={e=>ontouchend(e,dividx)}
+	on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth}
+	on:wheel={e=>mousewheel(e, dividx )}>
 
-	on:click={()=>setActive(item)} class:lineviewitem={item.closable&&!item.depth} aria-hidden={true}
-	on:wheel={e=>mousewheel(e, findDivisionIndex(item.seq) )}>
-{#if item.closable}<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>{/if}
-<LineViewItem {...item} {lva} {activeword} 
-dividx={findDivisionIndex(item.seq)} ptk={usePtk(item.key.replace(/:.+/,''))}/>
+{#if item.closable}<LineViewMenu {lva} {item} ptk={usePtk(item.key.replace(/:.+/,''))}/>
+{#if touching==dividx && direction}<span class="swipe">{@html swipeshapes[direction+2]}</span>{/if}
+{/if}
+<LineViewItem {...item} {lva} {activeword} {dividx} ptk={usePtk(item.key.replace(/:.+/,''))}/>
 </div>
 {/each}
+</div>
+
+<style>
+	.swipe {position:absolute;margin-top:2em;left:40%}
+</style>
