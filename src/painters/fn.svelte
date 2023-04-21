@@ -13,4 +13,4 @@ const showmaintext=()=>{
 
 </script>
 
-<Button onclick={showmaintext}>{masterid}</Button>
+<Button className="fn" onclick={showmaintext}>{masterid}</Button>

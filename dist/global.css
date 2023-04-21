@@ -57,6 +57,17 @@ body {
 .bgdepth7  {background: hsl(320,70%,70%)}
 .bgdepth8  {background:  hsl(360,80%,70%)}
 
+.za  {color:  hsl(40,70%,70%)}
+.zb {color:  hsl(80,70%,70%)}
+.zc {color:  hsl(120,70%,70%)}
+.zd  {color:  hsl(160,70%,70%)}
+.ze  {color:  hsl(200,70%,70%)}
+.zf  {color: hsl(240,70%,70%)}
+.zg  {color:  hsl(280,70%,70%)}
+.zh  {color: hsl(320,70%,70%)}
+.zi  {color:  hsl(360,80%,70%)}
+
+
 .field {color: lightsalmon;}
 /* default reader stying */
 .e {color: goldenrod; font-size: 110%}
@@ -114,6 +125,9 @@ color:black;
 .footnote { color:salmon;}
 .footnotebutton {font-family: 'Courier New', Courier, monospace;
 	 font-size:75%;position:absolute;color:salmon;font-weight: bold;}
+	 
+.fn {font-family: 'Courier New', Courier, monospace;color:salmon;font-weight: bold;}
+
 .hitcount {color:goldenrod;}
 .tofind {background:silver;color:black;padding-left:0.1em;padding-right:0.1em}
 

@@ -172,8 +172,7 @@ setContext('LV',{ insertAddress, setFrom, parallels,getLVA,
 	setActive,toggleActiveword, setTofind,setParallel, clearActive,
 	canpromote,canless,canmore,cannext,canprev,
 	onremove,onnext,onprev, onstart,onend,ontop,onmore,onless,onpromote,
-	onnextchunk,onprevchunk,cannextchunk,canprevchunk,
-	onwheel
+	onnextchunk,onprevchunk,cannextchunk,canprevchunk
 	 });
 
 </script>

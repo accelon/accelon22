@@ -2,7 +2,6 @@
 /* support null ^f , and ^f【innertext】
 */
 import {getContext} from 'svelte'
-import InlineText from './inlinetext.svelte';
 import Button from '../comps/button.svelte';
 
 export let ptk;

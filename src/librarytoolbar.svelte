@@ -15,7 +15,7 @@ $: ftsitems=[];
 const dosearch=async ()=>{
 	const ptk=usePtk(ptkname);
 	if (!ptk)return;
-	items=ptk.scanPrimaryKeys(value);
+	items=ptk.scanColumnFields(value);
 	setTimeout(()=>{
 		ptk.scanText(value).then(res=>{
 			ftsitems=res;
@@ -48,13 +48,20 @@ const opensetting=()=>{
 const scanqrcode=()=>{
 	oninsert({detail:{seq:-1,address:'@qrcode',singleton:true}});
 }
+const insertContainList=(columnname,field)=>{
+	const tofind=value;
+	oninsert({detail:{seq:-1,address:ptkname+':'+ columnname+'.'+field +'='+tofind}});
+}
 </script>
 <div class="toolbar">
 
 <SelectPitakas bind:ptkname {oninsert}/>
 <input bind:value size=5 on:input={debounce(dosearch,500)}/>
 {#each items as item,idx}
-{#if item.start.length+item.middle.length+item.end.length}
+{#if item.contain?.length}
+<Button onclick={()=>insertContainList(item.name,item.field)}>{item.caption} {item.contain.length}</Button>
+{/if}
+{#if item.start?.length+item.middle?.length+item.end?.length}
 <Button title="beginsWith 开头符合"
  onclick={()=>item.start.length&&insert(item.name,0)}>{item.caption}{item.start.length}</Button>
 <Button title="inMiddle 中间符合" 
