@@ -49,7 +49,6 @@ $: explainword = (active && units.filter(ru=>ru.text==activeword).length>0)?acti
 <div {key} style={"contain: content;"+getLVStyle(depth,edge)} 
  class={"lineviewitem "+ptk?.name+linestyle} class:highlightline={highlight}  class:activeline={active} >
 {#if ownerdraw}
-
 <svelte:component this={Ownerdraws[ownerdraw.painter]} {...ownerdraw.data} {seq} {dividx} />
 {:else}
 {#if sponsor}<InlineText {ptk} text={sponsor}/>{/if}

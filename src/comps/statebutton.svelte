@@ -13,8 +13,7 @@ export let caption='';
 let unselectedcaption=caption;
 export let unselectable=false;
 const statekeys=Object.keys(states);
-export let selectedIndex=
-(storeid && statekeys.indexOf( get(storeid).toString() ))||-1;
+export let selectedIndex=(storeid && statekeys.indexOf( get(storeid).toString() ))||-1;
 
 if (selectedIndex==-1 && !unselectable) {//invalid value
     selectedIndex=0;    //force to first value

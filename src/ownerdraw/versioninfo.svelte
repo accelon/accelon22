@@ -18,6 +18,7 @@ const homepage=ptk=>{
 <div><span class="excerptheading">{pitaka.ptk.humanName(true)}</span>
 <Button  title={_("源碼")}  onclick={()=>homepage(pitaka.ptk)} >{pitaka.name}<span class="home">{@html github}</span></Button>
 <span title={_("建置於")}>{pitaka.buildtime.toLocaleDateString()}🏭</span>
+<span title={_("字數")}>{pitaka.wordcount}🀄</span>
 <span title={_("換行")}>{pitaka.eot}⏎</span>
 <span title={_("文塊")}>{pitaka.chunkcount}❖</span>
 <span>{#each getVerText(pitaka.ptk) as text}
