@@ -4,7 +4,7 @@ import Button from "../comps/button.svelte";
 export let ts;
 export let ptk;
 export let line;
-const {genWebVTT,mpegfileOfID,parseTimeStamp,subtitleOfID} = ptk.template;
+const {mpegfileOfID,parseTimeStamp,subtitleOfID} = ptk.template;
 
 const id=ptk.nearestTag(line,'mpeg','id');
 const filename=mpegfileOfID(id);

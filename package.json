@@ -5,10 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start":"electron dist",
     "test": "node test.js",
     "dev": "node dev.js",
     "install": "node build.js"
   },
+   
   "repository": {
     "type": "git",
     "url": "git+https://github.com/accelon/accelon22.git"

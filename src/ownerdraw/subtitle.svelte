@@ -1,4 +1,5 @@
 <script>
+import {meta_subtitle} from "ptk/meta/subtitle.ts";
 import Button from "../comps/button.svelte";
 export let ptk;
 let selected;

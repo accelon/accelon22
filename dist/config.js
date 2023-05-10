@@ -1,4 +1,4 @@
-// window.accelon22={preload:"cs,sc,cs-hz,cs-ccc,cs-yh"}//,cs-yh
-//window.accelon22={preload:"cyd,jmd"}
-// window.accelon22={preload:"cmes"}
-window.accelon22={preload:"cvny"}
+window.accelon22={preload:"venbenyin"} 
+//window.accelon22={preload:"cb-t,yinshun"} 
+//window.accelon22={preload:"cb-t,qisha,yongle"} 
+//window.accelon22={preload:"kxzd,cc"} 
