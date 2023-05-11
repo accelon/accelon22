@@ -19,6 +19,11 @@ if not exist "provident-pali" (
     git clone https://github.com/dhamma/provident-pali
 )
 
+if not exist "adbjs" (
+    git clone https://github.com/accelon/adbjs
+)
+
+
 cd node_modules
 
 if not exist "ptk" (
