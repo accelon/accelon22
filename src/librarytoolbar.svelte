@@ -1,12 +1,12 @@
 <script>
 import SelectPitakas from './pitakas.svelte';
 import { usePtk,debounce } from 'ptk';
-import {activePtkName}  from './ts/store.ts';
+import {activePtkName,lvaddr}  from './ts/store.ts';
 import Button from './comps/button.svelte'
 import {_} from './ts/textout.ts'
 export let oninsert;
 export let setTofind;
-import {qrcode} from './comps/icons'
+
 let ptkname=activePtkName();
 export let value='';//bUdVDsVs';//反常';
 $: items=[];
@@ -52,6 +52,9 @@ const insertContainList=(columnname,field)=>{
 	const tofind=value;
 	oninsert({detail:{seq:-1,address:ptkname+':'+ columnname+'.'+field +'='+tofind}});
 }
+const closeall=()=>{
+	lvaddr.set('')
+}
 </script>
 <div class="toolbar">
 
@@ -78,7 +81,8 @@ onclick={()=>listchunk(item.scope)}>{_(item.caption)}</Button>{#if item.count}<B
 onclick={()=>fulltext(item.scope)}>{' '+item.count+' '}</Button>{:else}0{/if}</span>{' '}
 {/if}
 {/each}
-<Button className='setting' onclick={opensetting}>🛠️</Button>
+<Button className='floatright' onclick={closeall}>❌</Button>
+<Button className='floatright' onclick={opensetting}>🛠️</Button>
 <!-- {#if typeof Html5QrcodeScanner === 'function'} -->
 <!-- <Button className='setting' onclick={scanqrcode}>{@html qrcode}{'　'}</Button> -->
 <!-- {/if} -->

@@ -166,7 +166,7 @@ color:black;
 .warning {color:red}
 .pagingbutton {user-select:none}
 .https{text-decoration:underline; cursor:pointer}
-.setting {float:right;}
+.floatright {float:right;}
 
 /* 搜尋範圍 */
 .ak {border:1px dotted silver; }
