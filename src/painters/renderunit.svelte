@@ -18,7 +18,7 @@ export let palitrans;
 const LV=getContext('LV');
 
 const click=()=>{
-	LV.toggleActiveword(ru.text);
+	LV?.toggleActiveword(ru.text);
 	const tag=ru.closestTag();
 	if (!tag) return;
 	tag.active=!tag.active;
